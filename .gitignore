@@ -4,6 +4,7 @@
 /.idea
 Homestead.json
 Homestead.yaml
+package-lock.json
 .env
 .vagrant/
 /public/build
