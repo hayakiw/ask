@@ -52,6 +52,37 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
+        //カテゴリ
+        Schema::create('categories', function (Blueprint $t) {
+            $t->bigIncrements('id');
+            $t->bigInteger('parent_id')->unsigned()->nullable()->comment('親カテゴリID');
+            $t->string('name')->comment('カテゴリ名称');
+
+            $t->timestamps();
+            $t->softDeletes();
+        });
+
+        //タグ
+        Schema::create('tags', function (Blueprint $t) {
+            $t->bigIncrements('id');
+            $t->string('name')->comment('タグ名称');
+
+            $t->timestamps();
+            $t->softDeletes();
+        });
+
+        //お知らせ
+        Schema::create('notices', function (Blueprint $t) {
+            $t->bigIncrements('id');
+            $t->string('title')->comment('タイトル');
+            $t->text('content')->comment('内容');
+            $t->datetime('start_at')->comment('掲載 開始日時');
+            $t->datetime('end_at')->comment('掲載 終了日時');
+
+            $t->timestamps();
+            $t->softDeletes();
+        });
+
     }
 
     /**
