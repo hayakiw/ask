@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Order;
 
 class User extends Authenticatable
 {
@@ -25,4 +24,8 @@ class User extends Authenticatable
         'remember_token',
         'change_email_token',
     ];
+
+    public function store(){
+        return $this->hasOne('App\Store');
+    }
 }

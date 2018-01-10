@@ -91,15 +91,6 @@ class UserController extends Controller
         );
     }
 
-    public function show()
-    {
-        $user = auth()->user();
-
-        return view('user.show', compact(
-            'user'
-        ));
-    }
-
     public function edit()
     {
         $user = auth()->user();
@@ -239,6 +230,16 @@ class UserController extends Controller
             ->back()
             ->withErrors(['password' => '“現在のパスワード”を正しく入力してください'])
         ;
+    }
+
+    public function show()
+    {
+        return view('user.show');
+    }
+
+    public function review()
+    {
+        return view('user.review');
     }
 
     public function cancelForm()

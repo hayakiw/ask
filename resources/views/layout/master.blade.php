@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="{{ asset ('img/favicon.ico') }}">
-    <meta name="description" content="{{ $layout['description'] ? $layout['description'] : '' }}">
+    <meta name="description" content="{{ isset($layout['description']) && $layout['description'] ? $layout['description'] : '' }}">
     <meta name="keywords" content="" lang="ja">
     <title>{{ $layout['title'] ? $layout['title'] . '｜' : '' }} マッチングアプリ（仮）</title>
   
@@ -18,6 +18,30 @@
     <![endif]-->
   </head>
   <body>
+      <ul class="navbar-nav mr-auto">
+      @if (Auth::guard('web')->check())
+        <li><a href="#" class="username">ここにユーザー名がはいります。</a></li>
+        <li><a href="{{ route('auth.signout') }}" class="logout">ログアウト</a></li>
+      @else
+        <li><a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a></li>
+        <li><a href="{{ route('user.create') }}" class="exhibit">新規登録</a></li>
+      @endif
+      </ul>
+
+    @if (session('info'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+      {{ session('info') }}
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      {{ session('error') }}
+    </div>
+    @endif
+
+
+
 
     @if (isset($layout['left_search']) && $layout['left_search'])
     <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">

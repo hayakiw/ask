@@ -3,11 +3,11 @@
 <?php
 
     $layout = [
-        'title' => 'ユーザー情報',
+        'title' => 'ユーザーレビュー',
     ];
 
 ?>
 
 @section('content')
-ユーザー詳細
+ユーザーレビュー
 @endsection

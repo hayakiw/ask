@@ -3,7 +3,6 @@
 <?php
 
     $layout = [
-        'left' => true,
         'title' => '新規会員登録',
     ];
 

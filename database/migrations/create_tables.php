@@ -29,8 +29,8 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
-        //農家
-        Schema::create('farmers', function (Blueprint $t) {
+        //ユーザー
+        Schema::create('users', function (Blueprint $t) {
             $t->bigIncrements('id');
 
             $t->string('email');
@@ -42,14 +42,11 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
-        //ユーザー
-        Schema::create('users', function (Blueprint $t) {
+        //サービス
+        Schema::create('items', function (Blueprint $t) {
             $t->bigIncrements('id');
 
-            $t->string('email');
-            $t->string('password', 255);
-
-            $t->rememberToken();
+            $t->string('title', 255);
 
             $t->timestamps();
             $t->softDeletes();
@@ -68,7 +65,7 @@ class CreateTables extends Migration
         //テーブル削除
         //--------------------------------------------------
         Schema::dropIfExists('admins');
-        Schema::dropIfExists('farmers');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('items');
     }
 }

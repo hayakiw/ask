@@ -32,13 +32,13 @@ Route::get('item/{item}', [
 Route::get('user/{user}', [
     'as' => 'user.show',
     'uses' => 'UserController@show',
-])->where('user', '[a-zA-Z0-9\_]+');
+])->where('user', '[0-9]+');
 
 // ユーザーレビュー一覧
 Route::get('user/{user}/review', [
     'as' => 'user.review',
     'uses' => 'UserController@review',
-])->where('user', '[a-zA-Z0-9\_]+');
+])->where('user', '[0-9]+');
 
 
 // お問い合わせ
