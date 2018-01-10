@@ -3,9 +3,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="{{ asset ('img/favicon.ico') }}">
-    <meta name="description" content="">
+    <meta name="description" content="{{ $layout['description'] ? $layout['description'] : '' }}">
     <meta name="keywords" content="" lang="ja">
-    <title>{{ $layout['title'] ? $layout['title'] . '｜' : '' }} Agriculture</title>
+    <title>{{ $layout['title'] ? $layout['title'] . '｜' : '' }} マッチングアプリ（仮）</title>
   
     <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
@@ -18,6 +18,16 @@
     <![endif]-->
   </head>
   <body>
+
+    @if (isset($layout['left_search']) && $layout['left_search'])
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">
+      <div class="sidebar">
+        @include('layout.left_search')
+      </div>
+      <!-- / .sidebar -->
+    </div>
+    <!-- / . -->
+    @endif
 
     @yield('content')
 

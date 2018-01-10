@@ -16,6 +16,55 @@ Route::get('/', [
     'uses' => 'RootController@index',
 ]);
 
+// サービス一覧（カテゴリ、都道府県、タグ別に絞込み可）
+Route::get('items', [
+    'as' => 'item.index',
+    'uses' => 'ItemController@index',
+]);
+
+// サービス詳細
+Route::get('item/{item}', [
+    'as' => 'item.show',
+    'uses' => 'ItemController@show',
+])->where('item', '[0-9]+');
+
+// ユーザープロフィール
+Route::get('user/{user}', [
+    'as' => 'user.show',
+    'uses' => 'UserController@show',
+])->where('user', '[a-zA-Z0-9\_]+');
+
+// ユーザーレビュー一覧
+Route::get('user/{user}/review', [
+    'as' => 'user.review',
+    'uses' => 'UserController@review',
+])->where('user', '[a-zA-Z0-9\_]+');
+
+
+// お問い合わせ
+Route::resource(
+    'contact',
+    'ContactController',
+    ['only' => ['create', 'store']]
+);
+
+
+// 利用規約
+Route::get('agreement', [
+    'as' => 'static.agreement',
+    function () {
+        return view('static/agreement');
+    }
+]);
+
+// プライバシーポリシー
+Route::get('privacy', [
+    'as' => 'static.privacy',
+    function () {
+        return view('static/privacy');
+    }
+]);
+
 
 Route::group(['middleware' => ['guest:web']], function () {
 
@@ -29,7 +78,7 @@ Route::group(['middleware' => ['guest:web']], function () {
         'uses' => 'AuthController@signin',
     ]);
 
-    // �p�X���[�h�Đݒ�
+    // パスワード再設定
     Route::get('reset_password/request', [
         'as' => 'reset_password.request_form',
         'uses' => 'ResetPasswordController@requestForm',
@@ -50,7 +99,7 @@ Route::group(['middleware' => ['guest:web']], function () {
         'uses' => 'ResetPasswordController@reset',
     ]);
 
-    // ����o�^
+    // 会員登録
     Route::get('user/create', [
         'as' => 'user.create',
         'uses' => 'UserController@create',
@@ -75,11 +124,18 @@ Route::group(['middleware' => ['auth:web']], function () {
         'uses' => 'AuthController@signout',
     ]);
 
-    // �}�C�y�[�W
+    // マイページ
     Route::get('my', [
         'as' => 'my.index',
         'uses' => 'MyController@index',
     ]);
+
+    // 認証の必要なItemページ（作成、編集、削除）
+    Route::resource(
+        'item',
+        'ItemController',
+        ['except' => ['index', 'show']]
+    );
 
 });
 
@@ -118,10 +174,10 @@ Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
             'uses' => 'RootController@index',
         ]);
 
-        //�Ǘ��ҊǗ�
+        //管理者管理
         Route::resource('admins', 'AdminController');
 
-        //���[�U�[�Ǘ�
+        //ユーザー管理
         Route::resource('users', 'UserController');
 
     });

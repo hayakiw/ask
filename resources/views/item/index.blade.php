@@ -1,14 +1,15 @@
 @extends('layout.master')
 
 <?php
+
     $layout = [
-        'title' => '',
+        'left_search' => true,
+        'title' => '一覧',
         'description' => '○○のページです。',
-        'js' => [],
     ];
+
 ?>
 
 @section('content')
-<h1>トップページ</h1>
-
+サービス一覧
 @endsection
