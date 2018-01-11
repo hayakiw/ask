@@ -69,17 +69,13 @@ class CreateTables extends Migration
         });
 
         // フォロー、フォロワー
-        Schema::create('relationships', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('relationships', function (Blueprint $t) {
+            $t->increments('id');
 
-            $table->integer('follower_id')->unsigned();
-            $table->integer('followed_id')->unsigned();
+            $t->integer('follower_id')->unsigned();
+            $t->integer('followed_id')->unsigned();
 
-            $table->timestamps();
-            $table->softDeletes();
-
-            $table->foreign('follower_id')->references('id')->on('users');
-            $table->foreign('followed_id')->references('id')->on('users');
+            $t->timestamps();
         });
 
         // サービス

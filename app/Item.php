@@ -16,9 +16,19 @@ class Item extends Model
         'title',
     ];
 
+    protected static $meetingTypes = [
+        '対面',
+        '電話',
+        'メッセージ',
+    ];
+
+    public static function getMeetingTypes()
+    {
+        return static::$meetingTypes;
+    }
+
     public function items()
     {
-        return $this->hasMany('App\Item')
-            ;
+        return $this->hasMany('App\Item');
     }
 }
