@@ -20,7 +20,8 @@
   <body>
       <ul class="navbar-nav mr-auto">
       @if (Auth::guard('web')->check())
-        <li><a href="#" class="username">ここにユーザー名がはいります。</a></li>
+        <li><a href="#" class="username">{{ Auth::guard('web')->user()->name }}</a></li>
+        <li><a href="{{ route('item.create') }}">サービス登録</a></li>
         <li><a href="{{ route('auth.signout') }}" class="logout">ログアウト</a></li>
       @else
         <li><a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a></li>

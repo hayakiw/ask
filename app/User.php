@@ -12,14 +12,24 @@ class User extends Authenticatable
 {
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($user) {
+            //$user->items()->delete();
+        });
+    }
+
     protected $fillable = [
-        'email',
-        'password'
+        'email', 'password',
+        'name', 'description', 'area',
+        'confirmation_token', 'confirmation_sent_at',
     ];
 
     protected $hidden = [
         'password',
-        'confirmation_token',
+        'confimarted_at',
         'reset_password_token',
         'remember_token',
         'change_email_token',
@@ -42,7 +52,31 @@ class User extends Authenticatable
         return static::$areas[$prefucture];
     }
 
-    public function store(){
-        return $this->hasOne('App\Store');
+    public function isConfimarted()
+    {
+        return !empty($this->confimarted_at);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review', 'reviewee_id');
+    }
+
+    public function followings()
+    {
+        return $this->hasMany('App\Relationship', 'follower_id');
+    }
+
+    public function followers()
+    {
+        return $this->hasMany('App\Relationship', 'followed_id');
+    }
+
+    public function categories(){
+        return $this->hasMany('App\UserCategory');
+    }
+
+    public function items(){
+        return $this->hasMany('App\Item');
     }
 }

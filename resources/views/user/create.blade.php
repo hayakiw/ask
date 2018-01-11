@@ -9,7 +9,7 @@
 ?>
 
 @section('content')
-
+<?php var_dump($errors);?>
 <section>
   <div class="regist_box">
     <div class="rg_inner">
@@ -18,13 +18,12 @@
 
       {!! Form::open(['route' => 'user.store', 'method' => 'post']) !!}
         <dl class="rg_dl">
-          <dt><span>必須</span>お名前（※非公開）</dt>
-          <dd class="u_name">
-            @if ($errors->has('last_name') || $errors->has('first_name'))
-            <p class="err_message"><span>{{ implode(', ', array_filter([$errors->first('last_name'), $errors->first('first_name')])) }}</span></p>
+          <dt><span>必須</span>お名前</dt>
+          <dd>
+            @if ($errors->has('name'))
+            <p class="err_message"><span>{{ $errors->first('name') }}</span></p>
             @endif
-            <input type="text" name="last_name" placeholder="姓" value="{{ Request::old('last_name') }}" class="{{ $errors->has('last_name') ? ' err' : '' }}" />
-            <input type="text" name="first_name" placeholder="名" value="{{ Request::old('first_name') }}" class="{{ $errors->has('first_name') ? ' err' : '' }}" /></dd>
+            <input type="text" name="name" placeholder="名前" value="{{ Request::old('name') }}" class="{{ $errors->has('name') ? ' err' : '' }}" /></dd>
         </dl>
         <dl class="rg_dl">
           <dt><span>必須</span>メールアドレス（※非公開）</dt>
@@ -41,6 +40,44 @@
             <p class="err_message"><span>{{ $errors->first('password') }}</span></p>
             @endif
             <input type="password" name="password" placeholder="半角英数字6～20文字で入力"@if ($errors->has('password')) class="err"@endif  /></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>エリア</dt>
+          <dd>
+            @if ($errors->has('area'))
+            <p class="err_message"><span>{{ $errors->first('area') }}</span></p>
+            @endif
+            <input type="text" name="area" placeholder="エリア" value="{{ Request::old('area') }}" class="{{ $errors->has('area') ? ' err' : '' }}" /></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>カテゴリ</dt>
+          <dd>
+            @if ($errors->has('categories'))
+            <p class="err_message"><span>{{ $errors->first('categories') }}</span></p>
+            @endif
+
+            @foreach(App\Category::topCategories() as $category)
+              <?php
+              $categoryIdOld = null;
+              if (Request::old('categories') && isset(Request::old('categories')[$category->id])) {
+                  if (isset(Request::old('categories')[$category->id]['id']) && Request::old('categories')[$category->id]['id'] == $category->id)
+                      $categoryIdOld = true;
+              }
+              ?>
+              <label><input type="checkbox" name="categories[{{ $category->id }}][id]" value="{{ $category->id }}"@if ($categoryIdOld) checked="checked" @endif /> {{ $category->name }}</label>
+            @endforeach
+            </dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>詳細説明</dt>
+          <dd>
+            @if ($errors->has('description'))
+            <p class="err_message"><span>{{ $errors->first('description') }}</span></p>
+            @endif
+            <textarea name="description" placeholder="詳細説明" class="{{ $errors->has('name') ? ' err' : '' }}">{{ Request::old('description') }}</textarea></dd>
         </dl>
 
         <button type="submit" name="submit" id="btn_regist"><span>登録する</span></button>

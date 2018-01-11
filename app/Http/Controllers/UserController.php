@@ -10,6 +10,8 @@ use DB;
 
 use App\Http\Requests\User as UserRequest;
 use App\User;
+use App\UserCategory;
+use App\Category;
 
 class UserController extends Controller
 {
@@ -24,7 +26,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'last_name', 'first_name',
+            'name', 'area', 'description',
             'email', 'password',
         ]);
 
@@ -35,35 +37,60 @@ class UserController extends Controller
         $userData['confirmation_token'] = $token;
         $userData['confirmation_sent_at'] = Carbon::now();
 
-        if ($user = User::create($userData)) {
-            // send mail
-            Mail::send(
-                ['text' => 'mail.user_created'],
-                compact('token', 'user'),
-                function ($m) use ($user) {
-                    $m->from(
-                        config('my.mail.from'),
-                        config('my.mail.name')
-                    );
-                    $m->to($user->email, $user->first_name);
-                    $m->subject(
-                        config('my.user.created.mail_subject')
-                    );
-                }
-            );
+        $categories = $request->input('categories');
 
-            // ログイン状態にしてリダイレクト
-            //auth()->guard('web')->loginUsingId($user->getKey());
-            return redirect()
-                ->route('auth.signin')
-                ->with(['info' => '確認メールを送信しました。'])
-            ;
+        $errors = [];
+        \DB::beginTransaction();
+
+        if ($user = User::create($userData)) {
+            foreach($categories as $category) {
+                $categoryData = Category::findOrFail($category['id']);
+
+                if ($userCategory = UserCategory::create([
+                    'user_id' => $user->id,
+                    'category_id' => $categoryData->id,
+                ])) {
+
+                } else {
+                    $errors['categories'] = 'カテゴリが保存できませんでした。';
+                }
+            }
+
+            if (empty($errors)) {
+                \DB::commit();
+
+                // send mail
+                Mail::send(
+                    ['text' => 'mail.user_created'],
+                    compact('token', 'user'),
+                    function ($m) use ($user) {
+                        $m->from(
+                            config('my.mail.from'),
+                            config('my.mail.name')
+                        );
+                        $m->to($user->email, $user->name);
+                        $m->subject(
+                            config('my.user.created.mail_subject')
+                        );
+                    }
+                );
+
+                // ログイン状態にしてリダイレクト
+                //auth()->guard('web')->loginUsingId($user->getKey());
+                return redirect()
+                    ->route('auth.signin')
+                    ->with(['info' => '確認メールを送信しました。'])
+                ;
+            }
         }
+
+        \DB::rollBack();
 
         return redirect()
             ->back()
-            ->withInput($userData)
-        ;
+            ->withInput($request->all())
+            ->withErrors($errors);
+            ;
     }
 
     public function confirmation(Request $request, $token)
@@ -85,7 +112,8 @@ class UserController extends Controller
         $user->save();
 
         auth()->guard('web')->loginUsingId($user->getKey());
-        return redirect()->route('my.index')->with(
+
+        return redirect()->route('root.index')->with(
             'info',
             '認証を確認しました。'
         );
@@ -102,8 +130,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         $userData = $request->only([
-            'last_name', 'first_name', 'last_name_kana', 'first_name_kana',
-            'zip', 'prefecture', 'address1', 'address2', 'tel',
+            'name', 'area', 'description',
         ]);
 
         $errors = [];
@@ -149,7 +176,7 @@ class UserController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($user->change_email, $user->first_name);
+                    $m->to($user->change_email, $user->name);
                     $m->subject(
                         config('my.change_email_request.mail_subject')
                     );
@@ -255,7 +282,6 @@ class UserController extends Controller
         if (\Hash::check($request->get('password'), $user->password)) {
             $userData = $request->only(['canceled_reason', 'canceled_other_reason']);
             $userData['canceled_at'] = Carbon::now();
-            $userData['avatar'] = config('linq.user.default_avatar');
             if ($user->update($userData)) {
                 auth()->guard('web')->logout();
                 return redirect()

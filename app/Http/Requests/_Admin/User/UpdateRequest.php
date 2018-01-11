@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\_Admin\User;
 
 use App\Http\Requests\Request;
 use App\User;
@@ -15,7 +14,7 @@ class UpdateRequest extends Request
      */
     public function authorize()
     {
-        return \Auth::guard('web')->check();
+        return true;
     }
 
     /**
@@ -26,9 +25,13 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'name' => [
+            'email' => [
                 'required',
-                'max:50',
+                'email',
+                'unique:users,email,' . $this->id . ',id,deleted_at,NULL',
+            ],
+            'password' => [
+                'max:255',
             ],
         ];
     }
@@ -41,8 +44,10 @@ class UpdateRequest extends Request
     public function messages()
     {
         return [
-            'name.required' => '“姓"は必ず入力してください',
-            'name.max' => '“姓"は:max文字以内で入力してください',
+            'email.required' => '"メールアドレス"は必ず入力してください',
+            'email.email' => '"メールアドレス"をemailの形式で入力してください',
+            'email.unique' => '"メールアドレス"は既に使用されています',
+            'password.max' => '"パスワード"は:max文字以内で入力してください',
         ];
     }
 }

@@ -141,8 +141,6 @@ class AdminController extends Controller
             'email',
             'password',
             'password_confirmation',
-            'last_name',
-            'first_name',
         ]);
 
         return $adminData;
@@ -153,8 +151,6 @@ class AdminController extends Controller
         // 検索項目
         $search = $request->only([
             'email',
-            'last_name',
-            'first_name',
         ]);
 
         return $search;
@@ -162,23 +158,11 @@ class AdminController extends Controller
 
     private function addSerchCondition($adminBuilder, $search)
     {
-      if (isset($search['email']) && $search['email'] !=''){
-         $adminBuilder
-            ->where('email', 'like', "%{$search['email']}%")
-        ;
-    }
-
-      if (isset($search['last_name']) && $search['last_name'] !=''){
-         $adminBuilder
-            ->where('last_name', 'like', "%{$search['last_name']}%")
-        ;
-    }
-
-      if (isset($search['first_name']) && $search['first_name'] !=''){
-         $adminBuilder
-            ->where('first_name', 'like', "%{$search['first_name']}%")
-        ;
-    }
+        if (isset($search['email']) && $search['email'] !=''){
+            $adminBuilder
+                ->where('email', 'like', "%{$search['email']}%")
+            ;
+        }
 
         return $adminBuilder;
     }

@@ -174,11 +174,36 @@ Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
             'uses' => 'RootController@index',
         ]);
 
-        //管理者管理
+        // お知らせ
+        Route::resource('notices', 'NoticeController', ['only' => [
+            'show', 'index', 'store', 'create', 'edit', 'update', 'destroy',
+        ]]);
+
+        // カテゴリ
+        Route::resource('categories', 'CategoryController', ['except' => [
+            'show', 'index', 'create',
+        ]]);
+
+        Route::get('categories/{parent?}', [
+            'as' => 'categories.index',
+            'uses' => 'CategoryController@index',
+        ])->where('parent', '[0-9]+');
+
+        Route::get('categories/create/{parent?}', [
+            'as' => 'categories.create',
+            'uses' => 'CategoryController@create',
+        ])->where('parent', '[0-9]+');
+
+        // 管理者管理
         Route::resource('admins', 'AdminController');
 
-        //ユーザー管理
+        // ユーザー管理
         Route::resource('users', 'UserController');
+
+        Route::post('users/cancel/{user?}', [
+            'as' => 'users.cancel',
+            'uses' => 'UserController@cancel',
+        ])->where('user', '[0-9]+');
 
     });
 

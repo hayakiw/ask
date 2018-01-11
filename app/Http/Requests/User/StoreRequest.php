@@ -26,13 +26,20 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'last_name' => [
+            'name' => [
                 'required',
-                'max:20',
+                'max:50',
             ],
-            'first_name' => [
+            'categories' => [
                 'required',
-                'max:20'
+            ],
+            'area' => [
+                'required',
+                'max:50',
+            ],
+            'description' => [
+                'required',
+                'max:1000',
             ],
             'email' => [
                 'required',
@@ -56,11 +63,14 @@ class StoreRequest extends Request
     public function messages()
     {
         return [
-            'last_name.required' => '“姓"は必ず入力してください',
-            'last_name.max' => '“姓"は:max文字以内で入力してください',
-            'first_name.required' => '“名"は必ず入力してください',
-            'first_name.max' => '“名"は:max文字以内で入力してください',
-            'email.required' => '“メールアドレス"は必ず入力してください',
+            'name.required' => '"名前"は必ず入力してください',
+            'name.max' => '"名前"は:max文字以内で入力してください',
+            'categories.required' => '"カテゴリ"は必ず入力してください',
+            'area.required' => '"エリア"は必ず入力してください',
+            'area.max' => '"エリア"は:max文字以内で入力してください',
+            'description.required' => '"詳細説明名前"は必ず入力してください',
+            'description.max' => '"詳細説明"は:max文字以内で入力してください',
+            'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',
             'email.max' => '“メールアドレス”は:max文字以内で入力してください',
             'email.unique' => '入力した“メールアドレス”は既に登録されています',

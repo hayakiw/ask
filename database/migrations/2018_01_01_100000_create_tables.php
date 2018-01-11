@@ -66,6 +66,19 @@ class CreateTables extends Migration
             $t->bigIncrements('id');
             $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
             $t->bigInteger('category_id')->unsigned()->comment('カテゴリID');
+
+            $t->timestamps();
+        });
+
+        // 口コミ
+        Schema::create('reviews', function (Blueprint $t) {
+            $t->bigIncrements('id');
+            $t->bigInteger('reviewee_id')->unsigned()->comment('レビューイID');
+            $t->bigInteger('reviewer_id')->unsigned()->comment('レビュアーID');
+            $t->integer('rate')->unsigned()->comment('評価');
+            $t->text('comment')->comment('コメント');
+
+            $t->timestamps();
         });
 
         // フォロー、フォロワー
@@ -104,6 +117,8 @@ class CreateTables extends Migration
             $t->bigIncrements('id');
             $t->bigInteger('item_id')->unsigned()->comment('アイテムID');
             $t->string('name')->comment('希望形式名称');
+
+            $t->timestamps();
         });
 
         // サービスタグ
@@ -111,12 +126,31 @@ class CreateTables extends Migration
             $t->bigIncrements('id');
             $t->bigInteger('item_id')->unsigned()->comment('アイテムID');
             $t->bigInteger('tag_id')->unsigned()->comment('タグID');
+
+            $t->timestamps();
         });
 
-        // オーダー TODO
+        // オーダー
+        Schema::create('orders', function (Blueprint $t) {
+            $t->bigIncrements('id');
+            $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
+            $t->bigInteger('item_id')->unsigned()->comment('カテゴリID');
+
+            $t->string('title', 255)->comment('タイトル');
+
+            $t->string('hours', 10)->comment('時間');
+            $t->string('price', 10)->comment('価格');
+            $t->datetime('use_at')->comment('利用日時');
+
+            $t->string('status', 10)->comment('ステータス');
+
+            $t->text('comment')->comment('コメント');
+
+            $t->timestamps();
+            $t->softDeletes();
+        });
+
         // リクエスト TODO
-
-
 
 
         // カテゴリ
@@ -163,12 +197,14 @@ class CreateTables extends Migration
         //テーブル削除
         //--------------------------------------------------
         Schema::dropIfExists('admins');
+        Schema::dropIfExists('reviews');
         Schema::dropIfExists('relationships');
         Schema::dropIfExists('users');
         Schema::dropIfExists('user_categories');
         Schema::dropIfExists('items');
         Schema::dropIfExists('item_meeting_types');
         Schema::dropIfExists('item_tags');
+        Schema::dropIfExists('orders');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('tags');
         Schema::dropIfExists('notices');
