@@ -6,13 +6,11 @@
     <meta name="description" content="{{ isset($layout['description']) && $layout['description'] ? $layout['description'] : '' }}">
     <meta name="keywords" content="" lang="ja">
     <title>{{ $layout['title'] ? $layout['title'] . '｜' : '' }} マッチングアプリ（仮）</title>
-  
+
     <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
-  
-    <link href="{{ asset(elixir('css/app.css')) }}" rel="stylesheet">
-  
-    <!--[if lt IE 9]> 
+
+    <!--[if lt IE 9]>
     <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/respond.min.js') }}"></script>
     <![endif]-->
@@ -58,8 +56,6 @@
 
     <footer>
     </footer>
-
-    <script src="{{ asset('js/app.js') }}"></script>
 
     @if (isset($layout['js']))
     @foreach ($layout['js'] as $js)
