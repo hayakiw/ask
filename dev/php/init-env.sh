@@ -20,9 +20,3 @@ chmod a+w storage/framework/cache
 chmod a+w storage/framework/sessions
 chmod a+w storage/framework/views
 chmod a+w storage/logs
-
-npm update -g npm
-npm install --no-bin-links
-npm rebuild node-sass --no-bin-links
-
-gulp
