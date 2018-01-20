@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Staff\User;
 
 use App\Http\Requests\Request;
-use App\User;
+use App\Staff;
 
 class StoreRequest extends Request
 {
@@ -45,7 +45,7 @@ class StoreRequest extends Request
                 'required',
                 'email',
                 'max:255',
-                'unique:users,email,NULL,id,canceled_at,NULL',
+                'unique:staffs,email,NULL,id,canceled_at,NULL',
             ],
             'password' => [
                 'required',

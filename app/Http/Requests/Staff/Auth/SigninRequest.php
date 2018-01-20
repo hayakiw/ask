@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Staff\Auth;
 use App\Http\Requests\Request;
 
 class SigninRequest extends Request

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mail;
 use Carbon\Carbon;
 use DB;
 
-use App\Http\Requests\User as UserRequest;
-use App\User;
-use App\UserCategory;
+use App\Http\Requests\Staff\User as UserRequest;
+use App\Staff;
 use App\Category;
 
 class UserController extends Controller
@@ -18,7 +18,7 @@ class UserController extends Controller
     public function create()
     {
         return response()
-            ->view('user.create')
+            ->view('staff.user.create')
             ->header('Cache-Control', 'no-cache, no-store')
             ;
     }
@@ -37,24 +37,10 @@ class UserController extends Controller
         $userData['confirmation_token'] = $token;
         $userData['confirmation_sent_at'] = Carbon::now();
 
-        $categories = $request->input('categories');
-
         $errors = [];
         \DB::beginTransaction();
 
-        if ($user = User::create($userData)) {
-            foreach($categories as $category) {
-                $categoryData = Category::findOrFail($category['id']);
-
-                if ($userCategory = UserCategory::create([
-                    'user_id' => $user->id,
-                    'category_id' => $categoryData->id,
-                ])) {
-
-                } else {
-                    $errors['categories'] = 'カテゴリが保存できませんでした。';
-                }
-            }
+        if ($user = Staff::create($userData)) {
 
             if (empty($errors)) {
                 \DB::commit();
@@ -78,7 +64,7 @@ class UserController extends Controller
                 // ログイン状態にしてリダイレクト
                 //auth()->guard('web')->loginUsingId($user->getKey());
                 return redirect()
-                    ->route('auth.signin')
+                    ->route('user.auth.signin')
                     ->with(['info' => '確認メールを送信しました。'])
                 ;
             }
@@ -95,7 +81,7 @@ class UserController extends Controller
 
     public function confirmation(Request $request, $token)
     {
-        $user = User::where('confirmation_token', $token)
+        $staff = Staff::where('confirmation_token', $token)
             ->where(
                 'confirmation_sent_at',
                 '>',
@@ -106,12 +92,12 @@ class UserController extends Controller
             ->firstOrFail()
             ; // TODO: should not just fail
 
-        $user->confimarted_at = Carbon::now();
-        $user->confirmation_token = null;
-        $user->confirmation_sent_at = null;
-        $user->save();
+        $staff->confimarted_at = Carbon::now();
+        $staff->confirmation_token = null;
+        $staff->confirmation_sent_at = null;
+        $staff->save();
 
-        auth()->guard('web')->loginUsingId($user->getKey());
+        auth()->guard('staff')->loginUsingId($staff->getKey());
 
         return redirect()->route('root.index')->with(
             'info',
@@ -121,8 +107,8 @@ class UserController extends Controller
 
     public function edit()
     {
-        $user = auth()->user();
-        return view('user.edit')->with(['user' => $user]);
+        $staff = auth()->user();
+        return view('staff.user.edit')->with(['user' => $staff]);
     }
 
     public function update(UserRequest\UpdateRequest $request)
@@ -153,7 +139,7 @@ class UserController extends Controller
     public function editEmail()
     {
         $user = auth()->user();
-        return view('user.edit_email')->with(['user' => $user]);
+        return view('staff.user.edit_email')->with(['user' => $user]);
     }
 
     public function requestEmail(UserRequest\UpdateEmailRequest $request)
@@ -197,7 +183,7 @@ class UserController extends Controller
 
     public function updateEmail(Request $request, $token)
     {
-        $user = User::where('change_email_token', $token)
+        $user = Staff::where('change_email_token', $token)
             ->where(
                 'change_email_sent_at',
                 '>',
@@ -215,7 +201,7 @@ class UserController extends Controller
         $user->change_email_sent_at = null;
         $user->save();
 
-        auth()->guard('web')->loginUsingId($user->getKey());
+        auth()->guard('staff')->loginUsingId($user->getKey());
 
 
         if ($user->isSeller()){
@@ -234,7 +220,7 @@ class UserController extends Controller
     public function editPassword()
     {
         $user = auth()->user();
-        return view('user.edit_password')->with(['user' => $user]);
+        return view('staff.user.edit_password')->with(['user' => $user]);
     }
 
     public function updatePassword(UserRequest\UpdatePasswordRequest $request)
@@ -261,18 +247,13 @@ class UserController extends Controller
 
     public function show()
     {
-        return view('user.show');
-    }
-
-    public function review()
-    {
-        return view('user.review');
+        return view('staff.user.show');
     }
 
     public function cancelForm()
     {
         $user = auth()->user();
-        return view('user.cancel_form')->with(['user' => $user]);
+        return view('staff.user.cancel_form')->with(['user' => $user]);
     }
 
     public function cancel(UserRequest\CancelRequest $request)
@@ -283,7 +264,7 @@ class UserController extends Controller
             $userData = $request->only(['canceled_reason', 'canceled_other_reason']);
             $userData['canceled_at'] = Carbon::now();
             if ($user->update($userData)) {
-                auth()->guard('web')->logout();
+                auth()->guard('staff')->logout();
                 return redirect()
                     ->route('root.index')
                     ->with(['info' => '退会処理を行いました。'])

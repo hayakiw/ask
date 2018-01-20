@@ -27,8 +27,8 @@ class Authenticate
                 return redirect()->guest('_admin/signin');
             }
 
-            if ($guard == 'farmer') {
-                return redirect()->guest('_farmer/signin');
+            if ($guard == 'staff') {
+                return redirect()->guest('staff/signin');
             }
 
             return redirect()->guest('signin');

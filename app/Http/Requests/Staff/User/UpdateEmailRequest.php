@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Staff\User;
 
 use App\Http\Requests\Request;
 
@@ -8,7 +8,7 @@ class UpdateEmailRequest extends Request
 {
     public function authorize()
     {
-        return \Auth::guard('web')->check();
+        return \Auth::guard('staff')->check();
     }
 
     public function rules()
@@ -18,7 +18,7 @@ class UpdateEmailRequest extends Request
                 'required',
                 'email',
                 'max:255',
-                'unique:users,email,NULL,id,canceled_at,NULL',
+                'unique:staffs,email,NULL,id,canceled_at,NULL',
             ],
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Staff\User;
 
 use App\Http\Requests\Request;
 
@@ -14,7 +14,7 @@ class UpdatePasswordRequest extends Request
      */
     public function authorize()
     {
-        return \Auth::guard('web')->check();
+        return \Auth::guard('staff')->check();
     }
 
     /**

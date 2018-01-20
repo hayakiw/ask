@@ -29,8 +29,8 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
-        // ユーザー
-        Schema::create('users', function (Blueprint $t) {
+        // スタッフ
+        Schema::create('staffs', function (Blueprint $t) {
             $t->bigIncrements('id');
 
             $t->string('email');
@@ -61,40 +61,10 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
-        // ユーザーカテゴリ
-        Schema::create('user_categories', function (Blueprint $t) {
-            $t->bigIncrements('id');
-            $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
-            $t->bigInteger('category_id')->unsigned()->comment('カテゴリID');
-
-            $t->timestamps();
-        });
-
-        // 口コミ
-        Schema::create('reviews', function (Blueprint $t) {
-            $t->bigIncrements('id');
-            $t->bigInteger('reviewee_id')->unsigned()->comment('レビューイID');
-            $t->bigInteger('reviewer_id')->unsigned()->comment('レビュアーID');
-            $t->integer('rate')->unsigned()->comment('評価');
-            $t->text('comment')->comment('コメント');
-
-            $t->timestamps();
-        });
-
-        // フォロー、フォロワー
-        Schema::create('relationships', function (Blueprint $t) {
-            $t->increments('id');
-
-            $t->integer('follower_id')->unsigned();
-            $t->integer('followed_id')->unsigned();
-
-            $t->timestamps();
-        });
-
         // サービス
         Schema::create('items', function (Blueprint $t) {
             $t->bigIncrements('id');
-            $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
+            $t->bigInteger('staff_id')->unsigned()->comment('ユーザーID');
             $t->bigInteger('category_id')->unsigned()->comment('カテゴリID');
 
             $t->string('title', 255)->comment('タイトル');
@@ -121,19 +91,9 @@ class CreateTables extends Migration
             $t->timestamps();
         });
 
-        // サービスタグ
-        Schema::create('item_tags', function (Blueprint $t) {
-            $t->bigIncrements('id');
-            $t->bigInteger('item_id')->unsigned()->comment('アイテムID');
-            $t->bigInteger('tag_id')->unsigned()->comment('タグID');
-
-            $t->timestamps();
-        });
-
         // オーダー
         Schema::create('orders', function (Blueprint $t) {
             $t->bigIncrements('id');
-            $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
             $t->bigInteger('item_id')->unsigned()->comment('カテゴリID');
 
             $t->string('title', 255)->comment('タイトル');
@@ -150,23 +110,11 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
-        // リクエスト TODO
-
-
         // カテゴリ
         Schema::create('categories', function (Blueprint $t) {
             $t->bigIncrements('id');
             $t->bigInteger('parent_id')->unsigned()->nullable()->comment('親カテゴリID');
             $t->string('name')->comment('カテゴリ名称');
-
-            $t->timestamps();
-            $t->softDeletes();
-        });
-
-        // タグ
-        Schema::create('tags', function (Blueprint $t) {
-            $t->bigIncrements('id');
-            $t->string('name')->comment('タグ名称');
 
             $t->timestamps();
             $t->softDeletes();
@@ -197,16 +145,11 @@ class CreateTables extends Migration
         //テーブル削除
         //--------------------------------------------------
         Schema::dropIfExists('admins');
-        Schema::dropIfExists('reviews');
-        Schema::dropIfExists('relationships');
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('user_categories');
+        Schema::dropIfExists('staffs');
         Schema::dropIfExists('items');
         Schema::dropIfExists('item_meeting_types');
-        Schema::dropIfExists('item_tags');
         Schema::dropIfExists('orders');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('tags');
         Schema::dropIfExists('notices');
     }
 }

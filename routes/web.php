@@ -28,18 +28,11 @@ Route::get('item/{item}', [
     'uses' => 'ItemController@show',
 ])->where('item', '[0-9]+');
 
-// ユーザープロフィール
-Route::get('user/{user}', [
-    'as' => 'user.show',
-    'uses' => 'UserController@show',
-])->where('user', '[0-9]+');
-
-// ユーザーレビュー一覧
-Route::get('user/{user}/review', [
-    'as' => 'user.review',
-    'uses' => 'UserController@review',
-])->where('user', '[0-9]+');
-
+// スタッフプロフィール
+Route::get('staff/{staff}', [
+    'as' => 'staff.show',
+    'uses' => 'StaffController@show',
+])->where('staff', '[0-9]+');
 
 // お問い合わせ
 Route::resource(
@@ -67,78 +60,88 @@ Route::get('privacy', [
 
 
 Route::group(['middleware' => ['guest:web']], function () {
-
-    Route::get('signin', [
-        'as' => 'auth.signin_form',
-        'uses' => 'AuthController@signinForm',
-    ]);
-
-    Route::post('signin', [
-        'as' => 'auth.signin',
-        'uses' => 'AuthController@signin',
-    ]);
-
-    // パスワード再設定
-    Route::get('reset_password/request', [
-        'as' => 'reset_password.request_form',
-        'uses' => 'ResetPasswordController@requestForm',
-    ]);
-
-    Route::post('reset_password/request', [
-        'as' => 'reset_password.request',
-        'uses' => 'ResetPasswordController@request',
-    ]);
-
-    Route::get('reset_password/reset/{token?}', [
-        'as' => 'reset_password.reset_form',
-        'uses' => 'ResetPasswordController@resetForm',
-    ]);
-
-    Route::put('reset_password/reset', [
-        'as' => 'reset_password.reset',
-        'uses' => 'ResetPasswordController@reset',
-    ]);
-
-    // 会員登録
-    Route::get('user/create', [
-        'as' => 'user.create',
-        'uses' => 'UserController@create',
-    ]);
-
-    Route::post('user', [
-        'as' => 'user.store',
-        'uses' => 'UserController@store',
-    ]);
-
-    Route::get('user/confirmation/{token?}', [
-        'as' => 'user.confirmation',
-        'uses' => 'UserController@confirmation',
-    ]);
 });
-
 
 Route::group(['middleware' => ['auth:web']], function () {
-
-    Route::get('signout', [
-        'as' => 'auth.signout',
-        'uses' => 'AuthController@signout',
-    ]);
-
-    // マイページ
-    Route::get('my', [
-        'as' => 'my.index',
-        'uses' => 'MyController@index',
-    ]);
-
-    // 認証の必要なItemページ（作成、編集、削除）
-    Route::resource(
-        'item',
-        'ItemController',
-        ['except' => ['index', 'show']]
-    );
-
 });
 
+
+Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
+    Route::group(['middleware' => ['guest:staff']], function () {
+        Route::get('signin', [
+            'as' => 'auth.signin_form',
+            'uses' => 'AuthController@signinForm',
+        ]);
+
+        Route::post('signin', [
+            'as' => 'auth.signin',
+            'uses' => 'AuthController@signin',
+        ]);
+
+        // パスワード再設定
+        Route::get('reset_password/request', [
+            'as' => 'reset_password.request_form',
+            'uses' => 'ResetPasswordController@requestForm',
+        ]);
+
+        Route::post('reset_password/request', [
+            'as' => 'reset_password.request',
+            'uses' => 'ResetPasswordController@request',
+        ]);
+
+        Route::get('reset_password/reset/{token?}', [
+            'as' => 'reset_password.reset_form',
+            'uses' => 'ResetPasswordController@resetForm',
+        ]);
+
+        Route::put('reset_password/reset', [
+            'as' => 'reset_password.reset',
+            'uses' => 'ResetPasswordController@reset',
+        ]);
+
+        // 会員登録
+        Route::get('user/create', [
+            'as' => 'user.create',
+            'uses' => 'UserController@create',
+        ]);
+
+        Route::post('user', [
+            'as' => 'user.store',
+            'uses' => 'UserController@store',
+        ]);
+
+        Route::get('user/confirmation/{token?}', [
+            'as' => 'user.confirmation',
+            'uses' => 'UserController@confirmation',
+        ]);
+    });
+
+    Route::group(['middleware' => ['auth:staff']], function () {
+
+        Route::get('signout', [
+            'as' => 'auth.signout',
+            'uses' => 'AuthController@signout',
+        ]);
+
+        Route::get('/', [
+            'as' => 'root.index',
+            'uses' => 'RootController@index',
+        ]);
+
+        // マイページ
+        Route::get('my', [
+            'as' => 'my.index',
+            'uses' => 'MyController@index',
+        ]);
+
+        // 認証の必要なItemページ（作成、編集、削除）
+        Route::resource(
+            'item',
+            'ItemController',
+            ['except' => ['index', 'show']]
+        );
+    });
+});
 
 Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
 
@@ -197,13 +200,13 @@ Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
         // 管理者管理
         Route::resource('admins', 'AdminController');
 
-        // ユーザー管理
-        Route::resource('users', 'UserController');
+        // スタッフ管理
+        Route::resource('staffs', 'StaffController');
 
-        Route::post('users/cancel/{user?}', [
-            'as' => 'users.cancel',
-            'uses' => 'UserController@cancel',
-        ])->where('user', '[0-9]+');
+        Route::post('staffs/cancel/{staff?}', [
+            'as' => 'staffs.cancel',
+            'uses' => 'StaffController@cancel',
+        ])->where('staff', '[0-9]+');
 
     });
 

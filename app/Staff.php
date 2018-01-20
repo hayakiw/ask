@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class User extends Authenticatable
+class Staff extends Authenticatable
 {
     use SoftDeletes;
 
@@ -36,8 +36,8 @@ class User extends Authenticatable
     ];
 
     protected static $areas = [
-        '’¹ŽæŒ§' => ['¼•”', '’†•”', '“Œ•”'],
-        '“‡ªŒ§' => ['¼•”', '’†•”', '“Œ•”'],
+        'é³¥å–' => ['è¥¿éƒ¨', 'ä¸­éƒ¨', 'æ±éƒ¨'],
+        'å³¶æ ¹' => ['è¥¿éƒ¨', 'ä¸­éƒ¨', 'æ±éƒ¨'],
     ];
 
     public static function getPrefuctuers()
@@ -55,25 +55,6 @@ class User extends Authenticatable
     public function isConfimarted()
     {
         return !empty($this->confimarted_at);
-    }
-
-    public function reviews()
-    {
-        return $this->hasMany('App\Review', 'reviewee_id');
-    }
-
-    public function followings()
-    {
-        return $this->hasMany('App\Relationship', 'follower_id');
-    }
-
-    public function followers()
-    {
-        return $this->hasMany('App\Relationship', 'followed_id');
-    }
-
-    public function categories(){
-        return $this->hasMany('App\UserCategory');
     }
 
     public function items(){

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Staff;
 
 use Illuminate\Http\Request;
 
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
-use App\Http\Requests\Auth as AuthRequest;
+use App\Http\Requests\Staff\Auth as AuthRequest;
 
 class AuthController extends Controller
 {
@@ -16,7 +16,7 @@ class AuthController extends Controller
 
     public function signinForm()
     {
-        return view('auth.signin_form');
+        return view('staff.auth.signin_form');
     }
 
     public function signin(AuthRequest\SigninRequest $request)
@@ -29,12 +29,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->has('remember');
 
-        if (auth()->guard('web')->attempt($credentials, $remember)) {
+        if (auth()->guard('staff')->attempt($credentials, $remember)) {
             $this->clearLoginAttempts($request);
 
             $user = auth()->user();
             if (! $user->isConfimarted()) {
-                auth()->guard('web')->logout();
+                auth()->guard('staff')->logout();
                 return redirect()
                     ->route('auth.signin')
                     ->with('info', 'メール認証を完了してください。')
@@ -61,7 +61,7 @@ class AuthController extends Controller
 
     public function signout()
     {
-        auth()->guard('web')->logout();
+        auth()->guard('staff')->logout();
         return redirect()
             ->route('auth.signin')
             ->with('info', 'ログアウトしました。')

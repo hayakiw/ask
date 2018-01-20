@@ -52,26 +52,6 @@
         </dl>
 
         <dl class="rg_dl">
-          <dt><span>必須</span>カテゴリ</dt>
-          <dd>
-            @if ($errors->has('categories'))
-            <p class="err_message"><span>{{ $errors->first('categories') }}</span></p>
-            @endif
-
-            @foreach(App\Category::topCategories() as $category)
-              <?php
-              $categoryIdOld = null;
-              if (Request::old('categories') && isset(Request::old('categories')[$category->id])) {
-                  if (isset(Request::old('categories')[$category->id]['id']) && Request::old('categories')[$category->id]['id'] == $category->id)
-                      $categoryIdOld = true;
-              }
-              ?>
-              <label><input type="checkbox" name="categories[{{ $category->id }}][id]" value="{{ $category->id }}"@if ($categoryIdOld) checked="checked" @endif /> {{ $category->name }}</label>
-            @endforeach
-            </dd>
-        </dl>
-
-        <dl class="rg_dl">
           <dt><span>必須</span>詳細説明</dt>
           <dd>
             @if ($errors->has('description'))
