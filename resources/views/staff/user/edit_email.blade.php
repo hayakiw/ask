@@ -1,4 +1,4 @@
-@extends((auth()->user()->isSeller()) ? 'seller.layout.master' : 'layout.master')
+@extends('staff.layout.master')
 
 <?php
 
