@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="col-md-8">
-  <form method="post" action="{{ route('auth.signin') }}">
+  <form method="post" action="{{ route('staff.auth.signin') }}">
     {{ csrf_field() }}
 
     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -38,7 +38,7 @@
     </div>
 
     <button type="submit" class="btn btn-default"><i class="fa fa-sign-in"></i> ログイン</button>
-    <a href="{{ route('reset_password.request_form') }}">パスワードわすれた</a>
+    <a href="{{ route('staff.reset_password.request_form') }}">パスワードわすれた</a>
   </form>
 </div>
 

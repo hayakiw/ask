@@ -16,7 +16,7 @@
       <h2><span>新規会員登録</span></h2>
       <p class="lead">下記の項目を入力して「登録する」を押してください。</p>
 
-      {!! Form::open(['route' => 'user.store', 'method' => 'post']) !!}
+      {!! Form::open(['route' => 'staff.user.store', 'method' => 'post']) !!}
         <dl class="rg_dl">
           <dt><span>必須</span>お名前</dt>
           <dd>

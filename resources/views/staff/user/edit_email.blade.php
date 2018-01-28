@@ -13,7 +13,7 @@
 <h3><span>メールアドレス変更</span></h3>
 
 <div class="col-md-8">
-  {!! Form::model($user, ['route' => 'user.request_email', 'method' => 'put']) !!}
+  {!! Form::model($user, ['route' => 'staff.user.request_email', 'method' => 'put']) !!}
     {{ csrf_field() }}
 
     <div class="form-group{{ $errors->has('new_email') ? ' has-error' : '' }}">

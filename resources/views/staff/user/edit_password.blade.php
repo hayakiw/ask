@@ -12,7 +12,7 @@
 
 <h3><span>パスワード再設定</span></h3>
 <div class="col-md-8">
-  {!! Form::model($user, ['route' => 'user.update_password', 'method' => 'put']) !!}
+  {!! Form::model($user, ['route' => 'staff.user.update_password', 'method' => 'put']) !!}
     {{ csrf_field() }}
 
     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">

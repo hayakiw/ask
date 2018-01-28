@@ -17,7 +17,7 @@
     <div class="rs_inner">
       <h2><span>基本情報設定</span></h2>
 
-      {{ Form::model($user, ['route' => 'user.update', 'method' => 'put']) }}
+      {{ Form::model($user, ['route' => 'staff.user.update', 'method' => 'put']) }}
       <div class="rs_inner2">
         <dl>
           <dt><span>必須</span>姓</dt>

@@ -14,7 +14,7 @@
   <div class="withdrawal_box">
 
 
-      {{ Form::model($user, ['route' => 'user.cancel', 'method' => 'delete']) }}
+      {{ Form::model($user, ['route' => 'staff.user.cancel', 'method' => 'delete']) }}
         <div class="wd_inner2">
           <dl>
             <dt><span>必須</span>退会理由</dt>
