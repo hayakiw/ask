@@ -40,6 +40,43 @@ class CreateTables extends Migration
             $t->text('description')->comment('自己紹介');
             $t->string('area', 255)->comment('エリア');
 
+            $t->string('bank_name')->nullable()->comment('銀行名');
+            $t->string('bank_branch_name')->nullable()->comment('支店名');
+            $t->string('bank_account_number')->nullable()->comment('口座番号');
+            $t->string('bank_account_last_name')->nullable()->comment('口座名義姓');
+            $t->string('bank_account_first_name')->nullable()->comment('口座名義名');
+
+            $t->rememberToken();
+
+            $t->string('confirmation_token')->nullable()->comment('ユーザー登録時トークン');
+            $t->datetime('confimarted_at')->nullable()->comment('ユーザー有効日付');
+            $t->datetime('confirmation_sent_at')->nullable()->comment('ユーザー登録メール送信日時');
+
+            $t->string('reset_password_token')->nullable()->comment('パスワード再設定用トークン');
+            $t->datetime('reset_password_sent_at')->nullable()->comment('パスワード再設定のメール送信日時');
+
+            $t->string('change_email')->nullable()->comment('変更後メールアドレス');
+            $t->string('change_email_token')->nullable()->comment('メールアドレス変更用トークン');
+            $t->datetime('change_email_sent_at')->nullable()->comment('メールアドレス変更のメール送信日時');
+
+            $t->string('canceled_reason')->nullable()->comment('退会理由');
+            $t->string('canceled_other_reason')->nullable()->comment('退会理由その他');
+            $t->datetime('canceled_at')->nullable();
+
+            $t->timestamps();
+            $t->softDeletes();
+        });
+
+        // 利用者
+        Schema::create('users', function (Blueprint $t) {
+            $t->bigIncrements('id');
+
+            $t->string('email');
+            $t->string('password', 255);
+
+            $t->string('last_name', 255);
+            $t->string('first_name', 255);
+
             $t->rememberToken();
 
             $t->string('confirmation_token')->nullable()->comment('ユーザー登録時トークン');
@@ -70,10 +107,11 @@ class CreateTables extends Migration
             $t->string('title', 255)->comment('タイトル');
             $t->string('image', 255)->comment('画像');
 
-            $t->string('hours', 10)->comment('販売時間');
+            $t->string('prefecture', 255)->comment('県');
+            $t->string('area', 255)->comment('エリア');
+
             $t->string('price', 10)->comment('1時間あたりの価格');
             $t->string('max_hours', 10)->comment('購入可能な時間');
-            $t->string('area', 255)->comment('エリア');
             $t->string('location', 255)->comment('場所の詳細（例: 米子、Skype、電話、メッセージなど）');
 
             $t->text('description')->comment('詳細説明');
@@ -82,18 +120,10 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
-        // サービス希望形式
-        Schema::create('item_meeting_types', function (Blueprint $t) {
-            $t->bigIncrements('id');
-            $t->bigInteger('item_id')->unsigned()->comment('アイテムID');
-            $t->string('name')->comment('希望形式名称');
-
-            $t->timestamps();
-        });
-
         // オーダー
         Schema::create('orders', function (Blueprint $t) {
             $t->bigIncrements('id');
+            $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
             $t->bigInteger('item_id')->unsigned()->comment('カテゴリID');
 
             $t->string('title', 255)->comment('タイトル');
@@ -146,8 +176,8 @@ class CreateTables extends Migration
         //--------------------------------------------------
         Schema::dropIfExists('admins');
         Schema::dropIfExists('staffs');
+        Schema::dropIfExists('users');
         Schema::dropIfExists('items');
-        Schema::dropIfExists('item_meeting_types');
         Schema::dropIfExists('orders');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('notices');
