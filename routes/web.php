@@ -69,49 +69,49 @@ Route::group(['middleware' => ['auth:web']], function () {
 Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
     Route::group(['middleware' => ['guest:staff']], function () {
         Route::get('signin', [
-            'as' => 'auth.signin_form',
+            'as' => 'staff.auth.signin_form',
             'uses' => 'AuthController@signinForm',
         ]);
 
         Route::post('signin', [
-            'as' => 'auth.signin',
+            'as' => 'staff.auth.signin',
             'uses' => 'AuthController@signin',
         ]);
 
         // パスワード再設定
         Route::get('reset_password/request', [
-            'as' => 'reset_password.request_form',
+            'as' => 'staff.reset_password.request_form',
             'uses' => 'ResetPasswordController@requestForm',
         ]);
 
         Route::post('reset_password/request', [
-            'as' => 'reset_password.request',
+            'as' => 'staff.reset_password.request',
             'uses' => 'ResetPasswordController@request',
         ]);
 
         Route::get('reset_password/reset/{token?}', [
-            'as' => 'reset_password.reset_form',
+            'as' => 'staff.reset_password.reset_form',
             'uses' => 'ResetPasswordController@resetForm',
         ]);
 
         Route::put('reset_password/reset', [
-            'as' => 'reset_password.reset',
+            'as' => 'staff.reset_password.reset',
             'uses' => 'ResetPasswordController@reset',
         ]);
 
         // 会員登録
         Route::get('user/create', [
-            'as' => 'user.create',
+            'as' => 'staff.user.create',
             'uses' => 'UserController@create',
         ]);
 
         Route::post('user', [
-            'as' => 'user.store',
+            'as' => 'staff.user.store',
             'uses' => 'UserController@store',
         ]);
 
         Route::get('user/confirmation/{token?}', [
-            'as' => 'user.confirmation',
+            'as' => 'staff.user.confirmation',
             'uses' => 'UserController@confirmation',
         ]);
     });
@@ -119,18 +119,18 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
     Route::group(['middleware' => ['auth:staff']], function () {
 
         Route::get('signout', [
-            'as' => 'auth.signout',
+            'as' => 'staff.auth.signout',
             'uses' => 'AuthController@signout',
         ]);
 
         Route::get('/', [
-            'as' => 'root.index',
+            'as' => 'staff.root.index',
             'uses' => 'RootController@index',
         ]);
 
         // マイページ
         Route::get('my', [
-            'as' => 'my.index',
+            'as' => 'staff.my.index',
             'uses' => 'MyController@index',
         ]);
 
@@ -144,11 +144,6 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
 });
 
 Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
-
-    Route::get('/', [
-        'as' => 'root.index',
-        'uses' => 'RootController@index',
-    ]);
 
     Route::group(['middleware' => ['guest:admin']], function () {
 
