@@ -21,6 +21,8 @@ class Staff extends Authenticatable
         });
     }
 
+    protected $table = 'staffs';
+
     protected $fillable = [
         'email', 'password',
         'name', 'description', 'area',

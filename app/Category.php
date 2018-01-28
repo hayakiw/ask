@@ -26,7 +26,7 @@ class Category extends Model
         return $this->belongsTo('App\Category', 'parent_id');
     }
 
-    public function chidren()
+    public function children()
     {
         return $this->hasMany('App\Category', 'parent_id');
     }

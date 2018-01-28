@@ -12,13 +12,15 @@ use DB;
 use App\Http\Requests\Staff\User as UserRequest;
 use App\Staff;
 use App\Category;
+use App\Item;
 
 class UserController extends Controller
 {
     public function create()
     {
+        $categories = Category::topCategories();
         return response()
-            ->view('staff.user.create')
+            ->view('staff.user.create', compact('categories'))
             ->header('Cache-Control', 'no-cache, no-store')
             ;
     }
@@ -42,6 +44,23 @@ class UserController extends Controller
 
         if ($user = Staff::create($userData)) {
 
+            $serviceData = [
+                'staff_id' => $user->id,
+                'category_id' => $request->input('service.category'),
+                'title' => $request->input('service.name'),
+                'image' => '',
+                'hours' => '',
+                'price' => $request->input('service.price'),
+                'max_hours' => '',
+                'area' => $user->area,
+                'location' => '',
+                'description' => $request->input('service.description'),
+            ];
+
+            if (!Item::create($serviceData)) {
+                $errors[] = 'サービスが登録できませんでした。';
+            }
+
             if (empty($errors)) {
                 \DB::commit();
 
@@ -64,7 +83,8 @@ class UserController extends Controller
                 // ログイン状態にしてリダイレクト
                 //auth()->guard('web')->loginUsingId($user->getKey());
                 return redirect()
-                    ->route('user.auth.signin')
+                    // ->route('user.auth.signin')
+                    ->route('auth.signin_form')
                     ->with(['info' => '確認メールを送信しました。'])
                 ;
             }
