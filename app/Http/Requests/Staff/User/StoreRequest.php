@@ -30,9 +30,6 @@ class StoreRequest extends Request
                 'required',
                 'max:50',
             ],
-            'categories' => [
-                'required',
-            ],
             'area' => [
                 'required',
                 'max:50',
@@ -52,6 +49,18 @@ class StoreRequest extends Request
                 'between:6,20',
                 'ascii',
             ],
+            'service.name' => [
+                'required',
+            ],
+            'service.category' => [
+                'required',
+            ],
+            'service.price' => [
+                'required',
+            ],
+            'service.description' => [
+                'required',
+            ],
         ];
     }
 
@@ -65,11 +74,10 @@ class StoreRequest extends Request
         return [
             'name.required' => '"名前"は必ず入力してください',
             'name.max' => '"名前"は:max文字以内で入力してください',
-            'categories.required' => '"カテゴリ"は必ず入力してください',
             'area.required' => '"エリア"は必ず入力してください',
             'area.max' => '"エリア"は:max文字以内で入力してください',
-            'description.required' => '"詳細説明名前"は必ず入力してください',
-            'description.max' => '"詳細説明"は:max文字以内で入力してください',
+            'description.required' => '"プロフィール"は必ず入力してください',
+            'description.max' => '"プロフィール"は:max文字以内で入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',
             'email.max' => '“メールアドレス”は:max文字以内で入力してください',
@@ -77,6 +85,10 @@ class StoreRequest extends Request
             'password.required' => '“パスワード"は必ず入力してください',
             'password.between' => '"パスワード"は:min〜:max文字で入力してください',
             'password.ascii' => '"パスワード"を正しく入力してください',
+            'service.name.required' => '"サービス名"は必ず入力してください',
+            'service.category.required' => '"カテゴリ"は必ず入力してください',
+            'service.price.required' => '"時給"は必ず入力してください',
+            'service.description.required' => '"詳細説明"は必ず入力してください',
         ];
     }
 }

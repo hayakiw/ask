@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -13,13 +13,16 @@ class Item extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title',
+        'staff_id', 'category_id',
+        'title', 'image',
+        'hours', 'price', 'max_hours',
+        'area', 'location', 'description',
     ];
 
     protected static $meetingTypes = [
-        '対面',
-        '電話',
-        'メッセージ',
+        '蟇ｾ髱｢',
+        '髮ｻ隧ｱ',
+        '繝｡繝�繧ｻ繝ｼ繧ｸ',
     ];
 
     public static function getMeetingTypes()

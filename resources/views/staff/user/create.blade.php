@@ -52,14 +52,62 @@
         </dl>
 
         <dl class="rg_dl">
-          <dt><span>必須</span>詳細説明</dt>
+          <dt><span>必須</span>プロフィール</dt>
           <dd>
             @if ($errors->has('description'))
             <p class="err_message"><span>{{ $errors->first('description') }}</span></p>
             @endif
-            <textarea name="description" placeholder="詳細説明" class="{{ $errors->has('name') ? ' err' : '' }}">{{ Request::old('description') }}</textarea></dd>
+            <textarea name="description" placeholder="プロフィール" class="{{ $errors->has('description') ? ' err' : '' }}">{{ Request::old('description') }}</textarea></dd>
         </dl>
 
+        <dl class="rg_dl">
+          <dt><span>必須</span>サービス名</dt>
+          <dd>
+            @if ($errors->has('service.name'))
+            <p class="err_message"><span>{{ $errors->first('service.name') }}</span></p>
+            @endif
+            <input name="service[name]" placeholder="サービス名" class="{{ $errors->has('service.name') ? ' err' : '' }}" value="{{ Request::old('service.name') }}" /></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>カテゴリ</dt>
+          <dd>
+            @if ($errors->has('service.category'))
+            <p class="err_message"><span>{{ $errors->first('service.category') }}</span></p>
+            @endif
+            <select name="service[category]" class="{{ $errors->has('service.category') ? ' err' : '' }}">
+              <option value="">選択してください</option>
+              @foreach ($categories as $category)
+                @if ($category->children)
+                  <optgroup label="{{ $category->name }}">
+                    @foreach ($category->children as $child)
+                      <option value="{{ $child->id }}"@if (Request::old('service.category') == $child->id) selected="selected"@endif>{{ $child->name }}</option>
+                    @endforeach
+                  </optgroup>
+                @else
+                  <option value="{{ $category->id }}"@if (Request::old('service.category') == $category->id) selected="selected"@endif>{{ $category->name }}</option>
+                @endif
+              @endforeach
+            </select></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>時給</dt>
+          <dd>
+            @if ($errors->has('service.price'))
+            <p class="err_message"><span>{{ $errors->first('service.price') }}</span></p>
+            @endif
+            <input name="service[price]" placeholder="時給" class="{{ $errors->has('service.price') ? ' err' : '' }}" value="{{ Request::old('service.price') }}" /></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>詳細説明</dt>
+          <dd>
+            @if ($errors->has('service.description'))
+            <p class="err_message"><span>{{ $errors->first('service.description') }}</span></p>
+            @endif
+            <textarea name="service[description]" placeholder="詳細説明" class="{{ $errors->has('service.description') ? ' err' : '' }}">{{ Request::old('service.description') }}</textarea></dd>
+        </dl>
         <button type="submit" name="submit" id="btn_regist"><span>登録する</span></button>
       {!! Form::close() !!}
     </div>
