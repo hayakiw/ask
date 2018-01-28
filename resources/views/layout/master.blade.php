@@ -10,22 +10,43 @@
     <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
 
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" >
+    <link rel="stylesheet" href="{{ asset('css/stylesheets.css') }}" type="text/css" >
+
     <!--[if lt IE 9]>
     <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/respond.min.js') }}"></script>
     <![endif]-->
   </head>
   <body>
-      <ul class="navbar-nav mr-auto">
-      @if (Auth::guard('web')->check())
-        <li><a href="#" class="username">{{ Auth::guard('web')->user()->name }}</a></li>
-        <li><a href="{{ route('item.create') }}">サービス登録</a></li>
-        <li><a href="{{ route('auth.signout') }}" class="logout">ログアウト</a></li>
-      @else
-        <li><a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a></li>
-        <li><a href="{{ route('user.create') }}" class="exhibit">新規登録</a></li>
-      @endif
-      </ul>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{{ route('root.index') }}">トップ</a></li>
+            <li><a href="{{ route('item.index') }}">一覧</a></li>
+            <li><a href="{{ route('contact.create') }}">お問い合わせ</a></li>
+            <li><a href="{{ route('static.agreement') }}">利用規約</a></li>
+            <li><a href="{{ route('static.privacy') }}">プライバシーポリシー</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+          @if (Auth::guard('web')->check())
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('web')->user()->email }} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
+              </ul>
+            </li>
+          @endif
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="content">
 
     @if (session('info'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -39,9 +60,6 @@
     </div>
     @endif
 
-
-
-
     @if (isset($layout['left_search']) && $layout['left_search'])
     <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">
       <div class="sidebar">
@@ -53,6 +71,9 @@
     @endif
 
     @yield('content')
+
+      </div>
+    </div><!-- /.container -->
 
     <footer>
     </footer>

@@ -11,5 +11,5 @@
 ?>
 
 @section('content')
-サービス一覧
+<h1>サービス一覧</h1>
 @endsection
