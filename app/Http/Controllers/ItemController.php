@@ -15,7 +15,12 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return view('item.index');
+        $items = Item::query();
+        $items = $items->orderBy('id', 'desc')->paginate(100)->setPath('');
+        return view('item.index')
+            ->with([
+            'items' => $items,
+        ]);
     }
 
     public function create()
