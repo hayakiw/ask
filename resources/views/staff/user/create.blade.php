@@ -43,6 +43,15 @@
         </dl>
 
         <dl class="rg_dl">
+          <dt><span>必須</span>都道府県</dt>
+          <dd>
+            @if ($errors->has('prefecture'))
+            <p class="err_message"><span>{{ $errors->first('prefecture') }}</span></p>
+            @endif
+            <input type="text" name="prefecture" placeholder="都道府県" value="{{ Request::old('prefecture') }}" class="{{ $errors->has('prefecture') ? ' err' : '' }}" /></dd>
+        </dl>
+
+        <dl class="rg_dl">
           <dt><span>必須</span>エリア</dt>
           <dd>
             @if ($errors->has('area'))

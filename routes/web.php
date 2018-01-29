@@ -60,9 +60,33 @@ Route::get('privacy', [
 
 
 Route::group(['middleware' => ['guest:web']], function () {
+    Route::get('signin', [
+        'as' => 'auth.signin_form',
+        'uses' => 'AuthController@signinForm',
+    ]);
+
+    Route::post('signin', [
+        'as' => 'auth.signin',
+        'uses' => 'AuthController@signin',
+    ]);
+
+    // 会員登録
+    Route::get('user/create', [
+        'as' => 'user.create',
+        'uses' => 'UserController@create',
+    ]);
+
+    Route::post('user', [
+        'as' => 'user.store',
+        'uses' => 'UserController@store',
+    ]);
 });
 
 Route::group(['middleware' => ['auth:web']], function () {
+    Route::get('signout', [
+        'as' => 'auth.signout',
+        'uses' => 'AuthController@signout',
+    ]);
 });
 
 
@@ -197,6 +221,9 @@ Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
 
         // スタッフ管理
         Route::resource('staffs', 'StaffController');
+
+        // スタッフ管理
+        Route::resource('users', 'UserController');
 
         Route::post('staffs/cancel/{staff?}', [
             'as' => 'staffs.cancel',

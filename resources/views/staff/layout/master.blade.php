@@ -10,22 +10,44 @@
     <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
 
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" >
+    <link rel="stylesheet" href="{{ asset('css/stylesheets.css') }}" type="text/css" >
+
     <!--[if lt IE 9]>
     <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/respond.min.js') }}"></script>
     <![endif]-->
   </head>
   <body>
-      <ul class="navbar-nav mr-auto">
-      @if (Auth::guard('web')->check())
-        <li><a href="#" class="username">{{ Auth::guard('staff')->user()->name }}</a></li>
-        <li><a href="{{ route('item.create') }}">サービス登録</a></li>
-        <li><a href="{{ route('staff.auth.signout') }}" class="logout">ログアウト</a></li>
-      @else
-        <li><a href="{{ route('staff.auth.signin') }}" class="exhibit">ログイン</a></li>
-        <li><a href="{{ route('staff.user.create') }}" class="exhibit">新規登録</a></li>
-      @endif
-      </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+          @if (Auth::guard('staff')->check())
+          <ul class="nav navbar-nav">
+            <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
+            <li><a href="{{ route('item.create') }}">サービス登録</a></li>
+          </ul>
+          @endif
+
+          <ul class="nav navbar-nav navbar-right">
+          @if (Auth::guard('staff')->check())
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->email }} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('staff.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
+              </ul>
+            </li>
+          @else
+            <li><a href="{{ route('staff.auth.signin') }}" class="exhibit">ログイン</a></li>
+            <li><a href="{{ route('staff.user.create') }}" class="exhibit">新規登録</a></li>
+          @endif
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="content">
 
     @if (session('info'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -40,8 +62,6 @@
     @endif
 
 
-
-
     @if (isset($layout['left_search']) && $layout['left_search'])
     <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">
       <div class="sidebar">
@@ -54,8 +74,14 @@
 
     @yield('content')
 
+      </div>
+    </div><!-- /.container -->
+
     <footer>
     </footer>
+
+   <script src="{{ asset('js/_admin/jquery-2.2.3.min.js') }}"></script>
+   <script src="{{ asset('js/_admin/bootstrap.min.js') }}"></script>
 
     @if (isset($layout['js']))
     @foreach ($layout['js'] as $js)

@@ -9,6 +9,7 @@
 ?>
 
 @section('content')
+<h1>ログイン</h1>
 <div class="col-md-8">
   <form method="post" action="{{ route('staff.auth.signin') }}">
     {{ csrf_field() }}

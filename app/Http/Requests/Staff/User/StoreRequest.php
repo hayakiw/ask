@@ -30,6 +30,10 @@ class StoreRequest extends Request
                 'required',
                 'max:50',
             ],
+            'prefecture' => [
+                'required',
+                'max:50',
+            ],
             'area' => [
                 'required',
                 'max:50',

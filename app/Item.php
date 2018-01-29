@@ -15,8 +15,8 @@ class Item extends Model
     protected $fillable = [
         'staff_id', 'category_id',
         'title', 'image',
-        'hours', 'price', 'max_hours',
-        'area', 'location', 'description',
+        'price', 'max_hours',
+        'prefecture', 'area', 'location', 'description',
     ];
 
     protected static $meetingTypes = [

@@ -28,7 +28,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'name', 'area', 'description',
+            'name', 'area', 'prefecture', 'description',
             'email', 'password',
         ]);
 
@@ -43,15 +43,14 @@ class UserController extends Controller
         \DB::beginTransaction();
 
         if ($user = Staff::create($userData)) {
-
             $serviceData = [
                 'staff_id' => $user->id,
                 'category_id' => $request->input('service.category'),
                 'title' => $request->input('service.name'),
                 'image' => '',
-                'hours' => '',
                 'price' => $request->input('service.price'),
                 'max_hours' => '',
+                'prefecture' => $userData['prefecture'],
                 'area' => $user->area,
                 'location' => '',
                 'description' => $request->input('service.description'),
@@ -66,7 +65,7 @@ class UserController extends Controller
 
                 // send mail
                 Mail::send(
-                    ['text' => 'mail.user_created'],
+                    ['text' => 'staff.mail.user_created'],
                     compact('token', 'user'),
                     function ($m) use ($user) {
                         $m->from(
@@ -84,7 +83,7 @@ class UserController extends Controller
                 //auth()->guard('web')->loginUsingId($user->getKey());
                 return redirect()
                     // ->route('user.auth.signin')
-                    ->route('auth.signin_form')
+                    ->route('staff.auth.signin_form')
                     ->with(['info' => '確認メールを送信しました。'])
                 ;
             }
