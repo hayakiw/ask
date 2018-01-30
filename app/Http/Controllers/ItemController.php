@@ -23,28 +23,22 @@ class ItemController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        return view('item.create');
-    }
-
-    public function store(ItemRequest\StoreRequest $request)
-    {
-
-    }
-
-    public function edit($id)
-    {
-        return view('item.edit');
-    }
-
-    public function update(ItemRequest\UpdateRequest $request)
-    {
-
-    }
-
     public function show($id)
     {
-        return view('item.show');
+        $item = Item::findOrFail($id);
+        return view('item.show')
+            ->with([
+            'item' => $item,
+        ]);
+    }
+
+    public function order(ItemRequest\OrderRequest $request)
+    {
+       $orderData = $request->only([
+            'hours',
+            'price',
+            'use_at',
+            'comment'
+       ]);
     }
 }
