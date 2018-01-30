@@ -80,8 +80,8 @@
     <footer>
     </footer>
 
-   <script src="{{ asset('js/_admin/jquery-2.2.3.min.js') }}"></script>
-   <script src="{{ asset('js/_admin/bootstrap.min.js') }}"></script>
+   <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     @if (isset($layout['js']))
     @foreach ($layout['js'] as $js)

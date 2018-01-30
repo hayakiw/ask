@@ -74,8 +74,8 @@ class CreateTables extends Migration
             $t->string('email');
             $t->string('password', 255);
 
-            $t->string('last_name', 255);
-            $t->string('first_name', 255);
+            $t->string('last_name', 255)->nullable();
+            $t->string('first_name', 255)->nullable();
 
             $t->rememberToken();
 

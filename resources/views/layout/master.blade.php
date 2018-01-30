@@ -39,6 +39,9 @@
                 <li><a href="{{ route('auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
               </ul>
             </li>
+          @else
+          <li><a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a></li>
+          <li><a href="{{ route('user.create') }}" class="exhibit">新規登録</a></li>
           @endif
           </ul>
         </div><!--/.nav-collapse -->
@@ -78,8 +81,8 @@
     <footer>
     </footer>
 
-   <script src="{{ asset('js/_admin/jquery-2.2.3.min.js') }}"></script>
-   <script src="{{ asset('js/_admin/bootstrap.min.js') }}"></script>
+   <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     @if (isset($layout['js']))
     @foreach ($layout['js'] as $js)

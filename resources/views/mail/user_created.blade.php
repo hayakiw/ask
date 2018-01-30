@@ -1,9 +1,6 @@
-{{ $user->name }} さん、こんにちは！
+{{ $user->email }} さん、こんにちは！
 
-▼確認URL▼
-{{ route('user.confirmation', ['token' => $token]) }}
-
-
+登録が完了しました。
 {{ route('root.index') }}
 
 

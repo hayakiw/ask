@@ -70,6 +70,27 @@ Route::group(['middleware' => ['guest:web']], function () {
         'uses' => 'AuthController@signin',
     ]);
 
+    // パスワード再設定
+    Route::get('reset_password/request', [
+        'as' => 'reset_password.request_form',
+        'uses' => 'ResetPasswordController@requestForm',
+    ]);
+
+    Route::post('reset_password/request', [
+        'as' => 'reset_password.request',
+        'uses' => 'ResetPasswordController@request',
+    ]);
+
+    Route::get('reset_password/reset/{token?}', [
+        'as' => 'reset_password.reset_form',
+        'uses' => 'ResetPasswordController@resetForm',
+    ]);
+
+    Route::put('reset_password/reset', [
+        'as' => 'reset_password.reset',
+        'uses' => 'ResetPasswordController@reset',
+    ]);
+
     // 会員登録
     Route::get('user/create', [
         'as' => 'user.create',
