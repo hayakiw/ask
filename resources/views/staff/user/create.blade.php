@@ -48,7 +48,13 @@
             @if ($errors->has('prefecture'))
             <p class="err_message"><span>{{ $errors->first('prefecture') }}</span></p>
             @endif
-            <input type="text" name="prefecture" placeholder="都道府県" value="{{ Request::old('prefecture') }}" class="{{ $errors->has('prefecture') ? ' err' : '' }}" /></dd>
+            <select  name="prefecture" class="{{ $errors->has('prefecture') ? ' err' : '' }}">
+              <option value="">選択してください</option>
+              @foreach(App\Staff::getPrefuctuers() as $prefucture)
+                <option value="{{ $prefucture }}"@if(Request::old('prefecture') == $prefucture) selected="selected"@endif>{{ $prefucture }}</option>
+              @endforeach
+            </select>
+          </dd>
         </dl>
 
         <dl class="rg_dl">
@@ -57,7 +63,13 @@
             @if ($errors->has('area'))
             <p class="err_message"><span>{{ $errors->first('area') }}</span></p>
             @endif
-            <input type="text" name="area" placeholder="エリア" value="{{ Request::old('area') }}" class="{{ $errors->has('area') ? ' err' : '' }}" /></dd>
+            <select  name="area" class="{{ $errors->has('prefecture') ? ' err' : '' }}">
+              <option value="">選択してください</option>
+              @foreach(App\Staff::getAreas() as $area)
+                <option value="{{ $area }}"@if(Request::old('area') == $area) selected="selected"@endif>{{ $area }}</option>
+              @endforeach
+            </select>
+          </dd>
         </dl>
 
         <dl class="rg_dl">

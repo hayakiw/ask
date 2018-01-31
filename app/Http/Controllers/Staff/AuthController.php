@@ -33,13 +33,13 @@ class AuthController extends Controller
             $this->clearLoginAttempts($request);
 
             $user = auth()->user();
-            if (! $user->isConfimarted()) {
+            /*if (! $user->isConfimarted()) {
                 auth()->guard('staff')->logout();
                 return redirect()
                     ->route('auth.signin')
                     ->with('info', 'メール認証を完了してください。')
                     ;
-            }
+            }*/
 
             return redirect()
                 ->intended('/my')

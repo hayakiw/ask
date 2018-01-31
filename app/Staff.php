@@ -54,6 +54,11 @@ class Staff extends Authenticatable
         return static::$areas[$prefucture];
     }
 
+    public static function getAreas()
+    {
+        return ['西部', '中部', '東部'];
+    }
+
     public function isConfimarted()
     {
         return !empty($this->confimarted_at);
