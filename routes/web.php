@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth:web']], function () {
         'as' => 'auth.signout',
         'uses' => 'AuthController@signout',
     ]);
-
+    
     Route::post('item/order', [
         'as' => 'item.order',
         'uses' => 'ItemController@order',

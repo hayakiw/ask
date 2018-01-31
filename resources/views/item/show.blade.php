@@ -11,10 +11,19 @@
 
 @section('content')
 <h1>{{ $item->title }}</h1>
-{{ $item->description}}
+価格:{{ $item->price }}<br>
+最大利用時間:{{ $item->max_hours }}<br>
+地域:{{ $item->prefecture }}({{ $item->area }})<br>
+説明:<br>
+{{ $item->description}}<br>
 
 
+@if (!Auth::guard('web')->check())
+<br>
+<a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a>または
+<a href="{{ route('user.create') }}" class="exhibit">新規登録</a>
 
+@else
 {{ Form::model($item, ['route' => ['item.order', '?' . http_build_query($_GET)] , 'method' => 'post']) }}
 @include('item._form', ['item' => $item])
 
@@ -22,4 +31,5 @@
   <button type="submit" class="btn btn-primary"><span>依頼する</span></button>
 </div>
 {!! Form::close() !!}
+@endif
 @endsection
