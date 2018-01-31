@@ -118,7 +118,7 @@ class UserController extends Controller
 
         auth()->guard('staff')->loginUsingId($staff->getKey());
 
-        return redirect()->route('root.index')->with(
+        return redirect()->route('staff.root.index')->with(
             'info',
             '認証を確認しました。'
         );
@@ -143,7 +143,7 @@ class UserController extends Controller
         if ($user->update($userData)) {
 
             return redirect()
-                ->route('user.show')
+                ->route('staff.user.show')
                 ->with(['info' => 'プロフィールを変更しました。'])
             ;
         }
@@ -189,7 +189,7 @@ class UserController extends Controller
             );
 
             return redirect()
-                ->route('auth.signin')
+                ->route('staff.auth.signin')
                 ->with(['info' => '確認メールを送信しました。'])
                 ;
         }
@@ -224,13 +224,13 @@ class UserController extends Controller
 
 
         if ($user->isSeller()){
-            return redirect()->route('seller.my.index')->with(
+            return redirect()->route('staff.my.index')->with(
                 'info',
                 'メールアドレスを変更しました。'
             );
         }
 
-        return redirect()->route('my.index')->with(
+        return redirect()->route('staff.my.index')->with(
             'info',
             'メールアドレスを変更しました。'
         );
@@ -252,7 +252,7 @@ class UserController extends Controller
             ];
             if ($user->update($userData)) {
                 return redirect()
-                    ->route('user.show')
+                    ->route('staff.user.show')
                     ->with(['info' => 'パスワードを変更しました。'])
                     ;
             }

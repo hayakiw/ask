@@ -20,3 +20,4 @@ package-lock.json
 /package
 /logs
 /cgi-bin/contact/data
+.DS_Store
