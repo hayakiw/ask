@@ -25,7 +25,7 @@
           @if (Auth::guard('staff')->check())
           <ul class="nav navbar-nav">
             <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
-            <li><a href="{{ route('item.create') }}">サービス登録</a></li>
+            <li><a href="{{ route('staff.item.create') }}">サービス登録</a></li>
           </ul>
           @endif
 

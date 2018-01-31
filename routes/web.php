@@ -188,7 +188,7 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
         Route::resource(
             'item',
             'ItemController',
-            ['except' => ['index', 'show']]
+            ['as' => 'staff']
         );
     });
 });
