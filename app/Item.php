@@ -25,6 +25,15 @@ class Item extends Model
         'メッセージ',
     ];
 
+    protected static $areas = [
+        '西部', '中部', '東部',
+    ];
+
+    public static function getAreas()
+    {
+        return static::$areas;
+    }
+
     public static function getMeetingTypes()
     {
         return static::$meetingTypes;

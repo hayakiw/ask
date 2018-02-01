@@ -51,7 +51,7 @@ class UserController extends Controller
                 'image' => '',
                 'price' => $request->input('service.price'),
                 'max_hours' => $request->input('service.max_hours'),
-                'location' => $request->input('service.max_hours'),
+                'location' => $request->input('service.location'),
                 'description' => $request->input('service.description'),
             ];
 

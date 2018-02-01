@@ -14,10 +14,25 @@ use App\Order;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->only([
+            'category'
+        ]);
+
         $items = Item::query();
-        $items = $items->orderBy('id', 'desc')->paginate(100)->setPath('');
+        $items = $items->orderBy('id', 'desc');
+
+        if (isset($search['category_id']) && $search['category_id'] != ''){
+            $items = $items->where('category_id', '=', $search['category_id']);
+        }
+
+        if (isset($search['area']) && $search['area'] != ''){
+            $items = $items->where('area', '=', $search['area']);
+        }
+
+        $items = $items->paginate(100)->setPath('');
+
         return view('item.index')
             ->with([
             'items' => $items,
