@@ -21,12 +21,13 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-      <a class="navbar-brand" href="{{ route('staff.root.index') }}">スタッフ画面</a>
+      <a class="navbar-brand" href="{{ route('staff.root.index') }}">スタッフ専用画面</a>
         <div id="navbar" class="collapse navbar-collapse">
           @if (Auth::guard('staff')->check())
           <ul class="nav navbar-nav">
             <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
-            <li><a href="{{ route('staff.item.create') }}">サービス登録</a></li>
+            <li><a href="{{ route('staff.item.create') }}">サービス管理(TODO: 登録、編集、削除)</a></li>
+            <li><a href="{{ route('staff.item.create') }}">依頼管理(TODO: 依頼、振込待、終了)</a></li>
           </ul>
           @endif
 
