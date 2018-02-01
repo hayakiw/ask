@@ -30,6 +30,14 @@ class UpdateRequest extends Request
                 'required',
                 'max:50',
             ],
+            'area' => [
+                'required',
+                'max:50',
+            ],
+            'description' => [
+                'required',
+                'max:1000',
+            ],
         ];
     }
 
@@ -41,8 +49,12 @@ class UpdateRequest extends Request
     public function messages()
     {
         return [
-            'name.required' => '“姓"は必ず入力してください',
-            'name.max' => '“姓"は:max文字以内で入力してください',
+            'name.required' => '"名前"は必ず入力してください',
+            'name.max' => '"名前"は:max文字以内で入力してください',
+            'area.required' => '"エリア"は必ず入力してください',
+            'area.max' => '"エリア"は:max文字以内で入力してください',
+            'description.required' => '"プロフィール"は必ず入力してください',
+            'description.max' => '"プロフィール"は:max文字以内で入力してください',
         ];
     }
 }

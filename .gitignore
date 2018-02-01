@@ -7,13 +7,6 @@ Homestead.yaml
 package-lock.json
 .env
 .vagrant/
-/public/build
-/public/css/app.css
-/public/css/app.css.map
-/public/css/_admin
-/public/js/app.js
-/public/js/app.js.map
-/public/js/_admin
 /.php_cs.cache
 /public/image/*
 /storage/image

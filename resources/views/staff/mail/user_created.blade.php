@@ -1,8 +1,5 @@
 {{ $user->name }} さん、こんにちは！
 
-▼確認URL▼
-{{ route('staff.user.confirmation', ['token' => $token]) }}
-
 
 {{ route('staff.root.index') }}
 

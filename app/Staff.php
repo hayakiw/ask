@@ -27,11 +27,16 @@ class Staff extends Authenticatable
         'email', 'password',
         'name', 'description', 'area',
         'confirmation_token', 'confirmation_sent_at',
+        'confimarted_at',
+        'bank_name',
+        'bank_branch_name',
+        'bank_account_number',
+        'bank_account_last_name',
+        'bank_account_first_name',
     ];
 
     protected $hidden = [
         'password',
-        'confimarted_at',
         'reset_password_token',
         'remember_token',
         'change_email_token',
@@ -66,5 +71,10 @@ class Staff extends Authenticatable
 
     public function items(){
         return $this->hasMany('App\Item');
+    }
+
+    public function getFullBankAccountName()
+    {
+        return $this->bank_account_last_name . ' ' . $this->bank_account_first_name;
     }
 }

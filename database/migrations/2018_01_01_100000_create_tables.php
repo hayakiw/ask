@@ -107,12 +107,9 @@ class CreateTables extends Migration
             $t->string('title', 255)->comment('タイトル');
             $t->string('image', 255)->comment('画像');
 
-            $t->string('prefecture', 255)->comment('県');
-            $t->string('area', 255)->comment('エリア');
-
+            $t->string('location', 255)->comment('場所の詳細');
             $t->string('price', 10)->comment('1時間あたりの価格');
             $t->string('max_hours', 10)->comment('購入可能な時間');
-            $t->string('location', 255)->comment('場所の詳細（例: 米子、Skype、電話、メッセージなど）');
 
             $t->text('description')->comment('詳細説明');
 

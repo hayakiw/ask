@@ -21,6 +21,7 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
+      <a class="navbar-brand" href="{{ route('staff.root.index') }}">スタッフ画面</a>
         <div id="navbar" class="collapse navbar-collapse">
           @if (Auth::guard('staff')->check())
           <ul class="nav navbar-nav">
@@ -34,6 +35,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->email }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('staff.user.show') }}"><i class="fa fa-user"></i> プロフィール</a></li>
                 <li><a href="{{ route('staff.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
               </ul>
             </li>

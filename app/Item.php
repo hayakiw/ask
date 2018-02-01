@@ -16,7 +16,7 @@ class Item extends Model
         'staff_id', 'category_id',
         'title', 'image',
         'price', 'max_hours',
-        'prefecture', 'area', 'location', 'description',
+        'location', 'description',
     ];
 
     protected static $meetingTypes = [

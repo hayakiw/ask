@@ -45,15 +45,7 @@
         <dl class="rg_dl">
           <dt><span>必須</span>都道府県</dt>
           <dd>
-            @if ($errors->has('prefecture'))
-            <p class="err_message"><span>{{ $errors->first('prefecture') }}</span></p>
-            @endif
-            <select  name="prefecture" class="{{ $errors->has('prefecture') ? ' err' : '' }}">
-              <option value="">選択してください</option>
-              @foreach(App\Staff::getPrefuctuers() as $prefucture)
-                <option value="{{ $prefucture }}"@if(Request::old('prefecture') == $prefucture) selected="selected"@endif>{{ $prefucture }}</option>
-              @endforeach
-            </select>
+            鳥取県
           </dd>
         </dl>
 
@@ -119,6 +111,24 @@
             <p class="err_message"><span>{{ $errors->first('service.price') }}</span></p>
             @endif
             <input name="service[price]" placeholder="時給" class="{{ $errors->has('service.price') ? ' err' : '' }}" value="{{ Request::old('service.price') }}" /></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>最高時間</dt>
+          <dd>
+            @if ($errors->has('service.max_hours'))
+            <p class="err_message"><span>{{ $errors->first('service.max_hours') }}</span></p>
+            @endif
+            <input name="service[max_hours]" placeholder="最高時間" class="{{ $errors->has('service.max_hours') ? ' err' : '' }}" value="{{ Request::old('service.max_hours') }}" /></dd>
+        </dl>
+
+        <dl class="rg_dl">
+          <dt><span>必須</span>詳細な場所</dt>
+          <dd>
+            @if ($errors->has('service.location'))
+            <p class="err_message"><span>{{ $errors->first('service.location') }}</span></p>
+            @endif
+            <input name="service[location]" placeholder="住所" class="{{ $errors->has('service.location') ? ' err' : '' }}" value="{{ Request::old('service.location') }}" /></dd>
         </dl>
 
         <dl class="rg_dl">

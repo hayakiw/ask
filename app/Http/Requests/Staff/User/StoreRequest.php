@@ -30,10 +30,6 @@ class StoreRequest extends Request
                 'required',
                 'max:50',
             ],
-            'prefecture' => [
-                'required',
-                'max:50',
-            ],
             'area' => [
                 'required',
                 'max:50',
@@ -61,6 +57,15 @@ class StoreRequest extends Request
             ],
             'service.price' => [
                 'required',
+                'integer',
+            ],
+            'service.max_hours' => [
+                'required',
+                'integer',
+            ],
+            'service.location' => [
+                'required',
+                'max:100',
             ],
             'service.description' => [
                 'required',
@@ -92,6 +97,11 @@ class StoreRequest extends Request
             'service.name.required' => '"サービス名"は必ず入力してください',
             'service.category.required' => '"カテゴリ"は必ず入力してください',
             'service.price.required' => '"時給"は必ず入力してください',
+            'service.price.integer' => '"時給"は数値で入力してください',
+            'service.max_hours.required' => '"時給"は必ず入力してください',
+            'service.max_hours.integer' => '"時給"は数値で入力してください',
+            'service.location.required' => '"詳細場所"は必ず入力してください',
+            'service.location.max' => '"詳細場所"は:max文字以内で入力してください',
             'service.description.required' => '"詳細説明"は必ず入力してください',
         ];
     }

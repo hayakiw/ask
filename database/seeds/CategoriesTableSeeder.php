@@ -9,19 +9,18 @@ class CategoriesTableSeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'parent1',
+                'name' => '家庭教師',
                 'children' => [
-                  'child1A',
-                  'child1B',
-                  'childC',
+                  '英語',
+                  '数学',
+                  '社会',
                 ],
             ],
             [
-                'name' => 'parent2',
+                'name' => '配達',
                 'children' => [
-                  'child2A',
-                  'child2B',
-                  'childC',
+                  'チラシ',
+                  '食品',
                 ],
             ],
         ];
@@ -35,11 +34,10 @@ class CategoriesTableSeeder extends Seeder
             $current->name = $category['name'];
             $current->parent_id = null;
             $current->save();
-var_dump($current->id);
+
             if (isset($category['children']) && count($category['children']) > 0) {
                 if (!isset($current->id)) continue;
                 foreach ($category['children'] as $c_name) {
-                    $child = null;
                     $child = Category::where([
                       'name' => $c_name,
                       'parent_id' => $current->id,

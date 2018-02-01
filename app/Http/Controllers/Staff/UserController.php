@@ -28,7 +28,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'name', 'area', 'prefecture', 'description',
+            'name', 'area', 'description',
             'email', 'password',
         ]);
 
@@ -36,8 +36,9 @@ class UserController extends Controller
 
         // token
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
-        $userData['confirmation_token'] = $token;
-        $userData['confirmation_sent_at'] = Carbon::now();
+        /*$userData['confirmation_token'] = $token;
+        $userData['confirmation_sent_at'] = Carbon::now();*/
+        $userData['confimarted_at'] = Carbon::now();
 
         $errors = [];
         \DB::beginTransaction();
@@ -49,10 +50,8 @@ class UserController extends Controller
                 'title' => $request->input('service.name'),
                 'image' => '',
                 'price' => $request->input('service.price'),
-                'max_hours' => '',
-                'prefecture' => $userData['prefecture'],
-                'area' => $user->area,
-                'location' => '',
+                'max_hours' => $request->input('service.max_hours'),
+                'location' => $request->input('service.max_hours'),
                 'description' => $request->input('service.description'),
             ];
 
@@ -79,11 +78,9 @@ class UserController extends Controller
                     }
                 );
 
-                // ログイン状態にしてリダイレクト
-                //auth()->guard('web')->loginUsingId($user->getKey());
+                auth()->guard('staff')->loginUsingId($user->getKey());
                 return redirect()
-                    // ->route('user.auth.signin')
-                    ->route('staff.auth.signin_form')
+                    ->route('staff.root.index')
                     ->with(['info' => '確認メールを送信しました。'])
                 ;
             }
@@ -126,13 +123,13 @@ class UserController extends Controller
 
     public function edit()
     {
-        $staff = auth()->user();
+        $staff = auth('staff')->user();
         return view('staff.user.edit')->with(['user' => $staff]);
     }
 
     public function update(UserRequest\UpdateRequest $request)
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
 
         $userData = $request->only([
             'name', 'area', 'description',
@@ -157,13 +154,13 @@ class UserController extends Controller
 
     public function editEmail()
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
         return view('staff.user.edit_email')->with(['user' => $user]);
     }
 
     public function requestEmail(UserRequest\UpdateEmailRequest $request)
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
 
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
 
@@ -238,13 +235,13 @@ class UserController extends Controller
 
     public function editPassword()
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
         return view('staff.user.edit_password')->with(['user' => $user]);
     }
 
     public function updatePassword(UserRequest\UpdatePasswordRequest $request)
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
 
         if (\Hash::check($request->get('password'), $user->password)) {
             $userData = [
@@ -264,20 +261,55 @@ class UserController extends Controller
         ;
     }
 
+    public function editBank()
+    {
+        $user = auth('staff')->user();
+        return view('staff.user.edit_bank')
+            ->with('user', $user)
+        ;
+    }
+
+    public function updateBank(UserRequest\UpdateBankRequest $request)
+    {
+        $user = auth('staff')->user();
+        $userData = $request->only([
+            'bank_name',
+            'bank_branch_name',
+            'bank_account_number',
+            'bank_account_last_name',
+            'bank_account_first_name',
+        ]);
+
+        if ($user->update($userData)){
+            return redirect()
+                ->route('staff.user.show')
+                ->with(['info' => '更新しました。'])
+            ;
+        }
+
+        return redirect()
+            ->back()
+            ->withInput($userData)
+        ;
+    }
+
     public function show()
     {
-        return view('staff.user.show');
+        $user = auth('staff')->user();
+
+        return view('staff.user.show')
+            ->with(['user' => $user]);
     }
 
     public function cancelForm()
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
         return view('staff.user.cancel_form')->with(['user' => $user]);
     }
 
     public function cancel(UserRequest\CancelRequest $request)
     {
-        $user = auth()->user();
+        $user = auth('staff')->user();
 
         if (\Hash::check($request->get('password'), $user->password)) {
             $userData = $request->only(['canceled_reason', 'canceled_other_reason']);

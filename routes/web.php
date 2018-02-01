@@ -178,6 +178,68 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
             'uses' => 'RootController@index',
         ]);
 
+        Route::get('user/show', [
+            'as' => 'staff.user.show',
+            'uses' => 'UserController@show',
+        ]);
+
+        // プロフィール編集
+        Route::get('user/edit', [
+            'as'   => 'staff.user.edit',
+            'uses' => 'UserController@edit',
+        ]);
+
+        // プロフィール更新
+        Route::put('user/update', [
+            'as'   => 'staff.user.update',
+            'uses' => 'UserController@update',
+        ]);
+
+        //口座情報 編集
+        Route::get('user/edit_bank', [
+            'as' => 'staff.user.edit_bank',
+            'uses' => 'UserController@editBank',
+        ]);
+
+        //口座情報 更新
+        Route::put('user/update_bank', [
+            'as' => 'staff.user.update_bank',
+            'uses' => 'UserController@updateBank',
+        ]);
+
+
+        //ユーザー メール変更
+        Route::get('user/edit_email', [
+            'as' => 'staff.user.edit_email',
+            'uses' => 'UserController@editEmail',
+        ]);
+
+
+        //ユーザー メール変更 メール送信
+        Route::put('user/request_email', [
+            'as' => 'staff.user.request_email',
+            'uses' => 'UserController@requestEmail',
+        ]);
+
+        //ユーザー メール変更 更新
+        Route::get('user/update_email/{token?}', [
+            'as' => 'staff.user.update_email',
+            'uses' => 'UserController@updateEmail',
+        ]);
+
+
+        //ユーザー パスワード変更
+        Route::get('user/edit_password', [
+            'as' => 'staff.user.edit_password',
+            'uses' => 'UserController@editPassword',
+        ]);
+
+        //ユーザー パスワード変更 更新
+        Route::put('user/update_password', [
+            'as' => 'staff.user.update_password',
+            'uses' => 'UserController@updatePassword',
+        ]);
+
         // マイページ
         Route::get('my', [
             'as' => 'staff.my.index',
