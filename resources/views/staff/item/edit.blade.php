@@ -11,15 +11,11 @@
 @section('content')
 <h1>サービス編集</h1>
 
-{{ Form::model($item, ['route' => ['staff.item.update', $item], 'method' => 'put']) }}
-  <input type="hidden" name="method" value="put">
-  <div><label>サービス名</label><input type="text" value="{{ $item->title }}"></div>
-  <div><label>都道府県</label><input type="text" value="{{ $item->prefecture }}"></div>
-  <div><label>エリア</label><input type="text" value="{{ $item->area }}"></div>
-  <div><label>時給</label><input type="text" value="{{ $item->price }}"></div>
+{!! Form::model($item, ['route' => ['staff.item.update', $item], 'method' => 'put', 'files' => true]) !!}
+  @include('staff.item._form', ['item' => $item])
   <div class="form-group">
-    <input type="submit" name="submit" value="submit" class="btn btn-success">
+    <input type="submit" name="submit" value="更新" class="btn btn-success">
   </div>
-{{ Form::close() }}
+{!! Form::close() !!}
 
 @endsection

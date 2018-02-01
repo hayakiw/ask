@@ -26,8 +26,8 @@
           @if (Auth::guard('staff')->check())
           <ul class="nav navbar-nav">
             <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
-            <li><a href="{{ route('staff.item.create') }}">サービス管理(TODO: 登録、編集、削除)</a></li>
-            <li><a href="{{ route('staff.item.create') }}">依頼管理(TODO: 依頼、振込待、終了)</a></li>
+            <li><a href="{{ route('staff.item.index') }}">サービス管理(TODO: 登録、編集、削除)</a></li>
+            <li><a href="{{ route('staff.item.index') }}">依頼管理(TODO: 依頼、振込待、終了)</a></li>
           </ul>
           @endif
 

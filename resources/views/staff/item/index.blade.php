@@ -10,14 +10,15 @@
 
 @section('content')
 <h1>サービス一覧</h1>
+<a href="{{ route('staff.item.create') }}" class="btn btn-default">新規登録</a>
 
 <table class="table">
   <thead>
     <tr>
       <th>サービス名</th>
-      <th>都道府県</th>
-      <th>エリア</th>
+      <th>場所の詳細</th>
       <th>時給</th>
+      <th>購入可能最大時間</th>
       <th>編集/削除</th>
     </tr>
   </thead>
@@ -25,9 +26,9 @@
     @foreach ($items as $key => $item)
     <tr>
       <td>{{ $item->title }}</td>
-      <td>{{ $item->prefecture }}</td>
-      <td>{{ $item->area }}</td>
+      <td>{{ $item->location }}</td>
       <td>{{ $item->price }}</td>
+      <td>{{ $item->max_hours }}</td>
       <td>
         <a href="{{ route('staff.item.edit', $item) }}" class="btn btn-xs btn-warning">編集</a>
         /

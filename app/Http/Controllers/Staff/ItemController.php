@@ -38,7 +38,8 @@ class ItemController extends Controller
     public function create()
     {
         $item = new Item();
-        return view('staff.item.edit', compact('item'));
+        $categories = Category::topCategories();
+        return view('staff.item.create', compact('item', 'categories'));
     }
 
     /**
@@ -47,10 +48,33 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest\StoreRequest $request)
     {
-        return redirect(route('staff.item.index'))
-            ->with('info', 'サービスを登録しました')
+        $filename = '';
+        if ($request->has('image')) {
+            $filename = $request->file('image')->store('service');
+        }
+        $serviceData = [
+            'staff_id' => auth()->guard('staff')->user()->id,
+            'category_id' => $request->input('category'),
+            'title' => $request->input('title'),
+            'image' => $filename,
+            'price' => $request->input('price'),
+            'max_hours' => $request->input('max_hours'),
+            'location' => $request->input('location'),
+            'description' => $request->input('description'),
+        ];
+
+        if ($item = Item::create($serviceData)) {
+
+            return redirect(route('staff.item.index'))
+                ->with('info', 'サービスを登録しました')
+                ;
+        }
+
+        return redirect()
+            ->back()
+            ->withErrors('サービスを登録できませんでした')
             ;
     }
 
@@ -74,7 +98,8 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::findOrFail($id);
-        return view('staff.item.edit', compact('item'));
+        $categories = Category::topCategories();
+        return view('staff.item.edit', compact('item', 'categories'));
     }
 
     /**
@@ -84,11 +109,35 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ItemRequest\UpdateRequest $request, $id)
     {
-        // $item = Item::findOrfail($id);
-        return redirect(route('staff.item.index'))
-            ->with('info', 'サービスを更新しました')
+        $item = Item::findOrfail($id);
+
+        $serviceData = [
+            'staff_id' => auth()->guard('staff')->user()->id,
+            'category_id' => $request->input('category'),
+            'title' => $request->input('title'),
+            'price' => $request->input('price'),
+            'max_hours' => $request->input('max_hours'),
+            'location' => $request->input('location'),
+            'description' => $request->input('description'),
+        ];
+
+        if ($request->has('image')) {
+            $filename = $request->file('image')->store('service');
+            $serviceData['image'] = $filename;
+        }
+
+        if ($item->update($serviceData)) {
+
+            return redirect(route('staff.item.index'))
+                ->with('info', 'サービスを更新しました')
+                ;
+        }
+
+        return redirect()
+            ->back()
+            ->withErrors('サービスを更新できませんでした')
             ;
     }
 
