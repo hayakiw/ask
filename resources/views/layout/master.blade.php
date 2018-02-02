@@ -25,7 +25,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="{{ route('root.index') }}">トップ</a></li>
-            <li><a href="{{ route('item.index') }}">一覧</a></li>
+            <li><a href="{{ route('item.index') }}">検索</a></li>
+            <li><a href="{{ route('orders.index') }}">依頼済</a></li>
             <li><a href="{{ route('contact.create') }}">お問い合わせ</a></li>
             <li><a href="{{ route('static.agreement') }}">利用規約</a></li>
             <li><a href="{{ route('static.privacy') }}">プライバシーポリシー</a></li>

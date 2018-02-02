@@ -12,11 +12,26 @@ class Order extends Model
 {
     use SoftDeletes;
 
+    const ORDER_STATUS_NEW = 'new';
+    const ORDER_STATUS_OK = 'ok';
+    const ORDER_STATUS_NG = 'ng';
+    const ORDER_STATUS_PAID = 'paid';
+    const ORDER_STATUS_ENDED = 'ended';
+
+    protected static $status = [
+        self::ORDER_STATUS_NEW => '依頼中',
+        self::ORDER_STATUS_OK => '成立',
+        self::ORDER_STATUS_NG => '不成立',
+        self::ORDER_STATUS_PAID => '入金済',
+        self::ORDER_STATUS_ENDED => '終了',
+    ];
+
     protected $fillable = [
         'user_id', 'item_id',
         'title', 'hours', 'price',
-        'use_at', 'use_at2', 'use_at3',
-        'status', 'comment',
+        'prefer_at', 'prefer_at2', 'prefer_at3',
+        'work_at',
+        'status', 'comment', 'staff_comment',
     ];
 
     protected static $meetingTypes = [
@@ -30,8 +45,18 @@ class Order extends Model
         return static::$meetingTypes;
     }
 
-    public function items()
+    public function getStatus()
     {
-        return $this->hasMany('App\Item');
+        return self::$status[$this->status];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo('App\Item');
     }
 }

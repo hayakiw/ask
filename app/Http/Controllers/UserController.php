@@ -62,7 +62,7 @@ class UserController extends Controller
                 // ログイン状態にしてリダイレクト
                 auth()->guard('web')->loginUsingId($user->getKey());
                 return redirect()
-                    ->route('items')
+                    ->route('item.index')
                     ->with(['info' => '会員登録が完了しました。'])
                 ;
             }

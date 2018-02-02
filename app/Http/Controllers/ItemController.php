@@ -54,28 +54,65 @@ class ItemController extends Controller
         $orderData = $request->only([
             'item_id',
             'hours',
-            'use_date',
-            'use_hour',
-            'use_date2',
-            'use_hour2',
-            'use_date3',
-            'use_hour3',
+            'prefer_date',
+            'prefer_hour',
+            'prefer_date2',
+            'prefer_hour2',
+            'prefer_date3',
+            'prefer_hour3',
             'comment'
         ]);
+
+        $user = auth()->user();
+        $orderData['user_id'] = $user->id;
+        $orderData['status'] = Order::ORDER_STATUS_NEW;
 
         $item = Item::findOrFail($orderData['item_id']);
         $orderData['price'] = $item->price;
         $orderData['title'] = $item->title;
-        $orderData['use_at'] = $orderData['use_date'] . " " . $orderData['use_hour'] . ":00:00";
-        if($orderData['use_date2'])
-            $orderData['use_at2'] = $orderData['use_date2'] . " " . $orderData['use_hour2'] . ":00:00";
-        if($orderData['use_date3'])
-            $orderData['use_at3'] = $orderData['use_date3'] . " " . $orderData['use_hour3'] . ":00:00";
+        $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
+        if($orderData['prefer_date2'])
+            $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
+        if($orderData['prefer_date3'])
+            $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
 
         if ($order = Order::create($orderData)) {
-            $request->session()->flash('info', '依頼しました。');
+
+            // send mail for user
+            Mail::send(
+                ['text' => 'mail.order_created'],
+                compact('order'),
+                function ($m) use ($order) {
+                    $m->from(
+                        config('my.mail.from'),
+                        config('my.mail.name')
+                    );
+                    $m->to($order->user->email, $order->user->email);
+                    $m->subject(
+                        config('my.order.created.mail_subject')
+                    );
+                }
+            );
+            // send mail for staff
+            Mail::send(
+                ['text' => 'staff.mail.order_created'],
+                compact('order'),
+                function ($m) use ($order) {
+                    $m->from(
+                        config('my.mail.from'),
+                        config('my.mail.name')
+                    );
+                    $m->to($order->item->staff->email, $order->item->staff->email);
+                    $m->subject(
+                        config('my.order.created_for_staff.mail_subject')
+                    );
+                }
+            );
+
+
+            $request->session()->flash('info', '依頼しました。結果がくるまでしばらくお待ちください。');
             return redirect()
-                ->route('item.show', $item->id)
+                ->route('root.index')
             ;
         }
         return redirect()

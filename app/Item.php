@@ -39,8 +39,8 @@ class Item extends Model
         return static::$meetingTypes;
     }
 
-    public function items()
+    public function staff()
     {
-        return $this->hasMany('App\Item');
+        return $this->belongsTo('App\Staff');
     }
 }

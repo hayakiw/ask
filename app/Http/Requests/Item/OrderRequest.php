@@ -33,25 +33,25 @@ class OrderRequest extends Request
                 'required',
                 'integer',
             ],
-            'use_date' => [
+            'prefer_date' => [
                 'required',
                 'date',
             ],
-            'use_hour' => [
+            'prefer_hour' => [
                 'required',
-                'integer',
+                'regex:/^([0-9]{2}:[0-9]{2})$/',
             ],
-            'use_date2' => [
+            'prefer_date2' => [
                 'date',
             ],
-            'use_hour2' => [
-                'integer',
+            'prefer_hour2' => [
+                'regex:/^([0-9]{2}:[0-9]{2})$/',
             ],
-            'use_date3' => [
+            'prefer_date3' => [
                 'date',
             ],
-            'use_hour3' => [
-                'integer',
+            'prefer_hour3' => [
+                'regex:/^([0-9]{2}:[0-9]{2})$/',
             ],
         ];
     }
@@ -67,14 +67,14 @@ class OrderRequest extends Request
             'item_id.required' => '"商品"は必ず選択してください',
             'hours.required' => '"利用時間"は必ず入力してください',
             'hours.integer' => '"利用時間"は整数をしてください',
-            'use_date.required' => '"利用日時(日)"は必ず入力してください',
-            'use_date.date' => '"利用日時(日)"は日付を入力してください',
-            'use_hour.required' => '"利用日時(時間)"は必ず入力してください',
-            'use_hour.integer' => '"利用日時(時間)"は整数をしてください',
-            'use_date2.date' => '"利用日時(日)"は日付を入力してください',
-            'use_hour2.integer' => '"利用日時(時間)"は整数をしてください',
-            'use_date3.date' => '"利用日時(日)"は日付を入力してください',
-            'use_hour3.integer' => '"利用日時(時間)"は整数をしてください',
+            'prefer_date.required' => '"希望日時(日)"は必ず入力してください',
+            'prefer_date.date' => '"希望日時(日)"は日付を入力してください',
+            'prefer_hour.required' => '"希望日時(時間)"は必ず入力してください',
+            'prefer_hour.regex' => '"希望日時(時間)"は時間(hh:mm)をしてください',
+            'prefer_date2.date' => '"希望日時(日)"は日付を入力してください',
+            'prefer_hour2.regex' => '"希望日時(時間)"は時間(hh:mm)をしてください',
+            'prefer_date3.date' => '"希望日時(日)"は日付を入力してください',
+            'prefer_hour3.regex' => '"希望日時(時間)"は時間(hh:mm)をしてください',
         ];
     }
 }

@@ -36,4 +36,9 @@ class User extends Authenticatable
         'remember_token',
         'change_email_token',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

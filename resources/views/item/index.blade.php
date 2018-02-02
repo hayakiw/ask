@@ -34,14 +34,6 @@
         <div>{{ $item->location }}</div>
         <div><a href="{{ route('item.show', ['item' => $item->id ]) }}" class="btn btn-success btn-sm">詳細</a></div>
     </div>
-    <div class="col-md-3">
-        <div>{{ str_limit($item->title, 50, $end = '...') }}</div>
-        <div><a href="{{ route('item.show', ['item' => $item->id ]) }}" class="btn btn-success btn-sm">詳細</a></div>
-    </div>
-    <div class="col-md-3">
-        <div>{{ str_limit($item->title, 50, $end = '...') }}</div>
-        <div><a href="{{ route('item.show', ['item' => $item->id ]) }}" class="btn btn-success btn-sm">詳細</a></div>
-    </div>
   </div>
   @endforeach
 </div>

@@ -13,7 +13,7 @@
 <h1>{{ $item->title }}</h1>
 価格:{{ $item->price }}<br>
 最大利用時間:{{ $item->max_hours }}<br>
-地域:{{ $item->prefecture }}({{ $item->area }})<br>
+地域:{{ $item->staff->prefecture }}({{ $item->staff->area }})<br>
 説明:<br>
 {{ $item->description}}<br>
 

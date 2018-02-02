@@ -113,6 +113,11 @@ Route::group(['middleware' => ['auth:web']], function () {
         'as' => 'item.order',
         'uses' => 'ItemController@order',
     ]);
+
+    // お知らせ
+    Route::resource('orders', 'OrderController', ['only' => [
+        'show', 'index',
+    ]]);
 });
 
 
@@ -252,11 +257,19 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
             'ItemController',
             ['as' => 'staff']
         );
+
+        // 認証の必要なItemページ（作成、編集、削除）
+        Route::resource('orders', 'OrderController', [
+            'as' => 'staff',
+            'only' => [
+                'show', 'index', 'update',
+            ]
+       ]);
     });
 });
 
 Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
-
+	
     Route::group(['middleware' => ['guest:admin']], function () {
 
         Route::get('signin', [

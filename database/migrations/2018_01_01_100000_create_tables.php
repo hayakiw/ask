@@ -127,13 +127,16 @@ class CreateTables extends Migration
 
             $t->string('hours', 10)->comment('時間');
             $t->string('price', 10)->comment('価格');
-            $t->datetime('use_at')->nullable()->comment('利用日時');
-            $t->datetime('use_at2')->nullable()->comment('利用日時');
-            $t->datetime('use_at3')->nullable()->comment('利用日時');
-
-            $t->string('status', 10)->comment('ステータス');
+            $t->datetime('prefer_at')->nullable()->comment('希望日時1');
+            $t->datetime('prefer_at2')->nullable()->comment('希望日時2');
+            $t->datetime('prefer_at3')->nullable()->comment('希望日時3');
 
             $t->text('comment')->comment('コメント');
+
+            $t->datetime('work_at')->nullable()->comment('作業日時');
+            $t->text('staff_comment')->nullable()->comment('コメント');
+
+            $t->string('status', 10)->comment('ステータス');
 
             $t->timestamps();
             $t->softDeletes();

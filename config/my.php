@@ -43,6 +43,27 @@ return [
         ],
     ],
 
+    'order' => [
+        'created' => [
+            'mail_subject' => env(
+                'MY_ORDER_CREATED_MAIL_SUBJECT',
+                '【xxx】依頼しました'
+            ),
+        ],
+        'created_for_staff' => [
+            'mail_subject' => env(
+                'MY_ORDER_CREATED_FOR_STAFF_MAIL_SUBJECT',
+                '【xxx】依頼が届きました'
+            ),
+        ],
+        'order_replied' => [
+            'mail_subject' => env(
+                'MY_ORDER_REPLIED_MAIL_SUBJECT',
+                '【xxx】依頼の回答が届きました'
+            ),
+        ],
+    ],
+
     'change_email_request' => [
         'mail_subject' => env(
             'MY_CHANGE_EMAIL_REQUEST_MAIL_SUBJECT',
