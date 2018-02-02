@@ -32,7 +32,8 @@
       <td>
         <a href="{{ route('staff.item.edit', $item) }}" class="btn btn-xs btn-warning">編集</a>
         /
-        <form action="{{ route('staff.item.destroy', $item) }}" method="post" style="display:inline;"><button type="button" name="delete" class="btn btn-xs btn-danger">削除</button></form>
+        {!! Form::open(['route' => ['staff.item.destroy', $item], 'method' => 'delete', 'style' => 'display:inline;']) !!}
+        <button name="delete" class="btn btn-xs btn-danger" onclick="confirm('Are you sure?');">削除</button>{!! Form::close() !!}
       </td>
     </tr>
     @endforeach

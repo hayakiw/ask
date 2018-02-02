@@ -14,7 +14,7 @@
       @if ($category->children)
         <optgroup label="{{ $category->name }}">
           @foreach ($category->children as $child)
-            <option value="{{ $child->id }}"@if (Request::old('category') == $child->id) selected="selected"@endif>{{ $child->name }}</option>
+            <option value="{{ $child->id }}"@if (Request::old('category', $item->category_id) == $child->id) selected="selected"@endif>{{ $child->name }}</option>
           @endforeach
         </optgroup>
       @else
@@ -60,5 +60,10 @@
   @if ($errors->has('image'))
   <p class="err_message"><span>{{ $errors->first('image') }}</span></p>
   @endif
-  <img src="{{ asset($item->image) }}" alt="">TODO: 画像出力
+  <br/>
+  <div class="col-md-3">
+    <div class="thumbnail">
+      <img src="{{ asset('storage/' . $item->image) }}" alt="" class="img-thumbnail small">
+    </div>
+  </div>
 </div>

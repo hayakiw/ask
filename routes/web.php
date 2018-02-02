@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth:web']], function () {
         'as' => 'auth.signout',
         'uses' => 'AuthController@signout',
     ]);
-    
+
     Route::post('item/order', [
         'as' => 'item.order',
         'uses' => 'ItemController@order',
@@ -252,11 +252,12 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
         ]);
 
         // 認証の必要なItemページ（作成、編集、削除）
-        Route::resource(
-            'item',
-            'ItemController',
-            ['as' => 'staff']
-        );
+        Route::resource('item', 'ItemController', [
+            'as' => 'staff',
+            'expect' => [
+                'show',
+            ],
+        ]);
 
         // 認証の必要なItemページ（作成、編集、削除）
         Route::resource('orders', 'OrderController', [
@@ -269,7 +270,7 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
 });
 
 Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
-	
+
     Route::group(['middleware' => ['guest:admin']], function () {
 
         Route::get('signin', [

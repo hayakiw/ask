@@ -52,7 +52,7 @@ class ItemController extends Controller
     {
         $filename = '';
         if ($request->has('image')) {
-            $filename = $request->file('image')->store('service');
+            $filename = $request->file('image')->store('service', 'public');
         }
         $serviceData = [
             'staff_id' => auth()->guard('staff')->user()->id,
@@ -76,17 +76,6 @@ class ItemController extends Controller
             ->back()
             ->withErrors('サービスを登録できませんでした')
             ;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -124,7 +113,7 @@ class ItemController extends Controller
         ];
 
         if ($request->has('image')) {
-            $filename = $request->file('image')->store('service');
+            $filename = $request->file('image')->store('service', 'public');
             $serviceData['image'] = $filename;
         }
 
@@ -149,8 +138,15 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        return redirect(route('staff.item.index'))
-            ->with('info', 'サービスを削除しました')
+        $item = Item::findOrFail($id);
+        if ($item->delete($item)) {
+            return redirect(route('staff.item.index'))
+                ->with('info', 'サービスを削除しました')
+                ;
+        }
+        return redirect()
+            ->back()
+            ->with('error', 'サービスを削除できませんでして')
             ;
     }
 }
