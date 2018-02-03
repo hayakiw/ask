@@ -52,7 +52,8 @@ class ItemController extends Controller
     {
         $filename = '';
         if ($request->has('image')) {
-            $filename = $request->file('image')->store('service', 'public');
+            $filename = $request->file('image')->move(Item::getPublicDir());
+            $filename = basename($filename);
         }
         $serviceData = [
             'staff_id' => auth()->guard('staff')->user()->id,
@@ -113,8 +114,8 @@ class ItemController extends Controller
         ];
 
         if ($request->has('image')) {
-            $filename = $request->file('image')->store('service', 'public');
-            $serviceData['image'] = $filename;
+            $filename = $request->file('image')->move(Item::getPublicDir());
+            $serviceData['image'] = basename($filename);
         }
 
         if ($item->update($serviceData)) {

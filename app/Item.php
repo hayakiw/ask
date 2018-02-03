@@ -39,6 +39,16 @@ class Item extends Model
         return static::$meetingTypes;
     }
 
+    public static function getImageDir()
+    {
+        return public_path(config('my.item.image_path'));
+    }
+
+    public function getImagePath()
+    {
+        return config('my.item.image_path') . '/' . $this->image;
+    }
+
     public function staff()
     {
         return $this->belongsTo('App\Staff');
