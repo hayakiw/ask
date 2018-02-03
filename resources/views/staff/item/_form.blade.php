@@ -63,7 +63,7 @@
   <br/>
   <div class="col-md-3">
     <div class="thumbnail">
-      <img src="{{ asset($item->getImage()) }}" alt="" class="img-thumbnail small">
+      <img src="{{ asset($item->getImagePath()) }}" alt="" class="img-thumbnail small">
     </div>
   </div>
 </div>
