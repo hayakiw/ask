@@ -23,8 +23,8 @@ class ItemController extends Controller
         $items = Item::query();
         $items = $items->orderBy('id', 'desc');
 
-        if (isset($search['category_id']) && $search['category_id'] != ''){
-            $items = $items->where('category_id', '=', $search['category_id']);
+        if (isset($search['category']) && $search['category'] != ''){
+            $items = $items->where('category_id', '=', $search['category']);
         }
 
         if (isset($search['area']) && $search['area'] != ''){
