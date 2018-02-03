@@ -27,7 +27,7 @@
             <li><a href="{{ route('root.index') }}">トップ</a></li>
             <li><a href="{{ route('item.index') }}">検索</a></li>
             <li><a href="{{ route('orders.index') }}">依頼済</a></li>
-            <li><a href="{{ route('contact.create') }}">お問い合わせ</a></li>
+            <li><a href="{{ route('contact.index') }}">お問い合わせ</a></li>
             <li><a href="{{ route('static.agreement') }}">利用規約</a></li>
             <li><a href="{{ route('static.privacy') }}">プライバシーポリシー</a></li>
           </ul>
