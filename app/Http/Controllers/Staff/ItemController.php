@@ -52,7 +52,7 @@ class ItemController extends Controller
     {
         $filename = '';
         if ($request->has('image')) {
-            $filename = $request->file('image')->move(Item::getPublicDir());
+            $filename = $request->file('image')->move(Item::getImageDir());
             $filename = basename($filename);
         }
         $serviceData = [
@@ -114,7 +114,7 @@ class ItemController extends Controller
         ];
 
         if ($request->has('image')) {
-            $filename = $request->file('image')->move(Item::getPublicDir());
+            $filename = $request->file('image')->move(Item::getImageDir());
             $serviceData['image'] = basename($filename);
         }
 

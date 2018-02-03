@@ -49,7 +49,7 @@
 </div>
 <div class="form-group">
   <label for="">詳細説明</label>
-  <input type="text" name="description" class="form-control" id="" value="{{ Request::old('description') ? Request::old('description') : $item->description }}">
+  <textarea name="description" class="form-control" rows="3" cols="80">{{ Request::old('description') ? Request::old('description') : $item->description }}</textarea>
     @if ($errors->has('description'))
     <p class="err_message"><span>{{ $errors->first('description') }}</span></p>
     @endif
@@ -63,7 +63,7 @@
   <br/>
   <div class="col-md-3">
     <div class="thumbnail">
-      <img src="{{ asset($item->getImage()) }}" alt="" class="img-thumbnail small">
+      <img src="{{ asset($item->getImagePath()) }}" alt="" class="img-thumbnail small">
     </div>
   </div>
 </div>
