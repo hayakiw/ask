@@ -118,6 +118,16 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::resource('orders', 'OrderController', ['only' => [
         'show', 'index',
     ]]);
+
+    Route::get('user/cancel', [
+        'as' => 'user.cancel_form',
+        'uses' => 'UserController@cancelForm',
+    ]);
+
+    Route::delete('user/cancel', [
+        'as' => 'user.cancel',
+        'uses' => 'UserController@cancel',
+    ]);
 });
 
 

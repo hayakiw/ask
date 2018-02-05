@@ -1,4 +1,4 @@
-@extends('staff.layout.master')
+@extends('layout.master')
 
 <?php
 
@@ -14,7 +14,7 @@
   <div class="withdrawal_box">
 
 
-      {{ Form::model($user, ['route' => 'staff.user.cancel', 'method' => 'delete']) }}
+      {{ Form::model($user, ['route' => 'user.cancel', 'method' => 'delete']) }}
         <div class="wd_inner2">
           <dl>
             <dt><span>必須</span>退会理由</dt>
@@ -48,7 +48,7 @@
               <input type="password" name="password" id="w2" autocomplete="off" placeholder="半角英数字6～20文字で入力"@if ($errors->has('password')) class="err"@endif />
             </dd>
           </dl>
-          <button type="submit" id="btn_withdrawal" disabled><span>退会する</span></button>
+          <button type="submit" id="btn_withdrawal"><span>退会する</span></button>
         </div>
       {{ Form::close() }}
 
