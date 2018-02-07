@@ -28,7 +28,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'name', 'area', 'description',
+            'last_name', 'first_name', 'area', 'description',
             'email', 'password',
         ]);
 
@@ -71,7 +71,7 @@ class UserController extends Controller
                             config('my.mail.from'),
                             config('my.mail.name')
                         );
-                        $m->to($user->email, $user->name);
+                        $m->to($user->email, $user->getName());
                         $m->subject(
                             config('my.user.created.mail_subject')
                         );
@@ -132,7 +132,7 @@ class UserController extends Controller
         $user = auth('staff')->user();
 
         $userData = $request->only([
-            'name', 'area', 'description',
+            'last_name', 'first_name', 'area', 'description',
         ]);
 
         $errors = [];
@@ -178,7 +178,7 @@ class UserController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($user->change_email, $user->name);
+                    $m->to($user->change_email, $user->getName());
                     $m->subject(
                         config('my.change_email_request.mail_subject')
                     );

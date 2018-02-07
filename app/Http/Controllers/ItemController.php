@@ -87,7 +87,7 @@ class ItemController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($order->user->email, $order->user->email);
+                    $m->to($order->user->email, $order->user->getName());
                     $m->subject(
                         config('my.order.created.mail_subject')
                     );
@@ -102,7 +102,7 @@ class ItemController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($order->item->staff->email, $order->item->staff->email);
+                    $m->to($order->item->staff->email, $order->item->staff->getName());
                     $m->subject(
                         config('my.order.created_for_staff.mail_subject')
                     );

@@ -25,7 +25,7 @@ class Staff extends Authenticatable
 
     protected $fillable = [
         'email', 'password',
-        'name', 'description', 'area',
+        'last_name', 'first_name', 'description', 'area',
         'confirmation_token', 'confirmation_sent_at',
         'confimarted_at',
         'bank_name',
@@ -71,6 +71,11 @@ class Staff extends Authenticatable
 
     public function items(){
         return $this->hasMany('App\Item');
+    }
+
+    public function getName()
+    {
+        return $this->last_name . ' ' . $this->first_name;
     }
 
     public function getFullBankAccountName()

@@ -24,10 +24,8 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'email', 'password',
+            'last_name', 'first_name', 'email', 'password',
         ]);
-        $userData['last_name'] = '';
-        $userData['first_name'] = '';
 
         $userData['password'] = bcrypt($userData['password']);
 
@@ -103,7 +101,7 @@ class UserController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($user->change_email, $user->name);
+                    $m->to($user->change_email, $user->getName());
                     $m->subject(
                         config('my.change_email_request.mail_subject')
                     );

@@ -1,4 +1,4 @@
-{{ $user->email }} さん、こんにちは！
+{{ $user->getName() }} さん、こんにちは！
 
 登録が完了しました。
 {{ route('root.index') }}

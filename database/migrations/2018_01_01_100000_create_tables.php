@@ -36,7 +36,9 @@ class CreateTables extends Migration
             $t->string('email');
             $t->string('password', 255);
 
-            $t->string('name', 255);
+            $t->string('last_name', 255)->nullable();
+            $t->string('first_name', 255)->nullable();
+
             $t->text('description')->comment('自己紹介');
             $t->string('area', 255)->comment('エリア');
 
@@ -76,6 +78,7 @@ class CreateTables extends Migration
 
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
+            $t->string('image', 255)->nullable()->comment('画像');
 
             $t->rememberToken();
 
@@ -105,7 +108,7 @@ class CreateTables extends Migration
             $t->bigInteger('category_id')->unsigned()->comment('カテゴリID');
 
             $t->string('title', 255)->comment('タイトル');
-            $t->string('image', 255)->comment('画像');
+            $t->string('image', 255)->nullable()->comment('画像');
 
             $t->string('location', 255)->comment('場所の詳細');
             $t->string('price', 10)->comment('1時間あたりの価格');

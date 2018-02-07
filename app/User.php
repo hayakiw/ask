@@ -56,6 +56,11 @@ class User extends Authenticatable
         return static::$canceled_reasons;
     }
 
+    public function getName()
+    {
+        return $this->last_name . ' ' . $this->first_name;
+    }
+
     public function isActive()
     {
         return $this->getStatus() == 'アクティブ';

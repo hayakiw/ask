@@ -77,7 +77,7 @@ class OrderController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($order->user->email, $order->user->email);
+                    $m->to($order->user->email, $order->user->getName());
                     $m->subject(
                         config('my.order.replied.mail_subject')
                     );

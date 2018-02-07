@@ -33,6 +33,22 @@
             @endif
             <input type="password" name="password" placeholder="半角英数字6～20文字で入力"@if ($errors->has('password')) class="err"@endif  /></dd>
         </dl>
+        <dl class="rg_dl">
+          <dt><span>必須</span>姓</dt>
+          <dd>
+            @if ($errors->has('last_name'))
+            <p class="err_message"><span>{{ $errors->first('last_name') }}</span></p>
+            @endif
+            <input type="text" name="last_name" placeholder="姓"@if ($errors->has('last_name')) class="err"@endif  /></dd>
+        </dl>
+        <dl class="rg_dl">
+          <dt><span>必須</span>名</dt>
+          <dd>
+            @if ($errors->has('first_name'))
+            <p class="err_message"><span>{{ $errors->first('first_name') }}</span></p>
+            @endif
+            <input type="text" name="first_name" placeholder="名"@if ($errors->has('first_name')) class="err"@endif  /></dd>
+        </dl>
         <button type="submit" name="submit" id="btn_regist"><span>登録する</span></button>
       {!! Form::close() !!}
     </div>

@@ -1,4 +1,4 @@
-{{ $user->name }} さん、こんにちは！
+{{ $user->getName() }} さん、こんにちは！
 
 ▼確認URL▼
 {{ route('staff.user.update_email', ['token' => $token]) }}
