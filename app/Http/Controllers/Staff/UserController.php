@@ -41,9 +41,19 @@ class UserController extends Controller
         $userData['confimarted_at'] = Carbon::now();
 
         $errors = [];
+        $image = $request->file('image');
+
+        if ($image && !$image->isValid()) {
+            $errors['image'] = $image->getErrorMessage();
+        }
+
         \DB::beginTransaction();
 
-        if ($user = Staff::create($userData)) {
+        if (empty($errors) && $user = Staff::create($userData)) {
+            if ($image && !$user->saveImage($image)) {
+                $errors['image'] = '保存できませんでした';
+            }
+
             $serviceData = [
                 'staff_id' => $user->id,
                 'category_id' => $request->input('service.category'),
@@ -136,14 +146,30 @@ class UserController extends Controller
         ]);
 
         $errors = [];
+        $image = $request->file('image');
 
-        if ($user->update($userData)) {
-
-            return redirect()
-                ->route('staff.user.show')
-                ->with(['info' => 'プロフィールを変更しました。'])
-            ;
+        if ($image && !$image->isValid()) {
+            $errors['image'] = $image->getErrorMessage();
         }
+
+        \DB::beginTransaction();
+
+        if (empty($errors) && $user->update($userData)) {
+            if ($image && !$user->saveImage($image)) {
+                $errors['image'] = '保存できませんでした';
+            }
+
+            if (empty($errors)) {
+                \DB::commit();
+
+                return redirect()
+                    ->route('staff.user.show')
+                    ->with(['info' => 'プロフィールを変更しました。'])
+                ;
+            }
+        }
+
+        \DB::rollBack();
 
         return redirect()
             ->back()

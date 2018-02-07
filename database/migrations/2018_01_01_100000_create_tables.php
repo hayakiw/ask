@@ -38,6 +38,7 @@ class CreateTables extends Migration
 
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
+            $t->string('image', 255)->nullable()->comment('画像');
 
             $t->text('description')->comment('自己紹介');
             $t->string('area', 255)->comment('エリア');
@@ -78,7 +79,6 @@ class CreateTables extends Migration
 
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
-            $t->string('image', 255)->nullable()->comment('画像');
 
             $t->rememberToken();
 

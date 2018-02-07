@@ -26,6 +26,9 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
+            'image' => [
+                'image',
+            ],
             'last_name' => [
                 'required',
                 'max:50',
@@ -53,6 +56,7 @@ class UpdateRequest extends Request
     public function messages()
     {
         return [
+            'image.image' => '"画像"はjpg,png,gifのいずれかを選択してください',
             'last_name.required' => '"姓"は必ず入力してください',
             'last_name.max' => '"姓"は:max文字以内で入力してください',
             'first_name.required' => '"名"は必ず入力してください',

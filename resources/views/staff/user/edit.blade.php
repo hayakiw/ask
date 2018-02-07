@@ -17,7 +17,7 @@
     <div class="rs_inner">
       <h2><span>基本情報設定</span></h2>
 
-      {{ Form::model($user, ['route' => 'staff.user.update', 'method' => 'put']) }}
+      {{ Form::model($user, ['route' => 'staff.user.update', 'method' => 'put', 'files' => true]) }}
       <div class="rs_inner2">
         <dl class="rg_dl">
           <dt><span>必須</span>姓</dt>
@@ -34,6 +34,22 @@
             <p class="err_message"><span>{{ $errors->first('first_name') }}</span></p>
             @endif
             <input type="text" name="first_name" placeholder="名" value="{{ Request::old('first_name') ?: $user->first_name }}" class="{{ $errors->has('first_name') ? ' err' : '' }}" /></dd>
+        </dl>
+        <dl class="rg_dl">
+          <dt><span>必須</span>画像</dt>
+          <dd>
+            @if ($errors->has('image'))
+            <p class="err_message"><span>{{ $errors->first('image') }}</span></p>
+            @endif
+            <input type="file" name="image" class="form-control">
+            @if ($user->image)
+            <div>
+              <div class="thumbnail">
+                <img src="{{ asset($user->imageUrl()) }}" alt="" class="img-thumbnail small">
+              </div>
+            </div>
+            @endif
+          </dd>
         </dl>
 
         <dl class="rg_dl">

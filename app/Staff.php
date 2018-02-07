@@ -82,4 +82,50 @@ class Staff extends Authenticatable
     {
         return $this->bank_account_last_name . ' ' . $this->bank_account_first_name;
     }
+
+    public function saveImage($image)
+    {
+        if (!$this->id) {
+            return false;
+        }
+
+        $this->image = $this->id . '.' . $image->guessExtension();
+
+        if (!is_dir($this->imageDir())) {
+            if (!mkdir($this->imageDir(), 0777, true)) {
+                throw new Exception('Can not create directory: ' . $this->imageDir());
+            }
+        }
+
+        $image->move($this->imageDir(), $this->image);
+
+        \Image::make($this->imagePath())
+            ->resize(480, null, function ($constraint) {
+                $constraint->aspectRatio();
+            }
+        );
+
+        $this->save();
+
+        return true;
+    }
+
+    public function imageUrl()
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        return asset(config('my.staff.image_path')) . '/' . $this->image;
+    }
+
+    public function imageDir()
+    {
+        return public_path(config('my.staff.image_path'));
+    }
+
+    public function imagePath()
+    {
+        return $this->imageDir() . '/' . $this->image;
+    }
 }

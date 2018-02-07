@@ -66,7 +66,7 @@
         <div class="row">
           @foreach(App\Staff::All() as $staff)
           <div class="col-sm-6 col-md-3">
-            <div class="thumbnail"> <img src="img/thumbnail.jpg" alt="" >
+            <div class="thumbnail"> <img src="{{ $staff->imageUrl() }}" alt="" >
               <div class="caption">
                 <h3>{{ $staff->getName() }}</h3>
                 <p>{!! nl2br(e(mb_strim($staff->description, 0, 80))) !!}</p>
