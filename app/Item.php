@@ -49,6 +49,15 @@ class Item extends Model
         return config('my.item.image_path') . '/' . $this->image;
     }
 
+    public function imageUrl()
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        return asset(config('my.item.image_path')) . '/' . $this->image;
+    }
+
     public function staff()
     {
         return $this->belongsTo('App\Staff');
