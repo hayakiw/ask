@@ -26,7 +26,15 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'name' => [
+            'image' => [
+                'required',
+                'image',
+            ],
+            'last_name' => [
+                'required',
+                'max:50',
+            ],
+            'first_name' => [
                 'required',
                 'max:50',
             ],
@@ -81,8 +89,12 @@ class StoreRequest extends Request
     public function messages()
     {
         return [
-            'name.required' => '"名前"は必ず入力してください',
-            'name.max' => '"名前"は:max文字以内で入力してください',
+            'image.required' => '"画像"は必ず選択してください',
+            'image.image' => '"画像"はjpg,png,gifのいずれかを選択してください',
+            'last_name.required' => '"姓"は必ず入力してください',
+            'last_name.max' => '"姓"は:max文字以内で入力してください',
+            'first_name.required' => '"名"は必ず入力してください',
+            'first_name.max' => '"名"は:max文字以内で入力してください',
             'area.required' => '"エリア"は必ず入力してください',
             'area.max' => '"エリア"は:max文字以内で入力してください',
             'description.required' => '"プロフィール"は必ず入力してください',

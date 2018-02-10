@@ -65,7 +65,7 @@ class OrderController extends Controller
         }
 
         if (
-            $order->status == App\Order::ORDER_STATUS_NEW
+            $order->status == Order::ORDER_STATUS_NEW
             && $order->update($orderData)
         ){
             // send mail for user
@@ -77,7 +77,7 @@ class OrderController extends Controller
                         config('my.mail.from'),
                         config('my.mail.name')
                     );
-                    $m->to($order->user->email, $order->user->email);
+                    $m->to($order->user->email, $order->user->getName());
                     $m->subject(
                         config('my.order.replied.mail_subject')
                     );

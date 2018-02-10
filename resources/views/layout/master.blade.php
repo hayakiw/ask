@@ -35,9 +35,10 @@
           <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('web')->check())
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('web')->user()->email }} <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('web')->user()->getName() }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ route('auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
+                <li><a href="{{ route('user.cancel') }}"><i class="fa fa-sign-out"></i> 退会</a></li>
               </ul>
             </li>
           @else
@@ -79,11 +80,19 @@
       </div>
     </div><!-- /.container -->
 
-    <footer>
+    <footer class="bs-docs-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
+          <!-- / .col -->
+        </div>
+        <!-- / .row -->
+      </div>
+      <!-- / .container -->
     </footer>
 
-   <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     @if (isset($layout['js']))
     @foreach ($layout['js'] as $js)

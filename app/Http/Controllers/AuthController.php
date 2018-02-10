@@ -25,6 +25,8 @@ class AuthController extends Controller
         }
 
         $credentials = $request->only('email', 'password');
+        $credentials['canceled_at'] = null;
+
         $remember = $request->has('remember');
 
         if (auth()->guard('web')->attempt($credentials, $remember)) {

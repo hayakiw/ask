@@ -1,4 +1,4 @@
-{{ $user->name }} さん、こんにちは！
+{{ $user->getName() }} さん、こんにちは！
 
 
 {{ route('staff.root.index') }}

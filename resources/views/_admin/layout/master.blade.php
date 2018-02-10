@@ -16,48 +16,46 @@
     <![endif]-->
   </head>
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-      <a class="navbar-brand" href="{{ route('staff.root.index') }}">管理画面</a>
+        <a class="navbar-brand" href="{{ route('staff.root.index') }}">管理画面</a>
         <div id="navbar" class="collapse navbar-collapse">
           @if (Auth::guard('admin')->check())
-             <ul class="nav navbar-nav">
-              <li class="nav-item {!! request()->is('_admin/orders', '_admin/orders/*') ? 'active' : '' !!}"><a class="nav-link" href="">オーダー</a></li>
-              <li class="nav-item {!! request()->is('_admin/notices', '_admin/notices/*') ? 'active' : '' !!}"><a class="nav-link" href="{{ route('notices.index') }}">お知らせ管理</a></li>
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">サービス管理</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="">オーダー</a>
-                  <a class="dropdown-item" href="">サービス</a>
-                </div>
-              </li>
+          <ul class="nav navbar-nav">
+            <li class="{!! request()->is('_admin/orders', '_admin/orders/*') ? 'active' : '' !!}"><a class="nav-link" href="">オーダー</a></li>
+            <li class="{!! request()->is('_admin/notices', '_admin/notices/*') ? 'active' : '' !!}"><a class="nav-link" href="{{ route('notices.index') }}">お知らせ管理</a></li>
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">マスタ</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="{{ route('categories.index') }}">カテゴリ</a>
-                </div>
-              </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">サービス管理 <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">オーダー</a></li>
+                <li><a href="#">サービス</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">マスタ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ route('categories.index') }}">カテゴリ</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">アカウント <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ route('users.index') }}">利用ユーザー</a></li>
+                <li><a href="{{ route('admins.index') }}">管理ユーザー</a></li>
+              </ul>
+            </li>
+          </ul>
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">アカウント</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="{{ route('users.index') }}">利用ユーザー</a>
-                  <a class="dropdown-item" href="{{ route('admins.index') }}">管理ユーザー</a>
-                </div>
-              </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('admin')->user()->email }} <span class="caret"></span></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="{{ route('_admin.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a>
-                </div>
-              </li>
-            </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('admin')->user()->email }} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('_admin.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
+              </ul>
+            </li>
+          </ul>
           @endif
         </div><!--/.nav-collapse -->
       </div>

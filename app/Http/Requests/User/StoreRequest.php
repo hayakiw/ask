@@ -26,6 +26,14 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'last_name' => [
+                'required',
+                'max:50',
+            ],
+            'first_name' => [
+                'required',
+                'max:50',
+            ],
             'email' => [
                 'required',
                 'email',
@@ -48,6 +56,10 @@ class StoreRequest extends Request
     public function messages()
     {
         return [
+            'last_name.required' => '"姓"は必ず入力してください',
+            'last_name.max' => '"姓"は:max文字以内で入力してください',
+            'first_name.required' => '"名"は必ず入力してください',
+            'first_name.max' => '"名"は:max文字以内で入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',
             'email.max' => '“メールアドレス”は:max文字以内で入力してください',

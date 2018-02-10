@@ -1,4 +1,4 @@
-{{ $order->item->staff->name }} さん、こんにちは！
+{{ $order->item->staff->getName() }} さん、こんにちは！
 
 依頼がありました。
 

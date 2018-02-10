@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email', 'password',
         'last_name', 'first_name',
         'confirmation_token', 'confirmation_sent_at',
+        'canceled_reason', 'canceled_other_reason', 'canceled_at',
     ];
 
     protected $hidden = [
@@ -37,8 +38,41 @@ class User extends Authenticatable
         'change_email_token',
     ];
 
+    protected static $canceled_reasons = [
+        '求めるサービスが見つからないため',
+        'マナー違反が多いため',
+        'サイトが使いづらいから',
+        '通知が多いから',
+        'その他',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public static function getCanceledReasons()
+    {
+        return static::$canceled_reasons;
+    }
+
+    public function getName()
+    {
+        return $this->last_name . ' ' . $this->first_name;
+    }
+
+    public function isActive()
+    {
+        return $this->getStatus() == 'アクティブ';
+    }
+
+    public function getStatus()
+    {
+        if ($this->canceled_at) {
+            return '退会済';
+        }
+        else {
+            return 'アクティブ';
+        }
     }
 }

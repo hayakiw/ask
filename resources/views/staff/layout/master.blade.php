@@ -21,7 +21,7 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-      <a class="navbar-brand" href="{{ route('staff.root.index') }}">スタッフ専用画面</a>
+        <a class="navbar-brand" href="{{ route('staff.root.index') }}">スタッフ専用画面</a>
         <div id="navbar" class="collapse navbar-collapse">
           @if (Auth::guard('staff')->check())
           <ul class="nav navbar-nav">

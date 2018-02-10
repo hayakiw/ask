@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Staff\User;
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
-use App\Staff;
+use App\User;
 
 class CancelRequest extends Request
 {
@@ -15,7 +15,7 @@ class CancelRequest extends Request
      */
     public function authorize()
     {
-        return \Auth::guard('staff')->check();
+        return \Auth::guard('web')->check();
     }
 
     /**
@@ -28,7 +28,7 @@ class CancelRequest extends Request
         return [
             'canceled_reason' => [
                 'required',
-                'in:' . implode(',', Staff::getCanceledReasons()),
+                'in:' . implode(',', User::getCanceledReasons()),
             ],
             'canceled_other_reason' => [
                 'max:500',

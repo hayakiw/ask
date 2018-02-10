@@ -1,4 +1,4 @@
-{{ $order->user->email }} さん、こんにちは！
+{{ $order->user->getName() }} さん、こんにちは！
 
 依頼の回答がとどきました。
 
