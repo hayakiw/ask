@@ -38,7 +38,7 @@ Route::get('staff/{staff}', [
 Route::resource(
     'contact',
     'ContactController',
-    ['only' => ['index']]
+    ['only' => ['index','store']]
 );
 
 
