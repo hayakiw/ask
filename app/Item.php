@@ -39,6 +39,11 @@ class Item extends Model
         return static::$meetingTypes;
     }
 
+    public function hasImage()
+    {
+        return isset($this->image) && !empty($this->image);
+    }
+
     public static function getImageDir()
     {
         return public_path(config('my.item.image_path'));
