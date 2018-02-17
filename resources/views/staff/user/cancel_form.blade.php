@@ -10,50 +10,54 @@
 
 @section('content')
 
-<section>
-  <div class="withdrawal_box">
+<h1>退会する</h1>
 
+<div class="col-md-8">
+  {{ Form::model($user, ['route' => 'staff.user.cancel', 'method' => 'delete', 'class' => 'form-horizontal']) }}
 
-      {{ Form::model($user, ['route' => 'staff.user.cancel', 'method' => 'delete']) }}
-        <div class="wd_inner2">
-          <dl>
-            <dt><span>必須</span>退会理由</dt>
-            <dd>
-              @if ($errors->has('canceled_reason'))
-              <p class="err_message"><span>{{ $errors->first('canceled_reason') }}</span></p>
-              @endif
-              <select name="canceled_reason" id="w1"@if ($errors->has('canceled_reason')) class="err"@endif>
-                <option value="">お選びください</option>
+      <div class="form-group">
+        <label for="" class="control-label col-md-4">退会理由 <span>※</span></label>
+        <div class="col-md-8">
+          <select name="canceled_reason" id="w1" class="form-control{{ ($errors->has('canceled_reason')) ? " err" : "" }}">
+            <option value="">お選びください</option>
 @foreach (\App\User::getCanceledReasons() as $reason)
 <option value="{{$reason}}"@if (Request::old('canceled_reason') === $reason) selected @endif>{{$reason}}</option>
 @endforeach
-              </select>
-            </dd>
-          </dl>
-          <dl>
-            <dt>その他の理由</dt>
-            <dd>
-              @if ($errors->has('canceled_other_reason'))
-              <p class="err_message"><span>{{ $errors->first('canceled_other_reason') }}</span></p>
-              @endif
-              <textarea name="canceled_other_reason" placeholder="500文字以内で入力"@if ($errors->has('canceled_other_reason')) class="err"@endif>{{ Request::old('canceled_other_reason') }}</textarea>
-            </dd>
-          </dl>
-          <dl>
-            <dt><span>必須</span>パスワード</dt>
-            <dd>
-              @if ($errors->has('password'))
-              <p class="err_message"><span>{{ $errors->first('password') }}</span></p>
-              @endif
-              <input type="password" name="password" id="w2" autocomplete="off" placeholder="半角英数字6～20文字で入力"@if ($errors->has('password')) class="err"@endif />
-            </dd>
-          </dl>
-          <button type="submit" id="btn_withdrawal" disabled><span>退会する</span></button>
+          </select>
+          @if ($errors->has('canceled_reason'))
+          <p class="err_message"><span>{{ $errors->first('canceled_reason') }}</span></p>
+          @endif
         </div>
-      {{ Form::close() }}
+      </div>
 
-    </div>
-  </div>
-</section>
+      <div class="form-group">
+        <label for="" class="control-label col-md-4">その他の理由</label>
+        <div class="col-md-8">
+          <textarea name="canceled_other_reason" placeholder="500文字以内で入力" class="form-control{{ ($errors->has('canceled_other_reason')) ? " err" : "" }}">{{ Request::old('canceled_other_reason') }}</textarea>
+          @if ($errors->has('canceled_other_reason'))
+          <p class="err_message"><span>{{ $errors->first('canceled_other_reason') }}</span></p>
+          @endif
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-md-4">パスワード <span>※</span></label>
+        <div class="col-md-8">
+          <input type="password" name="password" id="w2" autocomplete="off" placeholder="半角英数字6～20文字で入力" class="form-control{{ ($errors->has('password')) " err" : "" }}" />
+          @if ($errors->has('password'))
+          <p class="err_message"><span>{{ $errors->first('password') }}</span></p>
+          @endif
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+          <button type="submit" id="btn_withdrawal" class="btn btn-danger" disabled><span>退会する</span></button>
+        </div>
+      </div>
+
+  {{ Form::close() }}
+
+</div>
 
 @endsection
