@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="{{ asset ('img/favicon.ico') }}">
     <meta name="description" content="{{ isset($layout['description']) && $layout['description'] ? $layout['description'] : '' }}">
     <meta name="keywords" content="" lang="ja">
-    <title>{{ $layout['title'] ? $layout['title'] . '｜' : '' }} | スタッフ | マッチングアプリ（仮）</title>
+    <title>{{ $layout['title'] ? $layout['title'] . '｜' : '' }}スタッフ ｜ みんなのお父さん ｜ Dojo</title>
 
     <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
