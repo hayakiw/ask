@@ -49,35 +49,56 @@ class ItemController extends Controller
         ]);
     }
 
-    public function order(ItemRequest\OrderRequest $request)
+    public function pay(ItemRequest\OrderRequest $request)
     {
-        $orderData = $request->only([
-            'item_id',
-            'hours',
-            'prefer_date',
-            'prefer_hour',
-            'prefer_date2',
-            'prefer_hour2',
-            'prefer_date3',
-            'prefer_hour3',
-            'comment'
-        ]);
+      $orderData = $request->only([
+          'item_id',
+          'hours',
+          'prefer_date',
+          'prefer_hour',
+          'prefer_date2',
+          'prefer_hour2',
+          'prefer_date3',
+          'prefer_hour3',
+          'comment'
+      ]);
+
+      $user = auth()->user();
+      $orderData['user_id'] = $user->id;
+      $orderData['status'] = Order::ORDER_STATUS_NEW;
+
+      $item = Item::findOrFail($orderData['item_id']);
+      $orderData['price'] = $item->price;
+      $orderData['title'] = $item->title;
+      $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
+      if($orderData['prefer_date2'])
+          $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
+      if($orderData['prefer_date3'])
+          $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
+
+      if ($order = Order::create($orderData)) {
+          return view('item.pay')
+              ->with([
+              'order' => $order
+          ]);
+      }
+
+      return redirect()
+          ->back()
+          ->withInput($orderData)
+          ;
+    }
+
+    public function order(Request $request)
+    {
+        $orderId = $request->input('order_id');
 
         $user = auth()->user();
-        $orderData['user_id'] = $user->id;
-        $orderData['status'] = Order::ORDER_STATUS_NEW;
+        $order = Order::findOrFail($orderId); //TODO tokenなどで検索
+        $order->status = Order::ORDER_STATUS_NEW; // TODO pay requested
+        $order->save();
 
-        $item = Item::findOrFail($orderData['item_id']);
-        $orderData['price'] = $item->price;
-        $orderData['title'] = $item->title;
-        $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
-        if($orderData['prefer_date2'])
-            $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
-        if($orderData['prefer_date3'])
-            $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
-
-        if ($order = Order::create($orderData)) {
-
+        if (true) {
             // send mail for user
             Mail::send(
                 ['text' => 'mail.order_created'],
@@ -108,7 +129,6 @@ class ItemController extends Controller
                     );
                 }
             );
-
 
             $request->session()->flash('info', '依頼しました。結果がくるまでしばらくお待ちください。');
             return redirect()

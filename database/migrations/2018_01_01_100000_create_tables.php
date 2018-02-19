@@ -133,8 +133,8 @@ class CreateTables extends Migration
             $t->datetime('prefer_at')->nullable()->comment('希望日時1');
             $t->datetime('prefer_at2')->nullable()->comment('希望日時2');
             $t->datetime('prefer_at3')->nullable()->comment('希望日時3');
-
             $t->text('comment')->comment('コメント');
+            $t->string('ordered_token')->nullable()->comment('決済後確認用トークン');
 
             $t->datetime('work_at')->nullable()->comment('作業日時');
             $t->text('staff_comment')->nullable()->comment('コメント');
@@ -145,6 +145,21 @@ class CreateTables extends Migration
             $t->softDeletes();
         });
 
+        // 決済
+        Schema::create('pays', function (Blueprint $t) {
+            $t->bigIncrements('id');
+            $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
+            $t->bigInteger('order_id')->unsigned()->comment('オーダーID');
+
+            $t->string('token', 255)->comment('トークン');
+            $t->integer('amount')->nullable()->unsigned()->comment('金額');
+            $t->string('credit_id', 255)->nullable()->comment('与信ID');
+
+            $t->string('status', 10)->comment('ステータス(new, cancel, ng, paid)');
+            $t->string('error_message', 255)->comment('エラーメッセージ');
+
+            $t->timestamps();
+        });
         // カテゴリ
         Schema::create('categories', function (Blueprint $t) {
             $t->bigIncrements('id');
@@ -184,6 +199,7 @@ class CreateTables extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('items');
         Schema::dropIfExists('orders');
+        Schema::dropIfExists('pays');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('notices');
     }
