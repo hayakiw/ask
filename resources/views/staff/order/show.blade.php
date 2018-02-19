@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  @if ($order->status == App\Order::ORDER_STATUS_NEW)
+  @if ($order->status == App\Order::ORDER_STATUS_PAID)
   {{ Form::model($order, ['route' => ['staff.orders.update', $order->id . '?' . http_build_query($_GET)] , 'method' => 'put', 'class' => 'form-horizontal']) }}
   @include('staff.order._form', ['order' => $order])
 

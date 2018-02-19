@@ -11,6 +11,7 @@ use DB;
 use App\Http\Requests\Item as ItemRequest;
 use App\Item;
 use App\Order;
+use App\Pay;
 
 class ItemController extends Controller
 {
@@ -67,6 +68,9 @@ class ItemController extends Controller
       $orderData['user_id'] = $user->id;
       $orderData['status'] = Order::ORDER_STATUS_NEW;
 
+      $token = hash_hmac('sha256', Str::random(40), config('app.key'));
+      $orderData['ordered_token'] = $token;
+
       $item = Item::findOrFail($orderData['item_id']);
       $orderData['price'] = $item->price;
       $orderData['title'] = $item->title;
@@ -91,14 +95,51 @@ class ItemController extends Controller
 
     public function order(Request $request)
     {
-        $orderId = $request->input('order_id');
+        $token = $request->input('ordered_token');
+        // pay api
+        $payCard = $request->input('card');
+        $payToken = $request->input('id');
 
         $user = auth()->user();
-        $order = Order::findOrFail($orderId); //TODO tokenなどで検索
-        $order->status = Order::ORDER_STATUS_NEW; // TODO pay requested
-        $order->save();
+        $order = Order::where('ordered_token', $token)->firstOrFail();
 
-        if (true) {
+        $amount = 500;
+
+        // pay api
+        //config('my.pay.public_key')
+        $params = [
+            'amount' => $amount,
+            'currency' => 'jpy',
+            'capture' => 'false',
+            'card' => $payToken,
+        ];
+
+        $curl=curl_init(config('my.pay.charge_url'));
+        curl_setopt($curl,CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, FALSE);
+        $json= curl_exec($curl);
+        curl_close($curl);
+        $res = json_decode($json, true);
+
+        // TODO respons validation
+
+        // create pay
+        $payData = [
+            'user_id' => $user->id,
+            'order_id' => $order->id,
+            'token' => $payToken,
+            'amount' => $amount,
+            'credit_id' => $res['id'],
+            'status' => 'new',
+        ];
+
+        if ($pay = Pay::create($payData)) {
+            $order->status = Order::ORDER_STATUS_PAID;
+            $order->ordered_token = null;
+            $order->save();
+
             // send mail for user
             Mail::send(
                 ['text' => 'mail.order_created'],

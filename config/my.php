@@ -101,6 +101,14 @@ return [
     ],
 
     'pay' => [
+        'checkout_url' => env(
+            'MY_PAY_CHECKOUT_URL',
+            'https://checkout.pay.jp/'
+        ),
+        'charge_url' => env(
+            'MY_PAY_CHARGE_URL',
+            'https://api.pay.jp/v1/charge'
+        ),
         'public_key' => env(
             'MY_PAY_PUBLIC_KEY',
             'pk_test_5e1fd6047fc25f85523c7d6d'
