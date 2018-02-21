@@ -22,7 +22,7 @@ class Order extends Model
         self::ORDER_STATUS_NEW => '依頼中',
         self::ORDER_STATUS_OK => '成立',
         self::ORDER_STATUS_NG => '不成立',
-        self::ORDER_STATUS_PAID => '入金済',
+        self::ORDER_STATUS_PAID => '申請中',
         self::ORDER_STATUS_ENDED => '終了',
     ];
 
@@ -31,7 +31,7 @@ class Order extends Model
         'title', 'hours', 'price',
         'prefer_at', 'prefer_at2', 'prefer_at3',
         'work_at',
-        'status', 'comment', 'staff_comment',
+        'status', 'comment', 'staff_comment', 'ordered_token'
     ];
 
     protected static $meetingTypes = [

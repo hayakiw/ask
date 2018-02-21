@@ -11,6 +11,7 @@ use DB;
 use App\Http\Requests\Item as ItemRequest;
 use App\Item;
 use App\Order;
+use App\Pay;
 
 class ItemController extends Controller
 {
@@ -49,34 +50,95 @@ class ItemController extends Controller
         ]);
     }
 
-    public function order(ItemRequest\OrderRequest $request)
+    public function pay(ItemRequest\OrderRequest $request)
     {
-        $orderData = $request->only([
-            'item_id',
-            'hours',
-            'prefer_date',
-            'prefer_hour',
-            'prefer_date2',
-            'prefer_hour2',
-            'prefer_date3',
-            'prefer_hour3',
-            'comment'
-        ]);
+      $orderData = $request->only([
+          'item_id',
+          'hours',
+          'prefer_date',
+          'prefer_hour',
+          'prefer_date2',
+          'prefer_hour2',
+          'prefer_date3',
+          'prefer_hour3',
+          'comment'
+      ]);
+
+      $user = auth()->user();
+      $orderData['user_id'] = $user->id;
+      $orderData['status'] = Order::ORDER_STATUS_NEW;
+
+      $token = hash_hmac('sha256', Str::random(40), config('app.key'));
+      $orderData['ordered_token'] = $token;
+
+      $item = Item::findOrFail($orderData['item_id']);
+      $orderData['price'] = $item->price;
+      $orderData['title'] = $item->title;
+      $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
+      if($orderData['prefer_date2'])
+          $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
+      if($orderData['prefer_date3'])
+          $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
+
+      if ($order = Order::create($orderData)) {
+          return view('item.pay')
+              ->with([
+              'order' => $order
+          ]);
+      }
+
+      return redirect()
+          ->back()
+          ->withInput($orderData)
+          ;
+    }
+
+    public function order(Request $request)
+    {
+        $token = $request->input('ordered_token');
+        // pay api
+        $payCard = $request->input('card');
+        $payToken = $request->input('id');
 
         $user = auth()->user();
-        $orderData['user_id'] = $user->id;
-        $orderData['status'] = Order::ORDER_STATUS_NEW;
+        $order = Order::where('ordered_token', $token)->firstOrFail();
 
-        $item = Item::findOrFail($orderData['item_id']);
-        $orderData['price'] = $item->price;
-        $orderData['title'] = $item->title;
-        $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
-        if($orderData['prefer_date2'])
-            $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
-        if($orderData['prefer_date3'])
-            $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
+        $amount = 500;
 
-        if ($order = Order::create($orderData)) {
+        // pay api
+        //config('my.pay.public_key')
+        $params = [
+            'amount' => $amount,
+            'currency' => 'jpy',
+            'capture' => 'false',
+            'card' => $payToken,
+        ];
+
+        $curl=curl_init(config('my.pay.charge_url'));
+        curl_setopt($curl,CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, FALSE);
+        $json= curl_exec($curl);
+        curl_close($curl);
+        $res = json_decode($json, true);
+
+        // TODO respons validation
+
+        // create pay
+        $payData = [
+            'user_id' => $user->id,
+            'order_id' => $order->id,
+            'token' => $payToken,
+            'amount' => $amount,
+            'credit_id' => $res['id'],
+            'status' => 'new',
+        ];
+
+        if ($pay = Pay::create($payData)) {
+            $order->status = Order::ORDER_STATUS_PAID;
+            $order->ordered_token = null;
+            $order->save();
 
             // send mail for user
             Mail::send(
@@ -108,7 +170,6 @@ class ItemController extends Controller
                     );
                 }
             );
-
 
             $request->session()->flash('info', '依頼しました。結果がくるまでしばらくお待ちください。');
             return redirect()

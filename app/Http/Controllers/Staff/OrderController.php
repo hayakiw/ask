@@ -65,7 +65,7 @@ class OrderController extends Controller
         }
 
         if (
-            $order->status == Order::ORDER_STATUS_NEW
+            $order->status == Order::ORDER_STATUS_PAID
             && $order->update($orderData)
         ){
             // send mail for user

@@ -114,6 +114,11 @@ Route::group(['middleware' => ['auth:web']], function () {
         'uses' => 'ItemController@order',
     ]);
 
+    Route::post('item/pay', [
+        'as' => 'item.pay',
+        'uses' => 'ItemController@pay',
+    ]);
+
     // お知らせ
     Route::resource('orders', 'OrderController', ['only' => [
         'show', 'index',

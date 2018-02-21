@@ -24,7 +24,7 @@
 <a href="{{ route('user.create') }}" class="exhibit">新規登録</a>
 
 @else
-{{ Form::model($item, ['route' => ['item.order', '?' . http_build_query($_GET)] , 'method' => 'post']) }}
+{{ Form::model($item, ['route' => ['item.pay', '?' . http_build_query($_GET)] , 'method' => 'post']) }}
 @include('item._form', ['item' => $item])
 
 <div class="margin:20px 0;">
