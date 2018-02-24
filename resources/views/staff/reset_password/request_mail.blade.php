@@ -1,10 +1,9 @@
-※このメールはキャリタスLINQに登録されているメールアドレス宛てに自動送信しています。
 
 ▼パスワード再設定▼
 {{ route('staff.reset_form', ['token' => $token]) }}
 
 <?php
-$expiresIn = config('linq.reset_password_request.expires_in');
+$expiresIn = config('my.reset_password_request.expires_in');
 $expires = '';
 if ($expiresIn > 60) {
     $expires = floor($expiresIn / 60) . '時間';
