@@ -41,7 +41,6 @@
 
     <section class="staff-list">
       <div class="headline">
-      <h2>サービス一覧</h2>
       </div>
       <div class="container">
         <div class="row">
