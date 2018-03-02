@@ -9,10 +9,11 @@
 ?>
 
 @section('content')
+
     <section class="main-visual">
       <div class="container">
-        <div class="logo">
-          <h1 class="text-center"><img src="img/logo.png" alt=""></h1>
+        <div class="copy">
+          <h1 class="text-center"><img src="{{ asset('img/copy.png') }}" alt=""></h1>
         </div>
       </div>
       <!-- /.container -->
@@ -24,9 +25,17 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-sm-4"><img src="img/about_point_01.jpg" alt=""></div>
-          <div class="col-sm-4"><img src="img/about_point_02.jpg" alt=""></div>
-          <div class="col-sm-4"><img src="img/about_point_03.jpg" alt=""></div>
+          <div class="col-sm-12">
+            <div class="h3">「みんなのお父さん」は、家庭教師や力仕事、家事代行まで、身の回りの困りごとを片付けたいひとと、そんな困りごとのお手伝いをしたいひとをつなぐマッチングサービスです。 </div>
+            <!-- / .h3 -->
+          </div>
+          <!-- / .col-sm-12 -->
+        </div>
+        <!-- / .row -->
+        <div class="row">
+          <div class="col-sm-4"><img src="{{ asset('img/about_point_01.jpg') }}" alt=""></div>
+          <div class="col-sm-4"><img src="{{ asset('img/about_point_02.jpg') }}" alt=""></div>
+          <div class="col-sm-4"><img src="{{ asset('img/about_point_03.jpg') }}" alt=""></div>
         </div>
       </div>
       <!-- /.container -->
@@ -70,7 +79,7 @@
               <div class="caption">
                 <h3>{{ $staff->getName() }}</h3>
                 <p>{!! nl2br(e(mb_strim($staff->description, 0, 80))) !!}</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a>
+                <p><a href="" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>
               </div>
@@ -81,13 +90,12 @@
           <!-- / .col- -->
           @endforeach
 
-
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail"> <img src="img/thumbnail.jpg" alt="" >
               <div class="caption">
                 <h3>人の話し、聴きすぎおっさん</h3>
                 <p>文系職種で経験豊富、新入社員の時の営業員に始まって、営業企画、物流、人事、等々の様々な職種を一部上場企業で経験。転職も59才で経験しています。</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a>
+                <p><a href="#" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>
               </div>
@@ -101,7 +109,7 @@
               <div class="caption">
                 <h3>人の話し、聴きすぎおっさん</h3>
                 <p>文系職種で経験豊富、新入社員の時の営業員に始まって、営業企画、物流、人事、等々の様々な職種を一部上場企業で経験。転職も59才で経験しています。</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a>
+                <p><a href="#" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>
               </div>
@@ -115,7 +123,7 @@
               <div class="caption">
                 <h3>人の話し、聴きすぎおっさん</h3>
                 <p>文系職種で経験豊富、新入社員の時の営業員に始まって、営業企画、物流、人事、等々の様々な職種を一部上場企業で経験。転職も59才で経験しています。</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a>
+                <p><a href="#" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>
               </div>
@@ -129,7 +137,7 @@
               <div class="caption">
                 <h3>人の話し、聴きすぎおっさん</h3>
                 <p>文系職種で経験豊富、新入社員の時の営業員に始まって、営業企画、物流、人事、等々の様々な職種を一部上場企業で経験。転職も59才で経験しています。</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a>
+                <p><a href="#" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>
               </div>

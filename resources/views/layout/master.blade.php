@@ -20,19 +20,23 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{{ route('root.index') }}">トップ</a></li>
-            <li><a href="{{ route('item.index') }}">検索</a></li>
-            <li><a href="{{ route('orders.index') }}">依頼済</a></li>
-            <li><a href="{{ route('contact.index') }}">お問い合わせ</a></li>
-            <li><a href="{{ route('static.agreement') }}">利用規約</a></li>
-            <li><a href="{{ route('static.privacy') }}">プライバシーポリシー</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><div> <img src="{{ asset('img/logo.png') }}" alt=""></div> </a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="nav navbar-nav">
+          <li><a href="{{ route('item.index') }}">検索</a></li>
+          <li><a href="{{ route('orders.index') }}">依頼済</a></li>
+          <li><a href="{{ route('contact.index') }}">お問い合わせ</a></li>
+          <li><a href="{{ route('static.agreement') }}">利用規約</a></li>
+          <li><a href="{{ route('static.privacy') }}">プライバシーポリシー</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('web')->check())
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('web')->user()->getName() }} <span class="caret"></span></a>
@@ -45,14 +49,12 @@
           <li><a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a></li>
           <li><a href="{{ route('user.create') }}" class="exhibit">新規登録</a></li>
           @endif
-          </ul>
-        </div><!--/.nav-collapse -->
+        </ul>
       </div>
-    </nav>
-
-    <div class="container">
-      <div class="content">
-
+    </div>
+    <!-- / .container -->
+  </nav>
+  <div class="content">
     @if (session('info'))
     <div class="alert alert-success alert-dismissible" role="alert">
       {{ session('info') }}
@@ -77,28 +79,27 @@
 
     @yield('content')
 
+  </div><!-- /.content -->
+
+  <footer class="bs-docs-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
+        <!-- / .col -->
       </div>
-    </div><!-- /.container -->
+      <!-- / .row -->
+    </div>
+    <!-- / .container -->
+  </footer>
 
-    <footer class="bs-docs-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
-          <!-- / .col -->
-        </div>
-        <!-- / .row -->
-      </div>
-      <!-- / .container -->
-    </footer>
+  <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-    <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-    @if (isset($layout['js']))
-    @foreach ($layout['js'] as $js)
-    <script src="{{ asset('js/' . $js . '.js') }}"></script>
-    @endforeach
-    @endif
+  @if (isset($layout['js']))
+  @foreach ($layout['js'] as $js)
+  <script src="{{ asset('js/' . $js . '.js') }}"></script>
+  @endforeach
+  @endif
 
   </body>
 </html>
