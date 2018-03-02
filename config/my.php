@@ -107,7 +107,7 @@ return [
         ),
         'charge_url' => env(
             'MY_PAY_CHARGE_URL',
-            'https://api.pay.jp/v1/charge'
+            'https://api.pay.jp/v1/charges'
         ),
         'public_key' => env(
             'MY_PAY_PUBLIC_KEY',

@@ -156,7 +156,7 @@ class CreateTables extends Migration
             $t->string('credit_id', 255)->nullable()->comment('与信ID');
 
             $t->string('status', 10)->comment('ステータス(new, cancel, ng, paid)');
-            $t->string('error_message', 255)->comment('エラーメッセージ');
+            $t->string('error_message', 255)->nullable()->comment('エラーメッセージ');
 
             $t->timestamps();
         });

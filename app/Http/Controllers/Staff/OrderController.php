@@ -19,6 +19,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = Order::query();
+        $orders = $orders->where('status', '!=', Order::ORDER_STATUS_NEW);
         $orders = $orders->orderBy('id', 'desc');
 
         $orders = $orders->paginate(100)->setPath('');
@@ -62,6 +63,35 @@ class OrderController extends Controller
             case 3:
                 $orderData['work_at'] = $order->prefer_at3;
                 break;
+        }
+
+        // pay
+        $url = sprintf("%s/%s/capture",
+            config('my.pay.charge_url'),
+            $order->pay->credit_id
+        );
+
+        $curl=curl_init($url);
+        curl_setopt($curl,CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_USERPWD, config('my.pay.private_key'));
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $json= curl_exec($curl);
+        curl_close($curl);
+        $res = json_decode($json, true);
+
+        // TODO respons validation
+        if (isset($res['error']) || !$res['captured']) {
+            $message = '有効期限が切れています。';
+            if (@$res['error']['code'] == 'token_already_used') {
+                $message = '再度初めからやり直してください。';
+            }
+
+            $request->session()->flash('error', $message);
+            return redirect()
+                ->route('staff.orders.index')
+                ;
         }
 
         if (

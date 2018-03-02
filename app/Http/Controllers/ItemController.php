@@ -97,13 +97,13 @@ class ItemController extends Controller
     {
         $token = $request->input('ordered_token');
         // pay api
-        $payCard = $request->input('card');
-        $payToken = $request->input('id');
+        //$payCard = $request->input('card');
+        $payToken = $request->input('payjp-token');
 
         $user = auth()->user();
         $order = Order::where('ordered_token', $token)->firstOrFail();
 
-        $amount = 500;
+        $amount = $order->item->price * $order->hours;
 
         // pay api
         //config('my.pay.public_key')
@@ -116,14 +116,28 @@ class ItemController extends Controller
 
         $curl=curl_init(config('my.pay.charge_url'));
         curl_setopt($curl,CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_USERPWD, config('my.pay.private_key'));
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
         curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($curl,CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $json= curl_exec($curl);
         curl_close($curl);
+
         $res = json_decode($json, true);
 
         // TODO respons validation
+        if (isset($res['error'])) {
+            $message = '支払処理に失敗しました。';
+            if ($res['error']['code'] == 'token_already_used') {
+                $message = '再度初めからやり直してください。';
+            }
+
+            $request->session()->flash('error', $message);
+            return redirect()
+                ->route('root.index')
+                ;
+        }
 
         // create pay
         $payData = [
@@ -133,6 +147,7 @@ class ItemController extends Controller
             'amount' => $amount,
             'credit_id' => $res['id'],
             'status' => 'new',
+            'error_message' => '',
         ];
 
         if ($pay = Pay::create($payData)) {

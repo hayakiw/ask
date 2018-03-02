@@ -59,4 +59,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\Item');
     }
+
+    public function pay()
+    {
+        return $this->hasOne('App\Pay');
+    }
 }
