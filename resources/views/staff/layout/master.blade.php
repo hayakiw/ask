@@ -19,19 +19,24 @@
     <![endif]-->
   </head>
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="{{ route('staff.root.index') }}">スタッフ専用画面</a>
-        <div id="navbar" class="collapse navbar-collapse">
-          @if (Auth::guard('staff')->check())
-          <ul class="nav navbar-nav">
-            <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
-            <li><a href="{{ route('staff.item.index') }}">サービス管理(TODO: 登録、編集、削除)</a></li>
-            <li><a href="{{ route('staff.orders.index') }}">依頼管理(TODO: 依頼、振込待、終了)</a></li>
-          </ul>
-          @endif
 
-          <ul class="nav navbar-nav navbar-right">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><div> <img src="{{ asset('img/logo.png') }}" alt=""></div> </a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-menu">
+        @if (Auth::guard('staff')->check())
+        <ul class="nav navbar-nav">
+          <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
+          <li><a href="{{ route('staff.item.index') }}">サービス管理(TODO: 登録、編集、削除)</a></li>
+          <li><a href="{{ route('staff.orders.index') }}">依頼管理(TODO: 依頼、振込待、終了)</a></li>
+        </ul>
+        @endif
+        <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('staff')->check())
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->email }} <span class="caret"></span></a>
@@ -41,17 +46,15 @@
               </ul>
             </li>
           @else
-            <li><a href="{{ route('staff.auth.signin') }}" class="exhibit">ログイン</a></li>
-            <li><a href="{{ route('staff.user.create') }}" class="exhibit">新規登録</a></li>
+          <li><a href="{{ route('staff.auth.signin') }}" class="exhibit">ログイン</a></li>
+          <li><a href="{{ route('staff.user.create') }}" class="exhibit">新規登録</a></li>
           @endif
-          </ul>
-        </div><!--/.nav-collapse -->
+        </ul>
       </div>
-    </nav>
-
-    <div class="container">
-      <div class="content">
-
+    </div>
+    <!-- / .container -->
+  </nav>
+  <div class="content">
     @if (session('info'))
     <div class="alert alert-success alert-dismissible" role="alert">
       {{ session('info') }}
@@ -64,33 +67,28 @@
     </div>
     @endif
 
-
-    @if (isset($layout['left_search']) && $layout['left_search'])
-    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">
-      <div class="sidebar">
-        @include('layout.left_search')
-      </div>
-      <!-- / .sidebar -->
-    </div>
-    <!-- / . -->
-    @endif
-
     @yield('content')
+  </div><!-- /.content -->
 
+  <footer class="bs-docs-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
+        <!-- / .col -->
       </div>
-    </div><!-- /.container -->
+      <!-- / .row -->
+    </div>
+    <!-- / .container -->
+  </footer>
 
-    <footer>
-    </footer>
+  <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-   <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-    @if (isset($layout['js']))
-    @foreach ($layout['js'] as $js)
-    <script src="{{ asset('js/' . $js . '.js') }}"></script>
-    @endforeach
-    @endif
+  @if (isset($layout['js']))
+  @foreach ($layout['js'] as $js)
+  <script src="{{ asset('js/' . $js . '.js') }}"></script>
+  @endforeach
+  @endif
 
   </body>
 </html>

@@ -17,36 +17,33 @@
 
 @section('content')
 
-<section>
-  <div class="remind_box">
-    <div class="rm_inner">
-      <h2><span>パスワード再設定</span></h2>
-      <p class="caution">セキュリティ上の観点から、「パスワード」はお問い合わせをいただいてもお答えできません。<br />
-        パスワードをお忘れの場合は、パスワードの再設定をお願いいたします。</p>
-      <p class="lead">ご登録のメールアドレスを入力して「送信する」を押してください。<br />
-        パスワード再設定手順の案内メールをお送りしますので、メールの指示に従ってパスワードを再設定してください。<br />
-      </p>
+<h1>パスワード再設定</h1>
+<div class="col-md-8">
+  <p class="caution">セキュリティ上の観点から、「パスワード」はお問い合わせをいただいてもお答えできません。<br />
+    パスワードをお忘れの場合は、パスワードの再設定をお願いいたします。</p>
+  <p class="caution">ご登録のメールアドレスを入力して「送信する」を押してください。<br />
+    パスワード再設定手順の案内メールをお送りしますので、メールの指示に従ってパスワードを再設定してください。<br />
+  </p>
 
-      <form method="post" action="{{ route('reset_password.request') }}">
-        {{ csrf_field() }}
-        <div class="rm_inner2">
-          <dl>
-            <dt><span>必須</span>メールアドレス</dt>
-            <dd>
-              @if ($errors->has('email'))
-              <p class="err_message"><span>{{ $errors->first('email') }}</span></p>
-              @endif
-              <input type="mail" name="email" placeholder="半角英数字で入力" value="{{ old('email') }}"@if ($errors->has('email')) class="err"@endif></dd>
-          </dl>
-          <dl>
-            <dt></dt>
-            <dd><button type="submit"><span>送信する</span></button>
-          </dl>
-        </div>
-      </form>
+  <form method="post" action="{{ route('reset_password.request') }}" class="form-horizontal">
+    {{ csrf_field() }}
 
+    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+      <label for="email" class="control-label col-md-4">メールアドレス</label>
+      <div class="col-md-8">
+        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control" placeholder="user@example.com">
+        @if ($errors->has('email'))
+        <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
+        @endif
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="form-group">
+      <div class="col-md-offset-4 col-md-8">
+        <button type="submit" class="btn btn-default">送信する</button>
+      </div>
+    </div>
+  </form>
+</div>
 
 @endsection

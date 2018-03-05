@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('staff.layout.master')
 
 <?php
 
@@ -17,42 +17,41 @@
 
 @section('content')
 
-<section>
-  <div class="reset_box">
-    <div class="rs_inner">
-      <h2><span>パスワード再設定</span></h2>
-      <p class="lead">新しいパスワードを入力してください。</p>
+<h1>パスワード再設定</h1>
+<div class="col-md-8">
+  <p class="caution">新しいパスワードを入力してください。</p>
 
-      <form method="post" action="{{ route('staff.reset_password.reset') }}">
-        {{ csrf_field() }}
-        {{ method_field('PUT') }}
-        <input type="hidden" name="token" value="{{ request()->token }}">
-        <div class="rs_inner2">
-          <dl>
-            <dt><span>必須</span>新しいパスワード</dt>
-            <dd>
-              @if ($errors->has('password'))
-              <p class="err_message"><span>{{ $errors->first('password') }}</span></p>
-              @endif
-              <input type="password" name="password" placeholder="半角英数字6～20文字で入力"@if ($errors->has('password')) class="err"@endif></dd>
-          </dl>
-          <dl>
-            <dt><span>必須</span>新しいパスワード（確認用）</dt>
-            <dd>
-              @if ($errors->has('password_confirmation'))
-              <p class="err_message"><span>{{ $errors->first('password_confirmation') }}</span></p>
-              @endif
-              <input type="password" name="password_confirmation" placeholder="半角英数字6～20文字で入力"></dd>
-          </dl>
-          <dl>
-            <dt></dt>
-            <dd><button type="submit" id="btn_reset"><span>変更する</span></button></dd>
-          </dl>
-        </div>
-      </form>
+  <form method="post" action="{{ route('staff.reset_password.reset') }}" class="form-horizontal">
+    {{ csrf_field() }}
+    {{ method_field('PUT') }}
+    <input type="hidden" name="token" value="{{ request()->token }}">
 
+    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+      <label for="password" class="control-label col-md-4"><span>必須</span>新しいパスワード</label>
+      <div class="col-md-8">
+        <input type="password" name="password" id="password" value="{{ old('password') }}" class="form-control" placeholder="半角英数字6～20文字で入力">
+        @if ($errors->has('password'))
+        <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
+        @endif
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+      <label for="password_confirmation" class="control-label col-md-4"><span>必須</span>新しいパスワード（確認用）</label>
+      <div class="col-md-8">
+        <input type="password" name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control" placeholder="半角英数字6～20文字で入力">
+        @if ($errors->has('password_confirmation'))
+        <span class="help-block"><strong>{{ $errors->first('password_confirmation') }}</strong></span>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-4 col-md-8">
+        <button type="submit" class="btn btn-default">変更する</button>
+      </div>
+    </div>
+  </form>
+</div>
 
 @endsection

@@ -10,6 +10,7 @@
 
 @section('content')
 <h1>依頼済一覧</h1>
+<div class="col-md-8">
 <table class="table">
   <thead>
     <tr>
@@ -39,5 +40,5 @@
     @endforeach
   </tbody>
 </table>
-
+</div>
 @endsection

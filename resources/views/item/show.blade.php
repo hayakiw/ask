@@ -3,19 +3,27 @@
 <?php
 
     $layout = [
-        'title' => '詳細',
-        'description' => '○○のページです。',
+        'title' => $item->title . "|サービス詳細",
+        'description' => $item->title . 'のサービス詳細ページです。',
     ];
 
 ?>
 
 @section('content')
-<h1>{{ $item->title }}</h1>
+
+<div class="col-md-8">
+
+<div class="panel panel-default" style="margin-top:30px;">
+  <div class="panel-heading">{{ $item->title }}</div>
+  <div class="panel-body">
+
 価格:{{ $item->price }}<br>
 最大利用時間:{{ $item->max_hours }}<br>
 地域:{{ $item->staff->prefecture }}({{ $item->staff->area }})<br>
 説明:<br>
-{{ $item->description}}<br>
+{{ $item->description}}
+  </div>
+</div>
 
 
 @if (!Auth::guard('web')->check())
@@ -32,4 +40,6 @@
 </div>
 {!! Form::close() !!}
 @endif
+
+</div>
 @endsection

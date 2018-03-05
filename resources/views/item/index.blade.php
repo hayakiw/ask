@@ -4,8 +4,8 @@
 
     $layout = [
         'left_search' => false,
-        'title' => '一覧',
-        'description' => '○○のページです。',
+        'title' => 'サービス一覧',
+        'description' => 'サービス一覧を表示しています。',
     ];
 
 ?>
