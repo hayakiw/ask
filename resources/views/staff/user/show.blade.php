@@ -9,9 +9,12 @@
 ?>
 
 @section('content')
-<h1>プロフィール</h1>
 
-<div class="col-md-8">
+<div class="container">
+  <div class="page-header">
+    <h1>プロフィール</h1>
+  </div>
+
         <div class="regist_box mb-4">
           <div class="rg_inner">
             <div class="form-group row mb-0">
