@@ -38,6 +38,9 @@ class StoreRequest extends Request
                 'required',
                 'max:50',
             ],
+            'prefecture' => [
+                'required',
+            ],
             'area' => [
                 'required',
                 'max:50',
@@ -45,6 +48,13 @@ class StoreRequest extends Request
             'description' => [
                 'required',
                 'max:1000',
+            ],
+            'birth_at' => [
+                'required',
+                'date',
+            ],
+            'sex' => [
+                'required',
             ],
             'email' => [
                 'required',
@@ -95,10 +105,14 @@ class StoreRequest extends Request
             'last_name.max' => '"姓"は:max文字以内で入力してください',
             'first_name.required' => '"名"は必ず入力してください',
             'first_name.max' => '"名"は:max文字以内で入力してください',
+            'prefecture.required' => '"都道府県"は必ず入力してください',
             'area.required' => '"エリア"は必ず入力してください',
             'area.max' => '"エリア"は:max文字以内で入力してください',
             'description.required' => '"プロフィール"は必ず入力してください',
             'description.max' => '"プロフィール"は:max文字以内で入力してください',
+            'birth_at.required' => '"生年月日"は必ず入力してください',
+            'birth_at.date' => '"生年月日"は日付を入力してください',
+            'sex.required' => '"性別"は必ず入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',
             'email.max' => '“メールアドレス”は:max文字以内で入力してください',

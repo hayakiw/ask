@@ -58,6 +58,31 @@
     </div>
 
     <div class="form-group">
+      <label for="" class="control-label col-md-4">生年月日 <span class="text-danger">※</span></label>
+      <div class="col-md-8">
+        <input type="date" name="birth_at" placeholder="例:1940-11-11" value="{{ Request::old('birth_at') }}" class="form-control{{ $errors->has('birth_at') ? ' err' : '' }}" />
+        @if ($errors->has('birth_at'))
+        <p class="err_message"><span>{{ $errors->first('birth_at') }}</span></p>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="" class="control-label col-md-4">性別 <span class="text-danger">※</span></label>
+      <div class="col-md-8">
+        <select  name="sex" class="form-control{{ $errors->has('sex') ? ' err' : '' }}">
+          <option value="">選択してください</option>
+          @foreach(App\User::getSexs() as $sex)
+            <option value="{{ $sex }}"@if(Request::old('sex') == $sex) selected="selected"@endif>{{ $sex }}</option>
+          @endforeach
+        </select>
+        @if ($errors->has('sex'))
+        <p class="err_message"><span>{{ $errors->first('sex') }}</span></p>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group">
       <div class="col-md-offset-4 col-md-8">
         <button type="submit" name="submit" id="btn_regist" class="btn btn-success"><span>登録する</span></button>
       </div>

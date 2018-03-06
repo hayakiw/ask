@@ -28,8 +28,8 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'last_name', 'first_name', 'area', 'description',
-            'email', 'password',
+            'last_name', 'first_name', 'prefecture', 'area', 'description',
+            'email', 'password', 'birth_at', 'sex',
         ]);
 
         $userData['password'] = bcrypt($userData['password']);
@@ -142,7 +142,7 @@ class UserController extends Controller
         $user = auth('staff')->user();
 
         $userData = $request->only([
-            'last_name', 'first_name', 'area', 'description',
+            'last_name', 'first_name', 'prefecture', 'area', 'description', 'birth_at', 'sex',
         ]);
 
         $errors = [];

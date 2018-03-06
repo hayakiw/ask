@@ -45,6 +45,13 @@ class UpdateRequest extends Request
                 'required',
                 'max:1000',
             ],
+            'birth_at' => [
+                'required',
+                'date',
+            ],
+            'sex' => [
+                'required',
+            ],
         ];
     }
 
@@ -65,6 +72,9 @@ class UpdateRequest extends Request
             'area.max' => '"エリア"は:max文字以内で入力してください',
             'description.required' => '"プロフィール"は必ず入力してください',
             'description.max' => '"プロフィール"は:max文字以内で入力してください',
+            'birth_at.required' => '"生年月日"は必ず入力してください',
+            'birth_at.date' => '"生年月日"は日付を入力してください',
+            'sex.required' => '"性別"は必ず入力してください',
         ];
     }
 }

@@ -11,14 +11,17 @@
 @section('content')
 <h1>プロフィール</h1>
 
+<div class="col-md-8">
         <div class="regist_box mb-4">
           <div class="rg_inner">
             <div class="form-group row mb-0">
               <div class="col-md-2">プロフィール</div>
               <div class="col-md-10">
-                <div class="mb-2">{{ $user->name }}</div>
-                <div class="mb-2">{{ $user->area }}</div>
-                <div class="mb-2">{{ $user->description }}</div>
+                <div class="mb-2">お名前：{{ $user->getName() }}</div>
+                <div class="mb-2">性別：{{ $user->sex }}</div>
+                <div class="mb-2">生年月日：{{ $user->birth_at }}</div>
+                <div class="mb-2">エリア：{{ $user->prefecture }} {{ $user->area }}</div>
+                <div class="mb-2">詳細：{{ $user->description }}</div>
                 <div> <a href="{{ route('staff.user.edit') }}" class="btn btn-outline-primary btn-sm"><span>プロフィールを変更する</span></a></div>
               </div>
             </div>
@@ -114,4 +117,5 @@
           <!-- / .rg_inner -->
         </div>
         <!-- / .regist_box -->
+</div>
 @endsection

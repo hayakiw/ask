@@ -25,7 +25,8 @@ class Staff extends Authenticatable
 
     protected $fillable = [
         'email', 'password',
-        'last_name', 'first_name', 'description', 'area',
+        'last_name', 'first_name', 'description', 'prefecture', 'area',
+        'birth_at', 'sex',
         'confirmation_token', 'confirmation_sent_at',
         'confimarted_at',
         'bank_name',
@@ -43,8 +44,13 @@ class Staff extends Authenticatable
     ];
 
     protected static $areas = [
-        '鳥取' => ['西部', '中部', '東部'],
-        '島根' => ['西部', '中部', '東部'],
+        '鳥取県' => ['西部', '中部', '東部'],
+        '島根県' => ['西部', '中部', '東部'],
+    ];
+
+    protected static $sexs = [
+        '男',
+        '女',
     ];
 
     public static function getPrefuctuers()
@@ -62,6 +68,11 @@ class Staff extends Authenticatable
     public static function getAreas()
     {
         return ['西部', '中部', '東部'];
+    }
+
+    public static function getSexs()
+    {
+        return static::$sexs;
     }
 
     public function isConfimarted()

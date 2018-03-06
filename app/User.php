@@ -26,6 +26,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email', 'password',
         'last_name', 'first_name',
+        'birth_at', 'sex',
         'confirmation_token', 'confirmation_sent_at',
         'canceled_reason', 'canceled_other_reason', 'canceled_at',
     ];
@@ -45,6 +46,16 @@ class User extends Authenticatable
         '通知が多いから',
         'その他',
     ];
+
+    protected static $sexs = [
+        '男',
+        '女',
+    ];
+
+    public static function getSexs()
+    {
+        return static::$sexs;
+    }
 
     public function user()
     {

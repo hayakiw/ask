@@ -67,6 +67,31 @@
     </div>
 
     <div class="form-group">
+      <label for="" class="control-label col-md-4">生年月日 <span class="text-danger">※</span></label>
+      <div class="col-md-8">
+        <input type="date" name="birth_at" placeholder="例:1940-11-11" value="{{ Request::old('birth_at') }}" class="form-control{{ $errors->has('birth_at') ? ' err' : '' }}" />
+        @if ($errors->has('birth_at'))
+        <p class="err_message"><span>{{ $errors->first('birth_at') }}</span></p>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="" class="control-label col-md-4">性別 <span class="text-danger">※</span></label>
+      <div class="col-md-8">
+        <select  name="sex" class="form-control{{ $errors->has('sex') ? ' err' : '' }}">
+          <option value="">選択してください</option>
+          @foreach(App\Staff::getSexs() as $sex)
+            <option value="{{ $sex }}"@if(Request::old('sex') == $sex) selected="selected"@endif>{{ $sex }}</option>
+          @endforeach
+        </select>
+        @if ($errors->has('sex'))
+        <p class="err_message"><span>{{ $errors->first('sex') }}</span></p>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group">
       <label for="" class="control-label col-md-4">画像 <span class="text-danger">※</span></label>
       <div class="col-md-8">
         <input type="file" name="image" class="form-control">
@@ -79,6 +104,7 @@
     <div class="form-group">
       <label for="" class="control-label col-md-4">都道府県 <span class="text-danger">※</span></label>
       <div class="col-md-8">
+        <input type="hidden" name="prefecture" value="鳥取県">
         鳥取県
       </div>
     </div>
