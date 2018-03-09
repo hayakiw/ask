@@ -71,13 +71,47 @@
     @yield('content')
   </div><!-- /.content -->
 
-  <footer id="footer" class="bs-docs-footer">
+  <footer id="footer" class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
-        <!-- / .col -->
+        <div class="col-md-4">
+        <ul class="utility">
+          <li class="contact"><a href="{{ route('contact.index') }}">お問い合わせ</a></li>
+          <li><a href="{{ route('static.agreement') }}" target="_blank">利用規約</a></li>
+          <li><a href="{{ route('static.privacy') }}" target="_blank">プライバシーポリシー</a></li>
+          <li><a href="{{ route('static.commercial') }}" target="_blank">特定商取引法に基づく表記</a></li>
+        </ul>
+        </div>
+
+        <div class="col-md-4">
+          <div class="title">安心・安全</div>
+          <div class="description">全ての報酬は、事務局を経由し、完了後に振り込まれます。<br>
+トラブルを防止するために、直接の連絡先の交換、契約はご遠慮いただいています。
+連絡先の交換が必要な場合は必ずお問い合わせください</div>
+        </div>
+
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-3">
+          <div class="title">お支払い</div>
+          <div class="description">お支払いは、クレジットカードがご利用いただけます。<br>
+すべてPay.jpを利用しての決済となりますので、当サイトがカード情報を保存することはありません。<br>
+            <div class="credit">
+            <img src="{{ asset('img/credit/visa.png') }}" width="40" alt="visa">
+            <img src="{{ asset('img/credit/mastercard.png') }}" width="40" alt="mastercard">
+            <img src="{{ asset('img/credit/jcb.png') }}" width="40" alt="jcb">
+            <img src="{{ asset('img/credit/americanExpress.png') }}" width="40" alt="americanExpress">
+            <img src="{{ asset('img/credit/dinersClub.png') }}" width="40" alt="dinersClub">
+            <img src="{{ asset('img/credit/discover.png') }}" width="40" alt="discover">
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- / .row -->
+
+      <div class="row">
+        <span class="copyright"> copyright &copy; Dojo, All Rights Reserved. </span>
+      </div>
     </div>
     <!-- / .container -->
   </footer>
