@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" >
     <link rel="stylesheet" href="{{ asset('css/stylesheets.css') }}" type="text/css" >
+    <link rel="stylesheet" href="{{ asset('css/staff/stylesheets.css') }}" type="text/css" >
 
     <!--[if lt IE 9]>
     <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
@@ -26,14 +27,14 @@
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><div> <img src="{{ asset('img/logo.png') }}" alt=""></div> </a>
+      <a class="navbar-brand" href="{{ route('root.index') }}"><div> <img src="{{ asset('img/logo.png') }}?18" alt=""></div></a>
+      <a class="navbar-brand title" href="{{ route('staff.root.index') }}">スタッフ用画面</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-menu">
         @if (Auth::guard('staff')->check())
         <ul class="nav navbar-nav">
-          <li><a href="{{ route('staff.root.index') }}">トップ</a></li>
-          <li><a href="{{ route('staff.item.index') }}">サービス管理(TODO: 登録、編集、削除)</a></li>
-          <li><a href="{{ route('staff.orders.index') }}">依頼管理(TODO: 依頼、振込待、終了)</a></li>
+          <li><a href="{{ route('staff.item.index') }}">サービス管理</a></li>
+          <li><a href="{{ route('staff.orders.index') }}">依頼管理</a></li>
         </ul>
         @endif
         <ul class="nav navbar-nav navbar-right">
@@ -41,7 +42,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->email }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('staff.user.show') }}"><i class="fa fa-user"></i> プロフィール</a></li>
+                <li><a href="{{ route('staff.user.show') }}"><i class="fa fa-user"></i> 会員情報</a></li>
                 <li><a href="{{ route('staff.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
               </ul>
             </li>
@@ -70,7 +71,7 @@
     @yield('content')
   </div><!-- /.content -->
 
-  <footer class="bs-docs-footer">
+  <footer id="footer" class="bs-docs-footer">
     <div class="container">
       <div class="row">
         <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
@@ -81,8 +82,9 @@
     <!-- / .container -->
   </footer>
 
-  <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/footerFixed.js') }}"></script>
 
   @if (isset($layout['js']))
   @foreach ($layout['js'] as $js)

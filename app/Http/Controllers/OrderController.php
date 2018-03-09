@@ -17,6 +17,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = Order::query();
+        $orders = $orders->where('status', '!=', Order::ORDER_STATUS_NEW);
         $orders = $orders->orderBy('id', 'desc');
 
         $orders = $orders->paginate(100)->setPath('');

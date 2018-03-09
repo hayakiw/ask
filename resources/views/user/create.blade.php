@@ -25,7 +25,7 @@
         @if ($errors->has('email'))
         <p class="err_message"><span>{{ $errors->first('email') }}</span></p>
         @endif
-        <p>※非公開</p>
+        <p class="help-block">※非公開</p>
       </div>
 
       <label for="password" class="control-label col-md-2">パスワード <span class="text-danger">※</span></label>
@@ -75,6 +75,12 @@
         @if ($errors->has('sex'))
         <p class="err_message"><span>{{ $errors->first('sex') }}</span></p>
         @endif
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <p class="help-block">次に進むことで、<a href="{{ route('static.agreement') }}" target="_blank">利用規約</a>に同意し、ご了承いただいたものとします。</p>
       </div>
     </div>
 

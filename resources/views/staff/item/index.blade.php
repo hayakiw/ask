@@ -2,14 +2,18 @@
 
 <?php
     $layout = [
-        'title' => 'サービス一覧',
+        'title' => 'サービス管理',
         // 'description' => '○○のページです。',
         'js' => [],
     ];
 ?>
 
 @section('content')
-<h1>サービス一覧</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>サービス管理</h1>
+  </div>
+
 <a href="{{ route('staff.item.create') }}" class="btn btn-default">新規登録</a>
 
 <table class="table">
@@ -39,5 +43,5 @@
     @endforeach
   </tbody>
 </table>
-
+</div>
 @endsection

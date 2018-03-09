@@ -2,14 +2,18 @@
 
 <?php
     $layout = [
-        'title' => '依頼済一覧',
+        'title' => '依頼管理',
         // 'description' => '○○のページです。',
         'js' => [],
     ];
 ?>
 
 @section('content')
-<h1>依頼済一覧</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>依頼管理</h1>
+  </div>
+
 <table class="table">
   <thead>
     <tr>
@@ -39,5 +43,5 @@
     @endforeach
   </tbody>
 </table>
-
+</div>
 @endsection

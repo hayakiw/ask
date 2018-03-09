@@ -58,6 +58,14 @@ Route::get('privacy', [
     }
 ]);
 
+// 特定商取引法に基づく表記
+Route::get('commercial', [
+    'as' => 'static.commercial',
+    function () {
+        return view('static/commercial');
+    }
+]);
+
 
 Route::group(['middleware' => ['guest:web']], function () {
     Route::get('signin', [

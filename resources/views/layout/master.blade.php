@@ -26,21 +26,20 @@
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><div> <img src="{{ asset('img/logo.png') }}" alt=""></div> </a>
+      <a class="navbar-brand" href="{{ route('root.index') }}"><div> <img src="{{ asset('img/logo.png') }}?18" alt=""></div> </a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="nav navbar-nav">
-          <li><a href="{{ route('item.index') }}">検索</a></li>
-          <li><a href="{{ route('orders.index') }}">依頼済</a></li>
-          <li><a href="{{ route('contact.index') }}">お問い合わせ</a></li>
-          <li><a href="{{ route('static.agreement') }}">利用規約</a></li>
-          <li><a href="{{ route('static.privacy') }}">プライバシーポリシー</a></li>
+          <li><a href="{{ route('root.index') }}">ホーム</a></li>
+          <li><a href="{{ route('item.index') }}">みんなのサービス</a></li>
+          <li><a href="{{ route('staff.root.index') }}">出品したい方はこちら</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('web')->check())
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('web')->user()->getName() }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('orders.index') }}">依頼状況</a></li>
                 <li><a href="{{ route('auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
                 <li><a href="{{ route('user.cancel') }}"><i class="fa fa-sign-out"></i> 退会</a></li>
               </ul>
@@ -81,19 +80,54 @@
 
   </div><!-- /.content -->
 
-  <footer class="bs-docs-footer">
+  <footer id="footer" class="footer">
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 text-center"> copyright &copy; dojo </div>
-        <!-- / .col -->
+        <div class="col-md-4">
+        <ul class="utility">
+          <li class="contact"><a href="{{ route('contact.index') }}">お問い合わせ</a></li>
+          <li><a href="{{ route('static.agreement') }}" target="_blank">利用規約</a></li>
+          <li><a href="{{ route('static.privacy') }}" target="_blank">プライバシーポリシー</a></li>
+          <li><a href="{{ route('static.commercial') }}" target="_blank">特定商取引法に基づく表記</a></li>
+        </ul>
+        </div>
+
+        <div class="col-md-4">
+          <div class="title">安心・安全</div>
+          <div class="description">全ての報酬は、事務局を経由し、完了後に振り込まれます。<br>
+トラブルを防止するために、直接の連絡先の交換、契約はご遠慮いただいています。
+連絡先の交換が必要な場合は必ずお問い合わせください</div>
+        </div>
+
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-3">
+          <div class="title">お支払い</div>
+          <div class="description">お支払いは、クレジットカードがご利用いただけます。<br>
+すべてPay.jpを利用しての決済となりますので、当サイトがカード情報を保存することはありません。<br>
+            <div class="credit">
+            <img src="{{ asset('img/credit/visa.png') }}" width="40" alt="visa">
+            <img src="{{ asset('img/credit/mastercard.png') }}" width="40" alt="mastercard">
+            <img src="{{ asset('img/credit/jcb.png') }}" width="40" alt="jcb">
+            <img src="{{ asset('img/credit/americanExpress.png') }}" width="40" alt="americanExpress">
+            <img src="{{ asset('img/credit/dinersClub.png') }}" width="40" alt="dinersClub">
+            <img src="{{ asset('img/credit/discover.png') }}" width="40" alt="discover">
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- / .row -->
+
+      <div class="row">
+        <span class="copyright"> copyright &copy; Dojo, All Rights Reserved. </span>
+      </div>
     </div>
     <!-- / .container -->
   </footer>
 
-  <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/footerFixed.js') }}"></script>
 
   @if (isset($layout['js']))
   @foreach ($layout['js'] as $js)

@@ -9,13 +9,15 @@
 ?>
 
 @section('content')
-<h1>サービス編集</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>サービス編集</h1>
+  </div>
 
-<div class="col-md-8">
   {!! Form::model($item, ['route' => ['staff.item.update', $item], 'method' => 'put', 'files' => true, 'class' => 'form-horizontal']) !!}
     @include('staff.item._form', ['item' => $item])
     <div class="form-group">
-      <div class="col-md-offset-4 col-md-8">
+      <div class="col-md-offset-2 col-md-8">
         <input type="submit" name="submit" value="更新" class="btn btn-success">
       </div>
     </div>

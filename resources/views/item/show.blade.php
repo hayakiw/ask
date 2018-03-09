@@ -11,7 +11,7 @@
 
 @section('content')
 
-<div class="col-md-8">
+<div class="container">
 
 <div class="panel panel-default" style="margin-top:30px;">
   <div class="panel-heading">{{ $item->title }}</div>

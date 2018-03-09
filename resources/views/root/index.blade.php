@@ -79,7 +79,7 @@
               <div class="caption">
                 <h3>{{ $staff->getName() }}</h3>
                 <p>{!! nl2br(e(mb_strim($staff->description, 0, 80))) !!}</p>
-                <p><a href="" class="btn btn-primary" role="button">詳細</a>
+                <p><a href="{{ route('staff.show', ['staff' => $staff->id ]) }}" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>
               </div>

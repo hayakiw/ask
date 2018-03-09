@@ -3,7 +3,7 @@
 <?php
 
     $layout = [
-        'title' => 'ユーザー情報',
+        'title' => '会員情報',
     ];
 
 ?>
@@ -12,7 +12,7 @@
 
 <div class="container">
   <div class="page-header">
-    <h1>プロフィール</h1>
+    <h1>会員情報</h1>
   </div>
 
         <div class="regist_box mb-4">
@@ -25,7 +25,7 @@
                 <div class="mb-2">生年月日：{{ $user->birth_at }}</div>
                 <div class="mb-2">エリア：{{ $user->prefecture }} {{ $user->area }}</div>
                 <div class="mb-2">詳細：{{ $user->description }}</div>
-                <div> <a href="{{ route('staff.user.edit') }}" class="btn btn-outline-primary btn-sm"><span>プロフィールを変更する</span></a></div>
+                <div> <a href="{{ route('staff.user.edit') }}" class="btn btn-default btn-sm"><span>プロフィールを変更する</span></a></div>
               </div>
             </div>
             <!-- / .row -->
@@ -39,7 +39,7 @@
               <div class="col-md-2">メール</div>
               <div class="col-md-10">
                 <div class="mb-2">{{ $user->email }}</div>
-                <div> <a href="{{ route('staff.user.edit_email') }}" class="btn btn-outline-primary btn-sm"><span>メールアドレスを変更する</span></a></div>
+                <div> <a href="{{ route('staff.user.edit_email') }}" class="btn btn-default btn-sm"><span>メールアドレスを変更する</span></a></div>
               </div>
             </div>
             <!-- / .row -->
@@ -53,7 +53,7 @@
               <div class="col-md-2">パスワード</div>
               <div class="col-md-10">
                 <div class="mb-2">********</div>
-                <div><a href="{{ route('staff.user.edit_password') }}" class="btn btn-outline-primary btn-sm"><span>パスワードを変更する</span></a></div>
+                <div><a href="{{ route('staff.user.edit_password') }}" class="btn btn-default btn-sm"><span>パスワードを変更する</span></a></div>
               </div>
             </div>
             <!-- / .row -->
@@ -110,9 +110,9 @@
                     || empty($staff->bank_account_first_name)
                 ):
               ?>
-              <div class="col-md-10 mb-3"><a href="{{ route('staff.user.edit_bank') }}" class="btn btn-outline-primary btn-sm"><span>口座情報を登録する</span></a></div>
+              <div class="col-md-10 mb-3"><a href="{{ route('staff.user.edit_bank') }}" class="btn btn-default btn-sm"><span>口座情報を登録する</span></a></div>
               <?php else:?>
-              <div class="col-md-10 mb-3"><a href="{{ route('staff.user.edit_bank') }}" class="btn btn-outline-primary btn-sm"><span>口座情報を変更する</span></a></div>
+              <div class="col-md-10 mb-3"><a href="{{ route('staff.user.edit_bank') }}" class="btn btn-default btn-sm"><span>口座情報を変更する</span></a></div>
               <?php endif;?>
           </div>
           <!-- / .row -->

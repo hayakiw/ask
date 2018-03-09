@@ -8,6 +8,8 @@ class RootController extends Controller
 {
     public function index()
     {
-        return view('staff.root.index');
+        return redirect()
+            ->route('staff.item.index');
+        //return view('staff.root.index');
     }
 }
