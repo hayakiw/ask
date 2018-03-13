@@ -36,9 +36,8 @@ class UserController extends Controller
 
         // token
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
-        /*$userData['confirmation_token'] = $token;
-        $userData['confirmation_sent_at'] = Carbon::now();*/
-        $userData['confimarted_at'] = Carbon::now();
+        $userData['confirmation_token'] = $token;
+        $userData['confirmation_sent_at'] = Carbon::now();
 
         $errors = [];
         $image = $request->file('image');
@@ -88,9 +87,8 @@ class UserController extends Controller
                     }
                 );
 
-                auth()->guard('staff')->loginUsingId($user->getKey());
                 return redirect()
-                    ->route('staff.root.index')
+                    ->route('root.index')
                     ->with(['info' => '確認メールを送信しました。'])
                 ;
             }
@@ -125,7 +123,7 @@ class UserController extends Controller
 
         auth()->guard('staff')->loginUsingId($staff->getKey());
 
-        return redirect()->route('staff.root.index')->with(
+        return redirect()->route('staff.item.index')->with(
             'info',
             '認証を確認しました。'
         );

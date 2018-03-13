@@ -109,6 +109,11 @@ Route::group(['middleware' => ['guest:web']], function () {
         'as' => 'user.store',
         'uses' => 'UserController@store',
     ]);
+
+    Route::get('user/confirmation/{token?}', [
+        'as' => 'user.confirmation',
+        'uses' => 'UserController@confirmation',
+    ]);
 });
 
 Route::group(['middleware' => ['auth:web']], function () {

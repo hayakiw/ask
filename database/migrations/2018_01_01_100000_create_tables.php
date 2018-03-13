@@ -129,7 +129,8 @@ class CreateTables extends Migration
         Schema::create('orders', function (Blueprint $t) {
             $t->bigIncrements('id');
             $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
-            $t->bigInteger('item_id')->unsigned()->comment('カテゴリID');
+            $t->bigInteger('staff_id')->unsigned()->comment('ユーザーID');
+            $t->bigInteger('item_id')->unsigned()->comment('アイテムID');
 
             $t->string('title', 255)->comment('タイトル');
 

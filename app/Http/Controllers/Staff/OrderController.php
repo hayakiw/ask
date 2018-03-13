@@ -18,8 +18,11 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
+        $staff = auth('staff')->user();
+
         $orders = Order::query();
         $orders = $orders->where('status', '!=', Order::ORDER_STATUS_NEW);
+        $orders = $orders::where('staff_id', $staff->id)
         $orders = $orders->orderBy('id', 'desc');
 
         $orders = $orders->paginate(100)->setPath('');

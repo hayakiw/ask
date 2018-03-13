@@ -27,7 +27,7 @@ class Order extends Model
     ];
 
     protected $fillable = [
-        'user_id', 'item_id',
+        'user_id', 'staff_id', 'item_id',
         'title', 'hours', 'price',
         'prefer_at', 'prefer_at2', 'prefer_at3',
         'work_at',

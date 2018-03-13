@@ -32,6 +32,15 @@ class AuthController extends Controller
         if (auth()->guard('web')->attempt($credentials, $remember)) {
             $this->clearLoginAttempts($request);
 
+            $user = auth()->user();
+            if (! $user->isConfimarted()) {
+                auth()->guard('web')->logout();
+                return redirect()
+                    ->route('auth.signin')
+                    ->with('info', 'メール認証を完了してください。')
+                    ;
+            }
+
             return redirect()
                 ->intended('/items')
                 ->with('info', 'ログインしました。')

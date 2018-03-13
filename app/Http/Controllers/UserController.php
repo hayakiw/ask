@@ -57,11 +57,9 @@ class UserController extends Controller
                     }
                 );
 
-                // ログイン状態にしてリダイレクト
-                auth()->guard('web')->loginUsingId($user->getKey());
                 return redirect()
-                    ->route('item.index')
-                    ->with(['info' => '会員登録が完了しました。'])
+                    ->route('root.index')
+                    ->with(['info' => '確認メールを送信しました。'])
                 ;
             }
         }
@@ -73,6 +71,31 @@ class UserController extends Controller
             ->withInput($request->all())
             ->withErrors($errors);
             ;
+    }
+
+    public function confirmation(Request $request, $token)
+    {
+        $user = User::where('confirmation_token', $token)
+            ->where(
+                'confirmation_sent_at',
+                '>',
+                Carbon::now()->subMinutes(
+                    config('my.reset_password_request.expires_in')
+                )
+            )
+            ->firstOrFail()
+            ; // TODO: should not just fail
+
+        $user->confimarted_at = Carbon::now();
+        $user->confirmation_token = null;
+        $user->confirmation_sent_at = null;
+        $user->save();
+
+        auth()->guard('web')->loginUsingId($user->getKey());
+        return redirect()->route('root.index')->with(
+            'info',
+            '認証を確認しました。'
+        );
     }
 
     public function editEmail()

@@ -56,6 +56,7 @@ class OrderController extends Controller
         $orderData['status'] = Order::ORDER_STATUS_NEW;
 
         $item = Item::findOrFail($orderData['item_id']);
+        $orderData['staff_id'] = $item->staff_id;
         $orderData['price'] = $item->price;
         $orderData['title'] = $item->title;
         $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";

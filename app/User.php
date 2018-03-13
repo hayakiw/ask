@@ -86,4 +86,9 @@ class User extends Authenticatable
             return 'アクティブ';
         }
     }
+
+    public function isConfimarted()
+    {
+        return !empty($this->confimarted_at);
+    }
 }
