@@ -18,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config()->get('app.env') == 'production') {
+            \URL::forceSchema('https');
+            $this->app['request']->server->set('HTTPS', 'on');
+        }
+
         // バリデーションルール ascii の追加
         // 英数字記号のみかどうかチェックする
         Validator::extend(
