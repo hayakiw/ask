@@ -28,7 +28,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'last_name', 'first_name', 'prefecture', 'area', 'description',
+            'last_name', 'first_name', 'tel', 'prefecture', 'area', 'description',
             'email', 'password', 'birth_at', 'sex',
         ]);
 
@@ -89,7 +89,7 @@ class UserController extends Controller
 
                 return redirect()
                     ->route('root.index')
-                    ->with(['info' => '確認メールを送信しました。'])
+                    ->with(['info' => '確認メールを送信しましたのでご確認ください。'])
                 ;
             }
         }
@@ -140,7 +140,7 @@ class UserController extends Controller
         $user = auth('staff')->user();
 
         $userData = $request->only([
-            'last_name', 'first_name', 'prefecture', 'area', 'description', 'birth_at', 'sex',
+            'last_name', 'first_name', 'tel', 'prefecture', 'area', 'description', 'birth_at', 'sex',
         ]);
 
         $errors = [];

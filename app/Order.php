@@ -20,9 +20,17 @@ class Order extends Model
 
     protected static $status = [
         self::ORDER_STATUS_NEW => '依頼中',
+        self::ORDER_STATUS_PAID => '依頼中',
         self::ORDER_STATUS_OK => '成立',
         self::ORDER_STATUS_NG => '不成立',
-        self::ORDER_STATUS_PAID => '申請中',
+        self::ORDER_STATUS_ENDED => '終了',
+    ];
+
+    protected static $statusForStaff = [
+        self::ORDER_STATUS_NEW => '依頼がありました',
+        self::ORDER_STATUS_PAID => '依頼がありました',
+        self::ORDER_STATUS_OK => '承認済',
+        self::ORDER_STATUS_NG => '拒否済',
         self::ORDER_STATUS_ENDED => '終了',
     ];
 
@@ -48,6 +56,11 @@ class Order extends Model
     public function getStatus()
     {
         return self::$status[$this->status];
+    }
+
+    public function getStatusForStaff()
+    {
+        return self::$statusForStaff[$this->status];
     }
 
     public function user()

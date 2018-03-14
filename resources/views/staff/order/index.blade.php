@@ -2,7 +2,7 @@
 
 <?php
     $layout = [
-        'title' => '依頼管理',
+        'title' => '依頼状況',
         // 'description' => '○○のページです。',
         'js' => [],
     ];
@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
   <div class="page-header">
-    <h1>依頼管理</h1>
+    <h1>依頼状況</h1>
   </div>
 
 <table class="table">
@@ -32,10 +32,12 @@
       <td>{{ $order->title }}</td>
       <td>{{ $order->hours }}</td>
       <td>{{ $order->price }}</td>
-      <td>{{ $order->use_at }}</td>
-      <td>{{ $order->use_at2 }}</td>
-      <td>{{ $order->use_at3 }}</td>
-      <td>{{ $order->getStatus() }}</td>
+      <td>{{ $order->prefer_at }}</td>
+      <td>{{ $order->prefer_at2 }}</td>
+      <td>{{ $order->prefer_at3 }}</td>
+      <td>{{ $order->getStatusForStaff() }}
+        @if($order->status == App\Order::ORDER_STATUS_PAID) <br><a href="{{ route('staff.orders.show', $order) }}" style="color:#f00;">こちらから返信してください</a>@endif
+      </td>
       <td>
         <a href="{{ route('staff.orders.show', $order) }}" class="btn btn-xs btn-warning">依頼確認</a>
       </td>

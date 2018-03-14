@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="row">
-      <label class="control-label col-md-4">運営責任者</label>
+      <label class="control-label col-md-4">サイト運営責任者</label>
       <div class="col-md-8">
         渡邉隼基
       </div>

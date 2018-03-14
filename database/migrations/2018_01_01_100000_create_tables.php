@@ -38,11 +38,12 @@ class CreateTables extends Migration
 
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
+            $t->string('tel', 20)->nullable();
             $t->string('image', 255)->nullable()->comment('画像');
 
             $t->text('description')->comment('自己紹介');
             $t->string('prefecture', 255)->comment('県');
-            $t->string('area', 255)->comment('エリア');
+            $t->string('area', 255)->nullable()->comment('エリア');
             $t->date('birth_at')->nullable()->comment('生年月日');
             $t->string('sex')->nullable()->comment('性別');
 
@@ -82,6 +83,7 @@ class CreateTables extends Migration
 
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
+            $t->string('tel', 20)->nullable();
             $t->date('birth_at')->nullable()->comment('生年月日');
             $t->string('sex')->nullable()->comment('性別');
 
@@ -129,7 +131,7 @@ class CreateTables extends Migration
         Schema::create('orders', function (Blueprint $t) {
             $t->bigIncrements('id');
             $t->bigInteger('user_id')->unsigned()->comment('ユーザーID');
-            $t->bigInteger('staff_id')->unsigned()->comment('ユーザーID');
+            $t->bigInteger('staff_id')->unsigned()->comment('スタッフID');
             $t->bigInteger('item_id')->unsigned()->comment('アイテムID');
 
             $t->string('title', 255)->comment('タイトル');

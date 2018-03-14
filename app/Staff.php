@@ -25,7 +25,7 @@ class Staff extends Authenticatable
 
     protected $fillable = [
         'email', 'password',
-        'last_name', 'first_name', 'description', 'prefecture', 'area',
+        'last_name', 'first_name', 'tel', 'description', 'prefecture', 'area',
         'birth_at', 'sex',
         'confirmation_token', 'confirmation_sent_at',
         'confimarted_at',
@@ -43,9 +43,17 @@ class Staff extends Authenticatable
         'change_email_token',
     ];
 
-    protected static $areas = [
-        '鳥取県' => ['西部', '中部', '東部'],
-        '島根県' => ['西部', '中部', '東部'],
+    protected static $prefectures = [
+        '北海道', '青森県', '岩手県', '宮城県',   '秋田県',
+        '山形県', '福島県', '茨城県', '栃木県',   '群馬県',
+        '埼玉県', '千葉県', '東京都', '神奈川県', '山梨県',
+        '長野県', '新潟県', '富山県', '石川県',   '福井県',
+        '岐阜県', '静岡県', '愛知県', '三重県',   '滋賀県',
+        '京都府', '大阪府', '兵庫県', '奈良県',   '和歌山県',
+        '鳥取県', '島根県', '岡山県', '広島県',   '山口県',
+        '徳島県', '香川県', '愛媛県', '高知県',   '福岡県',
+        '佐賀県', '長崎県', '熊本県', '大分県',   '宮崎県',
+        '鹿児島県', '沖縄県',
     ];
 
     protected static $sexs = [
@@ -53,16 +61,9 @@ class Staff extends Authenticatable
         '女',
     ];
 
-    public static function getPrefuctuers()
+    public static function getPrefectures()
     {
-        return array_keys(static::$areas);
-    }
-
-    public static function getPrefuctuerAreas($prefucture)
-    {
-        if (!isset(static::$areas[$prefucture])) return null;
-
-        return static::$areas[$prefucture];
+        return static::$prefectures;
     }
 
     public static function getAreas()
@@ -124,7 +125,11 @@ class Staff extends Authenticatable
     public function imageUrl()
     {
         if (!$this->image) {
-            return null;
+            if ($this->sex == '女') {
+                return asset(config('my.staff.image_path')) . '/woman.jpeg';
+            }
+
+            return asset(config('my.staff.image_path')) . '/man.jpeg';
         }
 
         return asset(config('my.staff.image_path')) . '/' . $this->image;

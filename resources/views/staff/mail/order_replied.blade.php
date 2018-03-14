@@ -1,17 +1,17 @@
-{{ $order->user->getName() }} さん、こんにちは！
-
-依頼の回答がとどきました。
+{{ $order->item->staff->getName() }} さん、こんにちは！
 
 @if ($order->status == App\Order::ORDER_STATUS_OK)
-おめでとうございます。依頼が承認されました。
+依頼を確定しました。
 
 作業日時：{{ $order->work_at }}～{{ $order->hours }}時間
+詳細：{{ $order->comment }}
+
 @else
-残念ながら、今回は不成立となりました。
+依頼を拒否しました。
 @endif
 
 タイトル：{{ $order->title }}
-金額：{{ $order->price * $order->hours }}
+合計金額：{{ $order->price * $order->hours }}
 
 コメント：
 {{ $order->staff_comment }}
@@ -19,6 +19,7 @@
 
 以下の画面で確認できます。
 {{ route('orders.index') }}
+
 
 
 ※このメールに心当たりがない場合は、このメールを破棄してください。

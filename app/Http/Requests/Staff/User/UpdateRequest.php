@@ -37,6 +37,12 @@ class UpdateRequest extends Request
                 'required',
                 'max:50',
             ],
+            'tel' => [
+                'required',
+                'numeric',
+                'min:9',
+                'min:11',
+            ],
             'area' => [
                 'required',
                 'max:50',
@@ -68,6 +74,10 @@ class UpdateRequest extends Request
             'last_name.max' => '"姓"は:max文字以内で入力してください',
             'first_name.required' => '"名"は必ず入力してください',
             'first_name.max' => '"名"は:max文字以内で入力してください',
+            'tel.required' => '"電話番号"は必ず入力してください',
+            'tel.numeric' => '"電話番号"は半角数字で入力してください',
+            'tel.min' => '"電話番号"は正しく入力してください',
+            'tel.max' => '"電話番号"は正しく入力してください',
             'area.required' => '"エリア"は必ず入力してください',
             'area.max' => '"エリア"は:max文字以内で入力してください',
             'description.required' => '"プロフィール"は必ず入力してください',

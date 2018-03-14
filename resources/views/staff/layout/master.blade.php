@@ -34,7 +34,7 @@
         @if (Auth::guard('staff')->check())
         <ul class="nav navbar-nav">
           <li><a href="{{ route('staff.item.index') }}">サービス管理</a></li>
-          <li><a href="{{ route('staff.orders.index') }}">依頼管理</a></li>
+          <li><a href="{{ route('staff.orders.index') }}">依頼状況</a></li>
         </ul>
         @endif
         <ul class="nav navbar-nav navbar-right">

@@ -13,6 +13,7 @@
 <div class="container">
   <div class="page-header">
     <h1>決済</h1>
+    <p class="lead">「カードで支払う」を押して、支払いを完了してください。</p>
   </div>
 
 <div class="panel panel-default" style="margin-top:30px;">

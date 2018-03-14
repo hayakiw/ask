@@ -22,7 +22,7 @@ class OrderController extends Controller
 
         $orders = Order::query();
         $orders = $orders->where('status', '!=', Order::ORDER_STATUS_NEW);
-        $orders = $orders::where('staff_id', $staff->id)
+        $orders = $orders->where('staff_id', $staff->id);
         $orders = $orders->orderBy('id', 'desc');
 
         $orders = $orders->paginate(100)->setPath('');
@@ -113,6 +113,22 @@ class OrderController extends Controller
                     $m->to($order->user->email, $order->user->getName());
                     $m->subject(
                         config('my.order.replied.mail_subject')
+                    );
+                }
+            );
+
+            // send mail for staff
+            Mail::send(
+                ['text' => 'staff.mail.order_replied'],
+                compact('order'),
+                function ($m) use ($order) {
+                    $m->from(
+                        config('my.mail.from'),
+                        config('my.mail.name')
+                    );
+                    $m->to($order->item->staff->email, $order->item->staff->getName());
+                    $m->subject(
+                        config('my.order.replied_for_staff.mail_subject')
                     );
                 }
             );

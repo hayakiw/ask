@@ -59,7 +59,7 @@ class UserController extends Controller
 
                 return redirect()
                     ->route('root.index')
-                    ->with(['info' => '確認メールを送信しました。'])
+                    ->with(['info' => '確認メールを送信しましたのでご確認ください。'])
                 ;
             }
         }

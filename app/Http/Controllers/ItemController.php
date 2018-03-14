@@ -52,45 +52,46 @@ class ItemController extends Controller
 
     public function pay(ItemRequest\OrderRequest $request)
     {
-      $orderData = $request->only([
-          'item_id',
-          'hours',
-          'prefer_date',
-          'prefer_hour',
-          'prefer_date2',
-          'prefer_hour2',
-          'prefer_date3',
-          'prefer_hour3',
-          'comment'
-      ]);
+        $orderData = $request->only([
+            'item_id',
+            'hours',
+            'prefer_date',
+            'prefer_hour',
+            'prefer_date2',
+            'prefer_hour2',
+            'prefer_date3',
+            'prefer_hour3',
+            'comment'
+        ]);
 
-      $user = auth()->user();
-      $orderData['user_id'] = $user->id;
-      $orderData['status'] = Order::ORDER_STATUS_NEW;
+        $user = auth()->user();
+        $orderData['user_id'] = $user->id;
+        $orderData['status'] = Order::ORDER_STATUS_NEW;
 
-      $token = hash_hmac('sha256', Str::random(40), config('app.key'));
-      $orderData['ordered_token'] = $token;
+        $token = hash_hmac('sha256', Str::random(40), config('app.key'));
+        $orderData['ordered_token'] = $token;
 
-      $item = Item::findOrFail($orderData['item_id']);
-      $orderData['price'] = $item->price;
-      $orderData['title'] = $item->title;
-      $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
-      if($orderData['prefer_date2'])
-          $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
-      if($orderData['prefer_date3'])
-          $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
+        $item = Item::findOrFail($orderData['item_id']);
+        $orderData['staff_id'] = $item->staff_id;
+        $orderData['price'] = $item->price;
+        $orderData['title'] = $item->title;
+        $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
+        if($orderData['prefer_date2'])
+            $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
+        if($orderData['prefer_date3'])
+            $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
 
-      if ($order = Order::create($orderData)) {
-          return view('item.pay')
-              ->with([
-              'order' => $order
-          ]);
-      }
+        if ($order = Order::create($orderData)) {
+            return view('item.pay')
+                ->with([
+                'order' => $order
+            ]);
+        }
 
-      return redirect()
-          ->back()
-          ->withInput($orderData)
-          ;
+        return redirect()
+            ->back()
+            ->withInput($orderData)
+            ;
     }
 
     public function order(Request $request)

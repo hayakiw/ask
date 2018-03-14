@@ -16,18 +16,31 @@
 <div class="panel panel-default" style="margin-top:30px;">
   <div class="panel-heading">{{ $order->title }}</div>
   <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label col-md-4">合計金額</label>
+        <div class="col-md-8">{{ $order->price * $order->hours }}円</div>
+      </div>
+      <div class="col-md-6">
+        <label class="control-label col-md-4">利用時間</label>
+        <div class="col-md-8">{{ $order->hours }}時間</div>
+      </div>
+    </div>
 
-価格:{{ $order->price * $order->hours }}<br>
-利用時間:{{ $order->hours }}<br>
-コメント:<br>
-{!! nl2br(e($order->comment)) !!}<br>
-
-状態：{{ $order->getStatus() }}
-
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label col-md-4">コメント</label>
+        <div class="col-md-8">{!! nl2br(e($order->comment)) !!}</div>
+      </div>
+      <div class="col-md-6">
+        <label class="control-label col-md-4">状態</label>
+        <div class="col-md-8">{{ $order->getStatus() }}</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<br><br><br>
+<br>
 依頼日時：{{ $order->work_at }}<br>
 返信内容：<br>
 {!! nl2br(e($order->staff_comment)) !!}<br>
