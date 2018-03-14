@@ -34,7 +34,7 @@
         @if (Auth::guard('staff')->check())
         <ul class="nav navbar-nav">
           <li><a href="{{ route('staff.item.index') }}">サービス管理</a></li>
-          <li><a href="{{ route('staff.orders.index') }}">依頼状況</a></li>
+          <li><a href="{{ route('staff.orders.index') }}">進捗一覧</a></li>
         </ul>
         @endif
         <ul class="nav navbar-nav navbar-right">
@@ -42,7 +42,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->email }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('staff.user.show') }}"><i class="fa fa-user"></i> 会員情報</a></li>
+                <li><a href="{{ route('staff.user.show') }}"><i class="fa fa-user"></i> マイページ</a></li>
                 <li><a href="{{ route('staff.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
               </ul>
             </li>

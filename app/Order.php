@@ -19,19 +19,19 @@ class Order extends Model
     const ORDER_STATUS_ENDED = 'ended';
 
     protected static $status = [
-        self::ORDER_STATUS_NEW => '依頼中',
-        self::ORDER_STATUS_PAID => '依頼中',
-        self::ORDER_STATUS_OK => '成立',
+        self::ORDER_STATUS_NEW => '新規',
+        self::ORDER_STATUS_PAID => '進行中',
+        self::ORDER_STATUS_OK => '契約中',
         self::ORDER_STATUS_NG => '不成立',
-        self::ORDER_STATUS_ENDED => '終了',
+        self::ORDER_STATUS_ENDED => '完了',
     ];
 
     protected static $statusForStaff = [
-        self::ORDER_STATUS_NEW => '依頼がありました',
-        self::ORDER_STATUS_PAID => '依頼がありました',
-        self::ORDER_STATUS_OK => '承認済',
-        self::ORDER_STATUS_NG => '拒否済',
-        self::ORDER_STATUS_ENDED => '終了',
+        self::ORDER_STATUS_NEW => '新規',
+        self::ORDER_STATUS_PAID => '進行中',
+        self::ORDER_STATUS_OK => '契約中',
+        self::ORDER_STATUS_NG => '不成立',
+        self::ORDER_STATUS_ENDED => '完了',
     ];
 
     protected $fillable = [

@@ -2,7 +2,7 @@
 
 <?php
     $layout = [
-        'title' => '依頼状況',
+        'title' => '進捗一覧',
         // 'description' => '○○のページです。',
         'js' => [],
     ];
@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
   <div class="page-header">
-    <h1>依頼状況</h1>
+    <h1>進捗一覧</h1>
   </div>
 
 <table class="table">
