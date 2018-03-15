@@ -12,6 +12,8 @@
 <div class="container">
   <div class="page-header">
     <h1>ログイン</h1>
+    <p class="lead">一般のアカウントではログインできません。<br>
+    スタッフ用のアカウントをお持ちでない方は、新規登録を行いご利用ください。</p>
   </div>
 
   <form method="post" action="{{ route('staff.auth.signin') }}" class="form-horizontal">
