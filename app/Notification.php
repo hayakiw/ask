@@ -12,10 +12,6 @@ class Notification extends Model
     protected static function boot()
     {
         parent::boot();
-
-        static::created(function($notification) {
-            event(new \App\Events\NotificationWasCreated($notification));
-        });
     }
 
     protected $fillable = [
