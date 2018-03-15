@@ -20,14 +20,14 @@
   <div class="panel-heading">{{ $order->title }}</div>
   <div class="panel-body">
 
-価格:{{ number_format($order->price * $order->hours) }}円<br>
+価格:{{ number_format($order->total_price) }}円<br>
 利用時間:{{ $order->hours }}<br>
 コメント:<br>
 {!! nl2br(e($order->comment)) !!}
   </div>
 </div>
 
-<div>請求金額合計：<strong>{{ number_format($order->item->price * $order->hours) }}円</strong></div>
+<div>請求金額合計：<strong>{{ number_format($order->total_price) }}円</strong></div>
 <br>
 {{ Form::model($order, ['route' => ['item.order', '?' . http_build_query($_GET)] , 'method' => 'post']) }}
   <input type="hidden" name="ordered_token" value="{{ $order->ordered_token }}">

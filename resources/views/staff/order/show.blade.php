@@ -19,8 +19,8 @@
     <div class="row">
       <div class="col-md-6">
         <label class="control-label col-md-4">合計金額</label>
-        <div class="col-md-8">{{ $order->price * $order->hours }}円
-          <p>※報酬は、合計金額から20%の手数料を引いた金額が支払われます</p></div>
+        <div class="col-md-8">{{ number_format($order->total_price) }}円
+          <p>※報酬は、合計金額から{{ config('my.order.fee') }}%の手数料を引いた金額が支払われます</p></div>
       </div>
       <div class="col-md-6">
         <label class="control-label col-md-4">利用時間</label>

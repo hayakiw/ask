@@ -16,21 +16,31 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $orders = Order::query();
-        $orders = $orders->where('status', '!=', Order::ORDER_STATUS_NEW);
-        $orders = $orders->orderBy('id', 'desc');
+        $user = auth()->user();
+        $status = ($request->input('status'))? $request->input('status') : Order::ORDER_STATUS_PAID;
 
-        $orders = $orders->paginate(100)->setPath('');
+        $orders = Order::query()
+            ->where('user_id', $user->id)
+            ->where('status', $status)
+            ->orderBy('id', 'desc')
+            ->paginate(100)->setPath('');
 
         return view('order.index')
             ->with([
+            'status' => $status,
             'orders' => $orders,
         ]);
     }
 
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $user = auth()->user();
+
+        $order = Order::query()
+            ->where('user_id', $user->id)
+            ->where('id', $id)
+            ->firstOrFail();
+
         return view('order.show')
             ->with([
             'order' => $order

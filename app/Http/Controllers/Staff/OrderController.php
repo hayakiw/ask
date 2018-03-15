@@ -19,23 +19,30 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $staff = auth('staff')->user();
+        $status = ($request->input('status'))? $request->input('status') : Order::ORDER_STATUS_PAID;
 
-        $orders = Order::query();
-        $orders = $orders->where('status', '!=', Order::ORDER_STATUS_NEW);
-        $orders = $orders->where('staff_id', $staff->id);
-        $orders = $orders->orderBy('id', 'desc');
-
-        $orders = $orders->paginate(100)->setPath('');
+        $orders = Order::query()
+            ->where('status', $status)
+            ->where('staff_id', $staff->id)
+            ->orderBy('id', 'desc')
+            ->paginate(100)->setPath('');
 
         return view('staff.order.index')
             ->with([
+            'status' => $status,
             'orders' => $orders,
         ]);
     }
 
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $staff = auth('staff')->user();
+
+        $order = Order::query()
+            ->where('staff_id', $staff->id)
+            ->where('id', $id)
+            ->firstOrFail();
+
         return view('staff.order.show')
             ->with([
             'order' => $order
@@ -52,7 +59,11 @@ class OrderController extends Controller
         ]);
 
         $staff = auth('staff')->user();
-        $order = Order::findOrFail($orderData['order_id']);
+
+        $order = Order::query()
+            ->where('staff_id', $staff->id)
+            ->where('id', $orderData['order_id'])
+            ->firstOrFail();
 
         $orderData['status'] = ($orderData['ok'])? Order::ORDER_STATUS_OK : Order::ORDER_STATUS_NG;
 
@@ -132,6 +143,15 @@ class OrderController extends Controller
                     );
                 }
             );
+
+            // notification
+            \App\Notification::create([
+                'user_id' => $order->user->id,
+                'content' => $order->item->staff->getName() . ' さんから申請がありました。',
+                'event' => 'replied.order',
+                'notifiable_type' => 'order',
+                'notifiable_id' => $order->id,
+            ]);
 
             $request->session()->flash('info', '返信しました。');
             return redirect()

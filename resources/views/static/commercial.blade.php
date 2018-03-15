@@ -33,6 +33,7 @@
       <label class="control-label col-md-4">所在地・連絡先</label>
       <div class="col-md-8">
         鳥取県米子市車尾南1-342-1<br>
+        event@ebase-sl.jp<br>
         <a href="{{ route('contact.index') }}">お問い合わせフォーム</a> からお問い合わせください。
       </div>
     </div>
@@ -52,7 +53,7 @@
       <label class="control-label col-md-4">商品価格以外に必要な料金</label>
       <div class="col-md-8">
         サービス利用料<br>
-        購入申込が成立した際に、ホスト（サービス発行者）の方から、1決済あたり決済金額の20%をサービス利用料としてお支払いいただきます。
+        購入申込が成立した際に、サービス発行者から、1決済あたり決済金額の{{ config('my.order.fee') }}%をサービス利用料としてお支払いいただきます。
       </div>
     </div>
     <div class="row">

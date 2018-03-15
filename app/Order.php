@@ -13,9 +13,9 @@ class Order extends Model
     use SoftDeletes;
 
     const ORDER_STATUS_NEW = 'new';
+    const ORDER_STATUS_PAID = 'paid';
     const ORDER_STATUS_OK = 'ok';
     const ORDER_STATUS_NG = 'ng';
-    const ORDER_STATUS_PAID = 'paid';
     const ORDER_STATUS_ENDED = 'ended';
 
     protected static $status = [
@@ -39,7 +39,8 @@ class Order extends Model
         'title', 'hours', 'price',
         'prefer_at', 'prefer_at2', 'prefer_at3',
         'work_at',
-        'status', 'comment', 'staff_comment', 'ordered_token'
+        'status', 'comment', 'staff_comment', 'ordered_token',
+        'fee', 'total_price', 'payment_at',
     ];
 
     protected static $meetingTypes = [

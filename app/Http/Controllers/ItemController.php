@@ -72,6 +72,9 @@ class ItemController extends Controller
         $orderData['ordered_token'] = $token;
 
         $item = Item::findOrFail($orderData['item_id']);
+        $orderData['total_price'] = $item->price * $orderData['hours'];
+        $orderData['fee'] = ceil($orderData['total_price'] * config('my.order.fee') / 100);
+
         $orderData['staff_id'] = $item->staff_id;
         $orderData['price'] = $item->price;
         $orderData['title'] = $item->title;
@@ -186,6 +189,15 @@ class ItemController extends Controller
                     );
                 }
             );
+
+            // notification
+            \App\Notification::create([
+                'staff_id' => $order->item->staff->id,
+                'content' => $order->user->getName() . ' さんから申請がありました。',
+                'event' => 'notify.order',
+                'notifiable_type' => 'order',
+                'notifiable_id' => $order->id,
+            ]);
 
             $request->session()->flash('info', '依頼しました。結果がくるまでしばらくお待ちください。');
             return redirect()
