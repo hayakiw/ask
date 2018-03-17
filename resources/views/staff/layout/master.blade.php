@@ -40,7 +40,7 @@
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('staff')->check())
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->email }} <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->getName() }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ route('staff.user.show') }}"><i class="fa fa-user"></i> マイページ</a></li>
                 <li><a href="{{ route('staff.auth.signout') }}"><i class="fa fa-sign-out"></i> ログアウト</a></li>
