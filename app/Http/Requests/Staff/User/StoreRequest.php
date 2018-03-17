@@ -47,10 +47,6 @@ class StoreRequest extends Request
             'prefecture' => [
                 'required',
             ],
-            'area' => [
-                'required',
-                'max:50',
-            ],
             'description' => [
                 'required',
                 'max:1000',
@@ -72,27 +68,6 @@ class StoreRequest extends Request
                 'required',
                 'between:6,20',
                 'ascii',
-            ],
-            'service.name' => [
-                'required',
-            ],
-            'service.category' => [
-                'required',
-            ],
-            'service.price' => [
-                'required',
-                'integer',
-            ],
-            'service.max_hours' => [
-                'required',
-                'integer',
-            ],
-            'service.location' => [
-                'required',
-                'max:100',
-            ],
-            'service.description' => [
-                'required',
             ],
         ];
     }
@@ -116,8 +91,6 @@ class StoreRequest extends Request
             'tel.min' => '"電話番号"は正しく入力してください',
             'tel.max' => '"電話番号"は正しく入力してください',
             'prefecture.required' => '"都道府県"は必ず入力してください',
-            'area.required' => '"エリア"は必ず入力してください',
-            'area.max' => '"エリア"は:max文字以内で入力してください',
             'description.required' => '"プロフィール"は必ず入力してください',
             'description.max' => '"プロフィール"は:max文字以内で入力してください',
             'birth_at.required' => '"生年月日"は必ず入力してください',
@@ -130,15 +103,6 @@ class StoreRequest extends Request
             'password.required' => '“パスワード"は必ず入力してください',
             'password.between' => '"パスワード"は:min〜:max文字で入力してください',
             'password.ascii' => '"パスワード"を正しく入力してください',
-            'service.name.required' => '"サービス名"は必ず入力してください',
-            'service.category.required' => '"カテゴリ"は必ず入力してください',
-            'service.price.required' => '"時給"は必ず入力してください',
-            'service.price.integer' => '"時給"は数値で入力してください',
-            'service.max_hours.required' => '"時給"は必ず入力してください',
-            'service.max_hours.integer' => '"時給"は数値で入力してください',
-            'service.location.required' => '"詳細場所"は必ず入力してください',
-            'service.location.max' => '"詳細場所"は:max文字以内で入力してください',
-            'service.description.required' => '"詳細説明"は必ず入力してください',
         ];
     }
 }

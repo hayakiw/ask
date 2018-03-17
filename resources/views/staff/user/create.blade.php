@@ -105,7 +105,7 @@
         <div class="form-group{{ ($errors->has('prefecture')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">都道府県 <span class="text-danger">※</span></label>
           <div class="col-md-8">
-            <select  name="area" class="form-control">
+            <select  name="prefecture" class="form-control">
               <option value="">選択してください</option>
               @foreach(App\Staff::getPrefectures() as $prefecture)
                 <option value="{{ $prefecture }}"@if(Request::old('prefecture') == $prefecture) selected="selected"@endif>{{ $prefecture }}</option>
@@ -117,37 +117,22 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('area')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">エリア <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <select  name="area" class="form-control">
-              <option value="">選択してください</option>
-              @foreach(App\Staff::getAreas() as $area)
-                <option value="{{ $area }}"@if(Request::old('area') == $area) selected="selected"@endif>{{ $area }}</option>
-              @endforeach
-            </select>
-            @if ($errors->has('area'))
-            <p class="help-block"><span>{{ $errors->first('area') }}</span></p>
-            @endif
+
+        <div class="col-md-6">
+          <div class="form-group{{ ($errors->has('tel')) ? ' has-error' : '' }}">
+            <label for="" class="control-label col-md-4">電話番号 <span class="text-danger">※</span></label>
+            <div class="col-md-8">
+              <input type="text" name="tel" placeholder="例：08012345678" value="{{ Request::old('tel') }}" class="form-control" />
+              <p class="">※半角数字で入力してください</p>
+              @if ($errors->has('tel'))
+              <p class="help-block"><span>{{ $errors->first('tel') }}</span></p>
+              @endif
+            </div>
           </div>
         </div>
-      </div>
     </div>
 
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('tel')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">電話番号 <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <input type="text" name="tel" placeholder="例：08012345678" value="{{ Request::old('tel') }}" class="form-control" />
-            <p class="">※半角数字で入力してください</p>
-            @if ($errors->has('tel'))
-            <p class="help-block"><span>{{ $errors->first('tel') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
       <div class="col-md-6">
         <div class="form-group{{ ($errors->has('image')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">画像</label>
@@ -159,110 +144,15 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
       <div class="col-md-6">
         <div class="form-group{{ ($errors->has('description')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">プロフィール <span class="text-danger">※</span></label>
           <div class="col-md-8">
             <textarea name="description" placeholder="プロフィール" class="form-control">{{ Request::old('description') }}</textarea>
+            <p class="">※得意分野、サービス提供可能な曜日・時間帯などを記載してください</p>
             @if ($errors->has('description'))
             <p class="help-block"><span>{{ $errors->first('description') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <h3>サービス</h3>
-    <p class="help-block">登録後にも編集・削除できます。</p>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('service.name')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">タイトル <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <input name="service[name]" placeholder="例：英語を教えます" class="form-control" value="{{ Request::old('service.name') }}" />
-            @if ($errors->has('service.name'))
-            <p class="help-block"><span>{{ $errors->first('service.name') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('service.category')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">カテゴリ <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <select name="service[category]" class="form-control">
-              <option value="">選択してください</option>
-              @foreach ($categories as $category)
-                @if ($category->children)
-                  <optgroup label="{{ $category->name }}">
-                    @foreach ($category->children as $child)
-                      <option value="{{ $child->id }}"@if (Request::old('service.category') == $child->id) selected="selected"@endif>{{ $child->name }}</option>
-                    @endforeach
-                  </optgroup>
-                @else
-                  <option value="{{ $category->id }}"@if (Request::old('service.category') == $category->id) selected="selected"@endif>{{ $category->name }}</option>
-                @endif
-              @endforeach
-            </select>
-            @if ($errors->has('service.category'))
-            <p class="help-block"><span>{{ $errors->first('service.category') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('service.price')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">時給 <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <input name="service[price]" placeholder="例：2000" class="form-control" value="{{ Request::old('service.price') }}" />
-            <p class="">※ご希望の時給を半角数字で入力してください</p>
-            @if ($errors->has('service.price'))
-            <p class="help-block"><span>{{ $errors->first('service.price') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('service.max_hours')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">最高時間 <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <input name="service[max_hours]" placeholder="例：6" class="form-control" value="{{ Request::old('service.max_hours') }}" />
-            <p class="">※1回で働ける最高時間を半角数字で入力してください</p>
-            @if ($errors->has('service.max_hours'))
-            <p class="help-block"><span>{{ $errors->first('service.max_hours') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('service.location')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">対応可能エリア <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <input name="service[location]" placeholder="例：○○県○○市周辺" class="form-control" value="{{ Request::old('service.location') }}" />
-            @if ($errors->has('service.location'))
-            <p class="help-block"><span>{{ $errors->first('service.location') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('service.description')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">詳細説明 <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <textarea name="service[description]" placeholder="詳細説明" class="form-control">{{ Request::old('service.description') }}</textarea>
-            <p class="">※できること、できないこと等、詳細に入力してください</p>
-            @if ($errors->has('service.description'))
-            <p class="help-block"><span>{{ $errors->first('service.description') }}</span></p>
             @endif
           </div>
         </div>

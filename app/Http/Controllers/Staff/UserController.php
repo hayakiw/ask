@@ -28,7 +28,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'last_name', 'first_name', 'tel', 'prefecture', 'area', 'description',
+            'last_name', 'first_name', 'tel', 'prefecture', 'description',
             'email', 'password', 'birth_at', 'sex',
         ]);
 
@@ -51,21 +51,6 @@ class UserController extends Controller
         if (empty($errors) && $user = Staff::create($userData)) {
             if ($image && !$user->saveImage($image)) {
                 $errors['image'] = '保存できませんでした';
-            }
-
-            $serviceData = [
-                'staff_id' => $user->id,
-                'category_id' => $request->input('service.category'),
-                'title' => $request->input('service.name'),
-                'image' => '',
-                'price' => $request->input('service.price'),
-                'max_hours' => $request->input('service.max_hours'),
-                'location' => $request->input('service.location'),
-                'description' => $request->input('service.description'),
-            ];
-
-            if (!Item::create($serviceData)) {
-                $errors[] = 'サービスが登録できませんでした。';
             }
 
             if (empty($errors)) {

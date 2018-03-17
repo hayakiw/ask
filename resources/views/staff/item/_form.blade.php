@@ -1,90 +1,91 @@
-<div class="form-group">
-  <label for="" class="col-md-2 control-label">サービス名</label>
-  <div class="col-md-4">
-    <input type="text" name="title" class="form-control" id="" value="{{ Request::old('title') ? Request::old('title') : $item->title }}">
-    @if ($errors->has('title'))
-    <p class="err_message"><span>{{ $errors->first('title') }}</span></p>
-    @endif
-  </div>
 
-  <label for="" class="col-md-2 control-label">カテゴリ</label>
-  <div class="col-md-4">
-    <select name="category" class="form-control{{ $errors->has('category') ? ' err' : '' }}">
-      <option value="">選択してください</option>
-      @foreach ($categories as $category)
-        @if ($category->children)
-          <optgroup label="{{ $category->name }}">
-            @foreach ($category->children as $child)
-              <option value="{{ $child->id }}"@if (Request::old('category', $item->category_id) == $child->id) selected="selected"@endif>{{ $child->name }}</option>
-            @endforeach
-          </optgroup>
-        @else
-          <option value="{{ $category->id }}"@if (Request::old('category') == $category->id) selected="selected"@endif>{{ $category->name }}</option>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group{{ ($errors->has('title')) ? ' has-error' : '' }}">
+      <label for="" class="col-md-4 control-label">サービス名</label>
+      <div class="col-md-8">
+        <input type="text" name="title" placeholder="例：英語を教えます" class="form-control" id="" value="{{ Request::old('title') ? Request::old('title') : $item->title }}">
+        @if ($errors->has('title'))
+        <p class="help-block"><span>{{ $errors->first('title') }}</span></p>
         @endif
-      @endforeach
-    </select>
-      @if ($errors->has('category'))
-      <p class="err_message"><span>{{ $errors->first('category') }}</span></p>
-      @endif
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="form-group">
-  <label for="" class="col-md-2 control-label">時給</label>
-  <div class="col-md-4">
-    <input type="text" name="price" class="form-control" id="" value="{{ Request::old('price') ? Request::old('price') : $item->price }}">
-      @if ($errors->has('price'))
-      <p class="err_message"><span>{{ $errors->first('price') }}</span></p>
-      @endif
-  </div>
-
-  <label for="" class="col-md-2 control-label">最高時間</label>
-  <div class="col-md-4">
-    <input type="text" name="max_hours" class="form-control" id="" value="{{ Request::old('max_hours') ? Request::old('max_hours') : $item->max_hours }}">
-      @if ($errors->has('max_hours'))
-      <p class="err_message"><span>{{ $errors->first('max_hours') }}</span></p>
-      @endif
-  </div>
-</div>
-
-<div class="form-group">
-  <label for="" class="col-md-2 control-label">詳細な場所</label>
-  <div class="col-md-4">
-    <input type="text" name="location" class="form-control" id="" value="{{ Request::old('location') ? Request::old('location') : $item->location }}">
-      @if ($errors->has('location'))
-      <p class="err_message"><span>{{ $errors->first('location') }}</span></p>
-      @endif
-  </div>
-</div>
-
-<div class="form-group">
-  <label for="" class="col-md-2 control-label">詳細説明</label>
-  <div class="col-md-4">
-    <textarea name="description" class="form-control" rows="3" cols="80">{{ Request::old('description') ? Request::old('description') : $item->description }}</textarea>
-      @if ($errors->has('description'))
-      <p class="err_message"><span>{{ $errors->first('description') }}</span></p>
-      @endif
-  </div>
-</div>
-
-<div class="form-group">
-  <label for="" class="col-md-2 control-label">画像</label>
-  <div class="col-md-4">
-    <input type="file" name="image" class="form-control">
-    @if ($errors->has('image'))
-    <p class="err_message"><span>{{ $errors->first('image') }}</span></p>
-    @endif
-  </div>
-</div>
-
-@if ($item->hasImage())
-<div class="form-group">
-  <div class="col-md-offset-2 col-md-4">
-    <div class="col-xs-6 col-md-6">
-      <div class="thumbnail">
-        <img src="{{ asset($item->getImagePath()) }}" alt="" class="img-thumbnail small">
+  <div class="col-md-6">
+    <div class="form-group{{ ($errors->has('category')) ? ' has-error' : '' }}">
+      <label for="" class="col-md-4 control-label">カテゴリ</label>
+      <div class="col-md-8">
+        <select name="category" class="form-control">
+          <option value="">選択してください</option>
+          @foreach ($categories as $category)
+            @if ($category->children)
+              <optgroup label="{{ $category->name }}">
+                @foreach ($category->children as $child)
+                  <option value="{{ $child->id }}"@if (Request::old('category', $item->category_id) == $child->id) selected="selected"@endif>{{ $child->name }}</option>
+                @endforeach
+              </optgroup>
+            @else
+              <option value="{{ $category->id }}"@if (Request::old('category') == $category->id) selected="selected"@endif>{{ $category->name }}</option>
+            @endif
+          @endforeach
+        </select>
+          @if ($errors->has('category'))
+          <p class="help-block"><span>{{ $errors->first('category') }}</span></p>
+          @endif
       </div>
     </div>
   </div>
 </div>
-@endif
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group{{ ($errors->has('price')) ? ' has-error' : '' }}">
+      <label for="" class="col-md-4 control-label">時給</label>
+      <div class="col-md-8">
+        <input type="number" name="price" placeholder="例：2000" class="form-control" id="" value="{{ Request::old('price') ? Request::old('price') : $item->price }}">
+        <p class="">※ご希望の時給を半角数字で入力してください</p>
+          @if ($errors->has('price'))
+          <p class="help-block"><span>{{ $errors->first('price') }}</span></p>
+          @endif
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group{{ ($errors->has('max_hours')) ? ' has-error' : '' }}">
+      <label for="" class="col-md-4 control-label">最長時間</label>
+      <div class="col-md-8">
+        <input type="number" name="max_hours" placeholder="例：6" class="form-control" id="" value="{{ Request::old('max_hours') ? Request::old('max_hours') : $item->max_hours }}">
+        <p class="">※1回で働ける最長時間を半角数字で入力してください</p>
+        @if ($errors->has('max_hours'))
+        <p class="help-block"><span>{{ $errors->first('max_hours') }}</span></p>
+        @endif
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group{{ ($errors->has('location')) ? ' has-error' : '' }}">
+      <label for="" class="col-md-4 control-label">対応可能エリア</label>
+      <div class="col-md-8">
+        <input type="text" name="location" placeholder="例：○○県○○市周辺" class="form-control" id="" value="{{ Request::old('location') ? Request::old('location') : $item->location }}">
+          @if ($errors->has('location'))
+          <p class="help-block"><span>{{ $errors->first('location') }}</span></p>
+          @endif
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group{{ ($errors->has('description')) ? ' has-error' : '' }}">
+      <label for="" class="col-md-4 control-label">詳細説明</label>
+      <div class="col-md-8">
+        <textarea name="description" class="form-control" rows="3" cols="80">{{ Request::old('description') ? Request::old('description') : $item->description }}</textarea>
+        <p class="">※できること、できないことや、提供可能曜日・時間帯を詳細に入力してください</p>
+          @if ($errors->has('description'))
+          <p class="help-block"><span>{{ $errors->first('description') }}</span></p>
+          @endif
+      </div>
+    </div>
+  </div>
+</div>

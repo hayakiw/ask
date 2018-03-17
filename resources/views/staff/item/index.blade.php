@@ -16,6 +16,7 @@
 
 <a href="{{ route('staff.item.create') }}" class="btn btn-default">新規登録</a>
 
+@if($items->count())
 <table class="table">
   <thead>
     <tr>
@@ -43,5 +44,9 @@
     @endforeach
   </tbody>
 </table>
+@else
+<p>新規登録より、サービスを登録してください</p>
+@endif
+
 </div>
 @endsection
