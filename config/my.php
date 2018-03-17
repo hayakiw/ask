@@ -33,6 +33,10 @@ return [
     'staff' => [
         'image_path' => env(
             'MY_STAFF_IMAGE_PATH',
+            'image/staff'
+        ),
+        'default_image_path' => env(
+            'MY_STAFF_IMAGE_PATH',
             'img/staff'
         ),
     ],

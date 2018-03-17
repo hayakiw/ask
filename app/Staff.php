@@ -126,10 +126,10 @@ class Staff extends Authenticatable
     {
         if (!$this->image) {
             if ($this->sex == '女') {
-                return asset(config('my.staff.image_path')) . '/woman.jpeg';
+                return asset(config('my.staff.default_image_path')) . '/woman.jpeg';
             }
 
-            return asset(config('my.staff.image_path')) . '/man.jpeg';
+            return asset(config('my.staff.default_image_path')) . '/man.jpeg';
         }
 
         return asset(config('my.staff.image_path')) . '/' . $this->image;

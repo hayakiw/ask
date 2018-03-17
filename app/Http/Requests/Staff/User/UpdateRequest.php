@@ -43,10 +43,6 @@ class UpdateRequest extends Request
                 'min:9',
                 'min:11',
             ],
-            'area' => [
-                'required',
-                'max:50',
-            ],
             'description' => [
                 'required',
                 'max:1000',

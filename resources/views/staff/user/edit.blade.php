@@ -94,26 +94,6 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('area')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">エリア <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <?php $areaOld = Request::old('area') ?: $user->area;?>
-            <select  name="area" class="form-control">
-              <option value="">選択してください</option>
-              @foreach(App\Staff::getAreas() as $area)
-                <option value="{{ $area }}"@if($areaOld == $area) selected="selected"@endif>{{ $area }}</option>
-              @endforeach
-            </select>
-            @if ($errors->has('area'))
-            <p class="help-block"><span>{{ $errors->first('area') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
         <div class="form-group{{ ($errors->has('tel')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">電話番号 <span class="text-danger">※</span></label>
           <div class="col-md-8">
@@ -125,6 +105,9 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-6">
         <div class="form-group{{ ($errors->has('image')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">画像</label>
@@ -143,9 +126,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
       <div class="col-md-6">
         <div class="form-group{{ ($errors->has('description')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">プロフィール <span class="text-danger">※</span></label>
