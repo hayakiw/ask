@@ -132,7 +132,6 @@ Route::group(['middleware' => ['auth:web']], function () {
         'uses' => 'ItemController@pay',
     ]);
 
-    // お知らせ
     Route::resource('orders', 'OrderController', ['only' => [
         'show', 'index',
     ]]);
@@ -145,6 +144,11 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::delete('user/cancel', [
         'as' => 'user.cancel',
         'uses' => 'UserController@cancel',
+    ]);
+
+    Route::put('notification/read', [
+        'as' => 'notification.read',
+        'uses' => 'NotificationController@read',
     ]);
 });
 

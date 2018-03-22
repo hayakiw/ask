@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Validator;
 
 use App\Estimate;
-use App\Observers\EstimateCreatedAccountObserver;
 use App\Services\CustomValidator;
 
 class AppServiceProvider extends ServiceProvider
@@ -69,6 +69,11 @@ class AppServiceProvider extends ServiceProvider
         Validator::resolver(function($translator,$data,$rules,$messages){
             return new CustomValidator($translator,$data,$rules,$messages);
         });
+
+        Relation::morphMap([
+            'order' => \App\Order::class,
+            'user' => \App\User::class,
+        ]);
     }
 
     /**

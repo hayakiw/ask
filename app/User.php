@@ -57,11 +57,6 @@ class User extends Authenticatable
         return static::$sexs;
     }
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
     public static function getCanceledReasons()
     {
         return static::$canceled_reasons;
@@ -90,5 +85,24 @@ class User extends Authenticatable
     public function isConfimarted()
     {
         return !empty($this->confimarted_at);
+    }
+
+    public function notifications()
+    {
+        return $this
+            ->hasMany('App\Notification')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ;
+    }
+
+    public function unreadNotifications()
+    {
+        return $this
+            ->hasMany('App\Notification')
+            ->where('read', 0)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ;
     }
 }

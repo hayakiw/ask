@@ -1,0 +1,1 @@
+$("#u{{ $user->id }}-notifications").html('{{ $user->unreadNotifications->count() }}');

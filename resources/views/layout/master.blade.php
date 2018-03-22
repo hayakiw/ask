@@ -12,11 +12,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" >
     <link rel="stylesheet" href="{{ asset('css/stylesheets.css') }}" type="text/css" >
-
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/respond.min.js') }}"></script>
-    <![endif]-->
   </head>
   <body>
 
@@ -36,6 +31,27 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('web')->check())
+            <?php $notifications = auth('web')->user()->notifications()->paginate(10); ?>
+            <li class="dropdown" id="notification">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" data-remote="true" data-method="put" href="{{ route('notification.read') }}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                <span id="notice_count" style="display: none;"><span id="u{{ auth('web')->id() }}-notifications" style="color:#fff;">{{ number_format(auth('web')->user()->unreadNotifications()->count()) }}</span></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+              @if (isset($notifications))
+              @if ($notifications->count()==0)<li>通知はありません</li>@endif
+              @foreach ($notifications as $notification)
+              @if ($notification->event == 'xxxx')
+              <li><a href="{{ route('user.show', $notification->user_id) }}?tab=follower"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
+              @else
+              @if ($notification->notifiable)
+              <li><a href="{{ route('orders.show', $notification->notifiable) }}"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
+              @endif
+              @endif
+              @endforeach
+              @endif
+              </ul>
+            </li>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('web')->user()->getName() }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -128,6 +144,13 @@
   <script type="text/javascript" src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/footerFixed.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery-ujs.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/respond.min.js') }}"></script>
+  <![endif]-->
 
   @if (isset($layout['js']))
   @foreach ($layout['js'] as $js)

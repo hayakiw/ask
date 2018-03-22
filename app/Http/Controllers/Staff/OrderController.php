@@ -147,7 +147,7 @@ class OrderController extends Controller
             // notification
             \App\Notification::create([
                 'user_id' => $order->user->id,
-                'content' => $order->item->staff->getName() . ' さんから申請がありました。',
+                'content' => $order->item->staff->getName() . ' さんから返信がありました。',
                 'event' => 'replied.order',
                 'notifiable_type' => 'order',
                 'notifiable_id' => $order->id,
