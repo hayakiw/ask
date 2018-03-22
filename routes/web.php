@@ -150,6 +150,16 @@ Route::group(['middleware' => ['auth:web']], function () {
         'as' => 'notification.read',
         'uses' => 'NotificationController@read',
     ]);
+
+    Route::get('review/create/{order}', [
+        'as' => 'review.create',
+        'uses' => 'ReviewController@create',
+    ])->where('order', '[0-9]+');
+
+    Route::post('review', [
+        'as' => 'review.store',
+        'uses' => 'ReviewController@store',
+    ]);
 });
 
 

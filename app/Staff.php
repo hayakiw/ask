@@ -85,6 +85,10 @@ class Staff extends Authenticatable
         return $this->hasMany('App\Item');
     }
 
+    public function reviews(){
+        return $this->hasMany('App\Review');
+    }
+
     public function getName()
     {
         return $this->last_name . ' ' . $this->first_name;

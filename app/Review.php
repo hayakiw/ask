@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     protected $fillable = [
-        'reviewee_id',
-        'reviewer_id',
+        'user_id',
+        'staff_id',
         'rate',
         'comment',
     ];
 
-    public function reviewee()
+    public function user()
     {
-        return $this->belongsTo('App\User', 'reviewee_id');
+        return $this->belongsTo('App\User');
     }
 
-    public function reviewer()
+    public function staff()
     {
-        return $this->belongsTo('App\User', 'reviewer_id');
+        return $this->belongsTo('App\Staff');
     }
 }
