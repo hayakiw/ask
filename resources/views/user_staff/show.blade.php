@@ -24,8 +24,15 @@
 
     <div class="row">
       <div class="col-md-8">
+        <label class="control-label col-md-4">性別</label>
+        <div class="col-md-8">{{ $staff->sex }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
         <label class="control-label col-md-4">地域</label>
-        <div class="col-md-8">{{ $staff->prefecture }}時間</div>
+        <div class="col-md-8">{{ $staff->prefecture }}</div>
       </div>
     </div>
 

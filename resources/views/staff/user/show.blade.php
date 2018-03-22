@@ -23,7 +23,7 @@
                 <div class="mb-2">お名前：{{ $user->getName() }}</div>
                 <div class="mb-2">性別：{{ $user->sex }}</div>
                 <div class="mb-2">生年月日：{{ $user->birth_at }}</div>
-                <div class="mb-2">エリア：{{ $user->prefecture }} {{ $user->area }}</div>
+                <div class="mb-2">都道府県：{{ $user->prefecture }}</div>
                 <div class="mb-2">詳細：{{ $user->description }}</div>
                 <div> <a href="{{ route('staff.user.edit') }}" class="btn btn-default btn-sm"><span>プロフィールを変更する</span></a></div>
               </div>
