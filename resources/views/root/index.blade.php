@@ -26,17 +26,28 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <div class="h3">「みんなのお父さん」は、家庭教師や力仕事、家事代行まで、身の回りの困りごとを片付けたいひとと、そんな困りごとのお手伝いをしたいひとをつなぐマッチングサービスです。 </div>
+            <div class="h3 text-center description">「みんなのお父さん」は、家庭教師や力仕事、家事代行まで、<br class="default" />
+              身の回りの困りごとを片付けたいひとと、そんな困りごとのお手伝いをしたいひとをつなぐ、<br class="default" />
+              マッチングサービスです。 </div>
             <!-- / .h3 -->
           </div>
           <!-- / .col-sm-12 -->
         </div>
         <!-- / .row -->
-        <div class="row">
+        <div class="figure">
+          <div class="seal">
+            <div class="text">みんなの<br />
+              お父さんの<br />
+              仕組み</div>
+            <!-- / .text -->
+          </div>
+          <!-- / .seal -->
+          <img src="{{ asset('img/figure_service.png') }}" alt=""></div>
+        <!--  div class="row">
           <div class="col-sm-4"><img src="{{ asset('img/about_point_01.jpg') }}" alt=""></div>
           <div class="col-sm-4"><img src="{{ asset('img/about_point_02.jpg') }}" alt=""></div>
           <div class="col-sm-4"><img src="{{ asset('img/about_point_03.jpg') }}" alt=""></div>
-        </div>
+        </div -->
       </div>
       <!-- /.container -->
     </section>

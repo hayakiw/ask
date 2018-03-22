@@ -80,7 +80,7 @@
     <div class="form-group{{ ($errors->has('description')) ? ' has-error' : '' }}">
       <label for="" class="col-md-4 control-label">詳細説明</label>
       <div class="col-md-8">
-        <textarea name="description" class="form-control" rows="3" cols="80">{{ Request::old('description') ? Request::old('description') : $item->description }}</textarea>
+        <textarea name="description" class="form-control" style="height:300px;" cols="80">{{ Request::old('description') ? Request::old('description') : $item->description }}</textarea>
         <p class="">※できること、できないことや、提供可能曜日・時間帯を詳細に入力してください</p>
           @if ($errors->has('description'))
           <p class="help-block"><span>{{ $errors->first('description') }}</span></p>

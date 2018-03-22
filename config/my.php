@@ -45,7 +45,7 @@ return [
         // 手数料(%)
         'fee' => env(
             'MY_ORDER_FEE',
-            20
+            30
         ),
         'created' => [
             'mail_subject' => env(

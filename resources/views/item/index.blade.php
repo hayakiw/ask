@@ -50,6 +50,7 @@
               <div class="caption">
                 <h3>{{ str_limit($item->title, 10) }}</h3>
                 <p>{!! nl2br(e(mb_strim($item->description, 0, 80))) !!}</p>
+                <p>スタッフ <a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}">{{ $item->staff->getName() }}</a></p>
                 <p>時給 {{ $item->price }}円</p>
                 <p>場所 {{ $item->location }}</p>
                 <p><a href="{{ route('item.show', ['item' => $item->id ]) }}" class="btn btn-primary" role="button">詳細</a>

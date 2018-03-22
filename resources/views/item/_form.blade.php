@@ -4,7 +4,7 @@
 @endif
 
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-2">
     <div class="form-group{{ $errors->has('hours') ? ' has-error' : '' }}">
       <label for="input_name">利用時間 <span class="text-danger">※</span></label>
       <input type="number" name="hours" class="form-control" value="{{ Request::old('hours') ?: $order->hours }}" placeholder="例:13" max="24">
@@ -90,7 +90,7 @@
 <div class="row">
   <div class="col-sm-6">
     <div class="form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
-      <label for="input_name">備考 <span class="text-danger">※</span></label>
+      <label for="input_name">メッセージ <span class="text-danger">※</span></label>
       <p>来てほしい場所、その他要望を必ずご記入ください</p>
       <textarea  name="comment" class="form-control">{{ Request::old('comment') ?: $order->comment }}</textarea>
       @if ($errors->has('comment'))

@@ -17,31 +17,44 @@
   <div class="panel-heading">{{ $item->title }}</div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
+        <label class="control-label col-md-4">スタッフ</label>
+        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}">{{ $item->staff->getName() }}</a></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
         <label class="control-label col-md-4">価格（1時間あたり）</label>
         <div class="col-md-8">{{ $item->price }}円</div>
       </div>
-      <div class="col-md-6">
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
         <label class="control-label col-md-4">最大利用時間</label>
         <div class="col-md-8">{{ $item->max_hours }}時間</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <label class="control-label col-md-4">対応可能エリア</label>
         <div class="col-md-8">{{ $item->location }}</div>
       </div>
-      <div class="col-md-6">
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
         <label class="control-label col-md-4">スタッフの出身地</label>
         <div class="col-md-8">{{ $item->staff->prefecture }}</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <label class="control-label col-md-4">説明</label>
-        <div class="col-md-8">{{ $item->description}}</div>
+        <div class="col-md-8">{!! nl2br(e($item->description)) !!}</div>
       </div>
     </div>
   </div>
@@ -57,9 +70,15 @@
 {{ Form::model($item, ['route' => ['item.pay', '?' . http_build_query($_GET)] , 'method' => 'post']) }}
 @include('item._form', ['item' => $item])
 
-<div class="margin:20px 0;">
-  <button type="submit" class="btn btn-primary"><span>依頼する</span></button>
+
+<div class="row">
+<div class="form-group" style="margin:20px 0;">
+  <div class="col-md-offset-0 col-md-6">
+    <button type="submit" class="btn btn-primary btn-block"><span>購入申請する</span></button>
+  </div>
 </div>
+</div>
+<br>
 {!! Form::close() !!}
 @endif
 

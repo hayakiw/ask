@@ -13,16 +13,30 @@
 <div class="container">
 
 <div class="panel panel-default" style="margin-top:30px;">
-  <div class="panel-heading">{{ $staff->getName() }}</div>
+  <div class="panel-heading">{{ $staff->getName() }}さん</div>
   <div class="panel-body">
-    <div class="thumbnail"><img src="{{ $staff->imageUrl() }}" alt="" ></div>
-地域:{{ $staff->prefecture }}({{ $staff->area }})<br>
-プロフィール:<br>
-{{ $staff->description}}
-  </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="thumbnail" style="max-width:380px;"><img src="{{ $staff->imageUrl() }}" alt="" ></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <label class="control-label col-md-4">地域</label>
+        <div class="col-md-8">{{ $staff->prefecture }}時間</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <label class="control-label col-md-4">プロフィール</label>
+        <div class="col-md-8">{!! nl2br(e($staff->description)) !!}</div>
+      </div>
+    </div>
   </div>
 </div>
-
 
 
     <section class="staff-list">
