@@ -87,6 +87,23 @@ class User extends Authenticatable
         return !empty($this->confimarted_at);
     }
 
+    public function getMessagesByStaff($staffId){
+        $count = $this->hasMany('App\Message')
+            ->where('staff_id', $staffId)->count();
+
+        // 最後の100件を取得
+        $limit = 100;
+        $offset = $count - $limit + 1;
+        if ($offset < 0) $offset = 0;
+
+        return $this->hasMany('App\Message')
+            ->where('staff_id', $staffId)
+            ->orderBy('id', 'asc')
+            ->offset($offset)
+            ->limit($limit)
+            ;
+    }
+
     public function notifications()
     {
         return $this

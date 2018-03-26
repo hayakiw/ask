@@ -21,31 +21,27 @@ class ReviewController extends Controller
 
     public function store(ReviewRequest\StoreRequest $request)
     {
-        $orderData = $request->only([
-            'item_id',
-            'hours',
-            'prefer_date',
-            'prefer_hour',
-            'prefer_date2',
-            'prefer_hour2',
-            'prefer_date3',
-            'prefer_hour3',
+        $order = Order::findOrFail($request->input('order_id'));
+
+        $reviewData = $request->only([
+            'rate',
             'comment'
         ]);
 
-        $user = auth()->user();
-        $orderData['user_id'] = $user->id;
-        $orderData['status'] = Order::ORDER_STATUS_NEW;
+        $user =auth()->user();
+        $reviewData['user_id'] = $user->id;
+        $reviewData['staff_id'] = $order->item->staff->id;
 
-        if ($order = Order::create($orderData)) {
-            $request->session()->flash('info', '依頼しました。');
+        if ($review = Review::create($reviewData)) {
+            $request->session()->flash('info', 'レビューしました。');
             return redirect()
                 ->route('root.index')
             ;
         }
+
         return redirect()
             ->back()
-            ->withInput($orderData)
+            ->withInput($reviewData)
         ;
     }
 }

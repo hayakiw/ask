@@ -160,6 +160,16 @@ Route::group(['middleware' => ['auth:web']], function () {
         'as' => 'review.store',
         'uses' => 'ReviewController@store',
     ]);
+
+    Route::get('messages/{staff}', [
+        'as' => 'messages.index',
+        'uses' => 'MessageController@index',
+    ])->where('staff', '[0-9]+');
+
+    Route::post('message', [
+        'as' => 'message.store',
+        'uses' => 'MessageController@store',
+    ]);
 });
 
 
@@ -308,6 +318,16 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
                 'show', 'index', 'update',
             ]
        ]);
+
+        Route::get('messages/{user}', [
+            'as' => 'staff.messages.index',
+            'uses' => 'MessageController@index',
+        ])->where('user', '[0-9]+');
+
+        Route::post('message', [
+            'as' => 'staff.message.store',
+            'uses' => 'MessageController@store',
+        ]);
     });
 });
 

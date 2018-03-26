@@ -89,6 +89,27 @@ class Staff extends Authenticatable
         return $this->hasMany('App\Review');
     }
 
+    public function getReviewAvg(){
+        return $this->hasMany('App\Review')->avg('rate');
+    }
+
+    public function getMessagesByUser($userId){
+        $count = $this->hasMany('App\Message')
+            ->where('user_id', $userId)->count();
+
+        // 最後の100件を取得
+        $limit = 100;
+        $offset = $count - $limit + 1;
+        if ($offset < 0) $offset = 0;
+
+        return $this->hasMany('App\Message')
+            ->where('user_id', $userId)
+            ->orderBy('id', 'asc')
+            ->offset($offset)
+            ->limit($limit)
+            ;
+    }
+
     public function getName()
     {
         return $this->last_name . ' ' . $this->first_name;

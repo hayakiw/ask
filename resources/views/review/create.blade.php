@@ -18,7 +18,7 @@
     <div class="row">
       <div class="col-md-8">
         <label class="control-label col-md-4">スタッフ</label>
-        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}">{{ $order->staff->getName() }}</a></div>
+        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $order->item->staff->id ]) }}">{{ $order->item->staff->getName() }}</a></div>
       </div>
     </div>
   </div>

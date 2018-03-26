@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReviewsTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('from', 10)->comment('user, staff');
             $table->bigInteger('user_id')->unsigned()->comment('ユーザーID');
             $table->bigInteger('staff_id')->unsigned()->comment('スタッフID');
 
-            $table->tinyInteger('rate')->unsigned()->comment('評価');
-            $table->text('comment')->comment('コメント');
+            $table->text('subject')->nullable()->comment('件名');
+            $table->text('body')->comment('メッセージ');
 
             $table->timestamps();
         });
@@ -32,6 +33,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('messages');
     }
 }

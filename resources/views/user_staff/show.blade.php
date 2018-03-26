@@ -24,6 +24,20 @@
 
     <div class="row">
       <div class="col-md-8">
+        <label class="control-label col-md-4">レビュー</label>
+        <div class="col-md-8">件数:{{ $staff->reviews->count() }} 評価: {{ sprintf('%.1f', $staff->getReviewAvg()) }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <label class="control-label col-md-4">連絡</label>
+        <div class="col-md-8"><a href="{{ route('messages.index', ['staff' => $staff->id ]) }}">メッセージ</a></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
         <label class="control-label col-md-4">性別</label>
         <div class="col-md-8">{{ $staff->sex }}</div>
       </div>
