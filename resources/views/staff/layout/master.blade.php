@@ -39,6 +39,7 @@
         @endif
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('staff')->check())
+            <li><a href="{{ route('staff.messages.index') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->getName() }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

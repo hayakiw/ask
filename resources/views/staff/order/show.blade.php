@@ -18,6 +18,19 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-6">
+        <label class="control-label col-md-4">申請者</label>
+        <div class="col-md-8">{{ $order->user->getName() }}さん</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label col-md-4"></label>
+        <div class="col-md-8"><a href="{{ route('staff.message.show', $order->user->id) }}" target="_blank">メッセージを送る</a></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
         <label class="control-label col-md-4">合計金額</label>
         <div class="col-md-8">{{ number_format($order->total_price) }}円
           <p>※報酬は、合計金額から{{ config('my.order.fee') }}%の手数料を引いた金額が支払われます</p></div>

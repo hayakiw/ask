@@ -19,7 +19,13 @@
     <div class="row">
       <div class="col-md-8">
         <label class="control-label col-md-4">スタッフ</label>
-        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}">{{ $item->staff->getName() }}</a></div>
+        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}" target="_blank">{{ $item->staff->getName() }}さん</a></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <label class="control-label col-md-4"></label>
+        <div class="col-md-8"><a href="{{ route('message.show', $item->staff->id) }}" target="_blank">メッセージを送る</a></div>
       </div>
     </div>
 

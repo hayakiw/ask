@@ -32,6 +32,9 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-6">
         <div class="form-group{{ ($errors->has('password')) ? ' has-error' : '' }}">
           <label for="password" class="control-label col-md-4">パスワード <span class="text-danger">※</span></label>
@@ -47,23 +50,12 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('last_name')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">お名前　姓 <span class="text-danger">※</span></label>
+        <div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+          <label for="" class="control-label col-md-4">ニックネーム <span class="text-danger">※</span></label>
           <div class="col-md-8">
-            <input type="text" name="last_name" placeholder="例：米子" value="{{ Request::old('last_name') }}" class="form-control" />
-            @if ($errors->has('last_name'))
-            <p class="help-block"><span>{{ $errors->first('last_name') }}</span></p>
-            @endif
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group{{ ($errors->has('first_name')) ? ' has-error' : '' }}">
-          <label for="" class="control-label col-md-4">名 <span class="text-danger">※</span></label>
-          <div class="col-md-8">
-            <input type="text" name="first_name" placeholder="例：太郎" value="{{ Request::old('first_name') }}" class="form-control" />
-            @if ($errors->has('first_name'))
-            <p class="help-block"><span>{{ $errors->first('first_name') }}</span></p>
+            <input type="text" name="name" placeholder="例：米子 太郎" value="{{ Request::old('name') }}" class="form-control" />
+            @if ($errors->has('name'))
+            <p class="help-block"><span>{{ $errors->first('name') }}</span></p>
             @endif
           </div>
         </div>
@@ -71,17 +63,6 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6">
-       <div class="form-group{{ ($errors->has('birth_at')) ? ' has-error' : '' }}">
-         <label for="" class="control-label col-md-4">生年月日 <span class="text-danger">※</span></label>
-         <div class="col-md-8">
-           <input type="date" name="birth_at" placeholder="例:1940-11-11" value="{{ Request::old('birth_at') }}" class="form-control{{ $errors->has('birth_at') ? ' err' : '' }}" />
-           @if ($errors->has('birth_at'))
-           <p class="help-block"><span>{{ $errors->first('birth_at') }}</span></p>
-           @endif
-         </div>
-        </div>
-      </div>
       <div class="col-md-6">
         <div class="form-group{{ ($errors->has('sex')) ? ' has-error' : '' }}">
          <label for="" class="control-label col-md-4">性別 <span class="text-danger">※</span></label>
@@ -101,13 +82,13 @@
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="col-md-offset-2 col-md-4">
         <p class="help-block">次に進むことで、<a href="{{ route('static.agreement') }}" target="_blank">利用規約</a>に同意し、ご了承いただいたものとします。</p>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="col-md-offset-2 col-md-4">
         <button type="submit" name="submit" id="btn_regist" class="btn btn-success btn-block"><span>登録する</span></button>
       </div>
     </div>

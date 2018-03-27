@@ -17,7 +17,7 @@
   {!! Form::open( ['route' => 'staff.item.store', 'method' => 'post', 'files' => true, 'class' => 'form-horizontal']) !!}
     @include('staff.item._form', ['item' => $item])
     <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="col-md-offset-2 col-md-4">
         <input type="submit" name="submit" value="登録" class="btn btn-success btn-block">
       </div>
     </div>

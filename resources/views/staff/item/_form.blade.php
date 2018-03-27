@@ -11,6 +11,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="row">
   <div class="col-md-6">
     <div class="form-group{{ ($errors->has('category')) ? ' has-error' : '' }}">
       <label for="" class="col-md-4 control-label">カテゴリ</label>
@@ -50,6 +53,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="row">
   <div class="col-md-6">
     <div class="form-group{{ ($errors->has('max_hours')) ? ' has-error' : '' }}">
       <label for="" class="col-md-4 control-label">最長時間</label>
@@ -76,6 +82,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="row">
   <div class="col-md-6">
     <div class="form-group{{ ($errors->has('description')) ? ' has-error' : '' }}">
       <label for="" class="col-md-4 control-label">詳細説明</label>

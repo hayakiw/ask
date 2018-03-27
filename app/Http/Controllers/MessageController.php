@@ -9,11 +9,16 @@ use App\Message;
 
 class MessageController extends Controller
 {
-    public function index($staffId)
+    public function index()
+    {
+        return view('message.index');
+    }
+
+    public function show($staffId)
     {
         $staff = Staff::findOrFail($staffId);
 
-        return view('message.index',
+        return view('message.show',
             compact('staff')
         );
     }
@@ -35,7 +40,7 @@ class MessageController extends Controller
         if ($message = Message::create($messageData)) {
             $request->session()->flash('info', '送信しました。');
             return redirect()
-                ->route('messages.index', $staff->id)
+                ->route('message.show', $staff->id)
             ;
         }
 

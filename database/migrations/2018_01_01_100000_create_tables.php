@@ -36,6 +36,7 @@ class CreateTables extends Migration
             $t->string('email');
             $t->string('password', 255);
 
+            $t->string('name', 255);
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
             $t->string('tel', 20)->nullable();
@@ -81,6 +82,7 @@ class CreateTables extends Migration
             $t->string('email');
             $t->string('password', 255);
 
+            $t->string('name', 255);
             $t->string('last_name', 255)->nullable();
             $t->string('first_name', 255)->nullable();
             $t->string('tel', 20)->nullable();

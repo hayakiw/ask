@@ -28,8 +28,8 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'last_name', 'first_name', 'tel', 'prefecture', 'description',
-            'email', 'password', 'birth_at', 'sex',
+            'name', 'prefecture', 'description',
+            'email', 'password', 'sex',
         ]);
 
         $userData['password'] = bcrypt($userData['password']);
@@ -73,7 +73,7 @@ class UserController extends Controller
                 );
 
                 return redirect()
-                    ->route('root.index')
+                    ->route('staff.auth.signin_form')
                     ->with(['info' => '確認メールを送信しましたのでご確認ください。'])
                 ;
             }

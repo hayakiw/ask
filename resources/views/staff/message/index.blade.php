@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('staff.layout.master')
 
 <?php
     $layout = [
@@ -12,35 +12,16 @@
 
 <div class="container">
   <div class="page-header">
-    <h1>{{ $user->getName() }} さん</h1>
+    <h1>メッセージ</h1>
+  </div>
 
-  @foreach(auth('staff')->user()->getMessagesByUser($user->id)->get() as $message)
-  <div class="row">
-  <div class="col-md-3">
-    {{ $message->created_at }}
-    [ @if($message->from == 'staff') あなた @else 相手 @endif ]
-  </div>
-  <div class="col-md-3">
-    {!! nl2br(e($message->body)) !!}
-  </div>
-  </div>
+  <table class="table table-striped">
+  @foreach(auth('staff')->user()->getUserMessages as $userMessage)
+  <tr>
+    <td><a href="{{ route('staff.message.show', ['staff' => $userMessage->user->id ]) }}">{{ $userMessage->user->getName() }} さん</a></td>
+    <td>{{ Carbon\Carbon::parse($userMessage->lastUserMassage()->created_at)->format('Y-m-d H:i') }}</td>
+  </tr>
   @endforeach
-
-
-{{ Form::model($user, ['route' => ['staff.message.store'] , 'method' => 'post']) }}
-@include('staff.message._form', ['user' => $user])
-
-
-
-<div class="row">
-<div class="form-group" style="margin:20px 0;">
-  <div class="col-md-offset-0 col-md-6">
-    <button type="submit" class="btn btn-primary btn-block"><span>送信する</span></button>
-  </div>
-</div>
-</div>
-<br>
-{!! Form::close() !!}
-
+  </table>
 </div>
 @endsection

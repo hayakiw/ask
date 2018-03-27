@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-md-8">
         <label class="control-label col-md-4">連絡</label>
-        <div class="col-md-8"><a href="{{ route('messages.index', ['staff' => $staff->id ]) }}">メッセージ</a></div>
+        <div class="col-md-8"><a href="{{ route('message.show', ['staff' => $staff->id ]) }}">メッセージ</a></div>
       </div>
     </div>
 

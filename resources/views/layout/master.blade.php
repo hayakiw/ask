@@ -31,6 +31,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('web')->check())
+            <li><a href="{{ route('messages.index') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
+
             <?php $notifications = auth('web')->user()->notifications()->paginate(10); ?>
             <li class="dropdown" id="notification">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" data-remote="true" data-method="put" href="{{ route('notification.read') }}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>

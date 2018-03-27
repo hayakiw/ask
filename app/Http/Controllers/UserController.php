@@ -24,7 +24,7 @@ class UserController extends Controller
     public function store(UserRequest\StoreRequest $request)
     {
         $userData = $request->only([
-            'last_name', 'first_name', 'email', 'password', 'birth_at', 'sex',
+            'name', 'email', 'password', 'sex',
         ]);
 
         $userData['password'] = bcrypt($userData['password']);

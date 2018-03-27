@@ -25,7 +25,7 @@ class Staff extends Authenticatable
 
     protected $fillable = [
         'email', 'password',
-        'last_name', 'first_name', 'tel', 'description', 'prefecture', 'area',
+        'name', 'last_name', 'first_name', 'tel', 'description', 'prefecture', 'area',
         'birth_at', 'sex',
         'confirmation_token', 'confirmation_sent_at',
         'confimarted_at',
@@ -93,6 +93,13 @@ class Staff extends Authenticatable
         return $this->hasMany('App\Review')->avg('rate');
     }
 
+    public function getUserMessages(){
+        return $this->hasMany('App\Message')
+            ->select('user_id')->distinct()
+            ->orderBy('id', 'asc')
+            ;
+    }
+
     public function getMessagesByUser($userId){
         $count = $this->hasMany('App\Message')
             ->where('user_id', $userId)->count();
@@ -112,7 +119,7 @@ class Staff extends Authenticatable
 
     public function getName()
     {
-        return $this->last_name . ' ' . $this->first_name;
+        return $this->name;
     }
 
     public function getFullBankAccountName()

@@ -30,19 +30,10 @@ class StoreRequest extends Request
                 //'required',
                 'image',
             ],
-            'last_name' => [
+            'name' => [
                 'required',
                 'max:50',
-            ],
-            'first_name' => [
-                'required',
-                'max:50',
-            ],
-            'tel' => [
-                'required',
-                'numeric',
-                'min:9',
-                'min:11',
+                'unique:staffs,name,NULL,id,canceled_at,NULL',
             ],
             'prefecture' => [
                 'required',
@@ -50,10 +41,6 @@ class StoreRequest extends Request
             'description' => [
                 'required',
                 'max:1000',
-            ],
-            'birth_at' => [
-                'required',
-                'date',
             ],
             'sex' => [
                 'required',
@@ -82,19 +69,12 @@ class StoreRequest extends Request
         return [
             'image.required' => '"画像"は必ず選択してください',
             'image.image' => '"画像"はjpg,png,gifのいずれかを選択してください',
-            'last_name.required' => '"姓"は必ず入力してください',
-            'last_name.max' => '"姓"は:max文字以内で入力してください',
-            'first_name.required' => '"名"は必ず入力してください',
-            'first_name.max' => '"名"は:max文字以内で入力してください',
-            'tel.required' => '"電話番号"は必ず入力してください',
-            'tel.numeric' => '"電話番号"は半角数字で入力してください',
-            'tel.min' => '"電話番号"は正しく入力してください',
-            'tel.max' => '"電話番号"は正しく入力してください',
+            'name.required' => '"ニックネーム"は必ず入力してください',
+            'name.max' => '"ニックネーム"は:max文字以内で入力してください',
+            'name.unique' => '入力した“ニックネーム”は既に登録されています',
             'prefecture.required' => '"都道府県"は必ず入力してください',
             'description.required' => '"プロフィール"は必ず入力してください',
             'description.max' => '"プロフィール"は:max文字以内で入力してください',
-            'birth_at.required' => '"生年月日"は必ず入力してください',
-            'birth_at.date' => '"生年月日"は日付を入力してください',
             'sex.required' => '"性別"は必ず入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',

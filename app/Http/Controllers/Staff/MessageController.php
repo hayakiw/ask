@@ -10,11 +10,16 @@ use App\Message;
 
 class MessageController extends Controller
 {
-    public function index($userId)
+    public function index()
+    {
+        return view('staff.message.index');
+    }
+
+    public function show($userId)
     {
         $user = User::findOrFail($userId);
 
-        return view('staff.message.index',
+        return view('staff.message.show',
             compact('user')
         );
     }
@@ -36,7 +41,7 @@ class MessageController extends Controller
         if ($message = Message::create($messageData)) {
             $request->session()->flash('info', '送信しました。');
             return redirect()
-                ->route('staff.messages.index', $user->id)
+                ->route('staff.message.show', $user->id)
             ;
         }
 

@@ -26,17 +26,10 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'last_name' => [
+            'name' => [
                 'required',
                 'max:50',
-            ],
-            'first_name' => [
-                'required',
-                'max:50',
-            ],
-            'birth_at' => [
-                'required',
-                'date',
+                'unique:users,name,NULL,id,canceled_at,NULL',
             ],
             'sex' => [
                 'required',
@@ -63,12 +56,9 @@ class StoreRequest extends Request
     public function messages()
     {
         return [
-            'last_name.required' => '"姓"は必ず入力してください',
-            'last_name.max' => '"姓"は:max文字以内で入力してください',
-            'first_name.required' => '"名"は必ず入力してください',
-            'first_name.max' => '"名"は:max文字以内で入力してください',
-            'birth_at.required' => '"生年月日"は必ず入力してください',
-            'birth_at.date' => '"生年月日"は日付を入力してください',
+            'name.required' => '"ニックネーム"は必ず入力してください',
+            'name.max' => '"ニックネーム"は:max文字以内で入力してください',
+            'name.unique' => '入力した“ニックネーム”は既に登録されています',
             'sex.required' => '"性別"は必ず入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',

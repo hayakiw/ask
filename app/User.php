@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'email', 'password',
-        'last_name', 'first_name',
+        'name', 'last_name', 'first_name',
         'birth_at', 'sex',
         'confirmation_token', 'confirmation_sent_at',
         'canceled_reason', 'canceled_other_reason', 'canceled_at',
@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function getName()
     {
-        return $this->last_name . ' ' . $this->first_name;
+        return $this->name;
     }
 
     public function isActive()
@@ -87,6 +87,13 @@ class User extends Authenticatable
         return !empty($this->confimarted_at);
     }
 
+    public function getStaffMessages(){
+        return $this->hasMany('App\Message')
+            ->select('staff_id')->distinct()
+            ->orderBy('id', 'asc')
+            ;
+    }
+
     public function getMessagesByStaff($staffId){
         $count = $this->hasMany('App\Message')
             ->where('staff_id', $staffId)->count();
@@ -102,6 +109,11 @@ class User extends Authenticatable
             ->offset($offset)
             ->limit($limit)
             ;
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo('App\Staff');
     }
 
     public function notifications()

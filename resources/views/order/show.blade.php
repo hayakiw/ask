@@ -18,6 +18,19 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-6">
+        <label class="control-label col-md-4">スタッフ</label>
+        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $order->item->staff->id ]) }}" target="_blank">{{ $order->item->staff->getName() }}さん</a></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label col-md-4"></label>
+        <div class="col-md-8"><a href="{{ route('message.show', $order->item->staff->id) }}" target="_blank">メッセージを送る</a></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
         <label class="control-label col-md-4">合計金額</label>
         <div class="col-md-8">{{ number_format($order->total_price) }}円</div>
       </div>

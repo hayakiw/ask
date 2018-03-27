@@ -23,4 +23,26 @@ class Message extends Model
     {
         return $this->belongsTo('App\Staff');
     }
+
+    public function lastStaffMassage()
+    {
+        $user = auth()->user();
+
+        return self::where('staff_id', $this->staff_id)
+            ->where('user_id', $user->id)
+            ->orderBy('id', 'desc')
+            ->first()
+            ;
+    }
+
+    public function lastUserMassage()
+    {
+        $staff = auth('staff')->user();
+
+        return self::where('staff_id', $staff->id)
+            ->where('user_id', $this->user_id)
+            ->orderBy('id', 'desc')
+            ->first()
+            ;
+    }
 }
