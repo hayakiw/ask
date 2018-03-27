@@ -42,8 +42,8 @@
               @if (isset($notifications))
               @if ($notifications->count()==0)<li>通知はありません</li>@endif
               @foreach ($notifications as $notification)
-              @if ($notification->event == 'xxxx')
-              <li><a href="{{ route('user.show', $notification->user_id) }}?tab=follower"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
+              @if ($notification->event == 'notify.message')
+              <li><a href="{{ route('message.show', $notification->notifiable->staff_id) }}"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
               @else
               @if ($notification->notifiable)
               <li><a href="{{ route('orders.show', $notification->notifiable) }}"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
@@ -159,6 +159,8 @@
   <script src="{{ asset('js/' . $js . '.js') }}"></script>
   @endforeach
   @endif
+
+  <script type="text/javascript">@stack('script_codes')</script>
 
   </body>
 </html>

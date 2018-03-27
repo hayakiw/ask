@@ -1,0 +1,1 @@
+$("#u{{ $staff->id }}-notifications").html('{{ $staff->unreadNotifications->count() }}');

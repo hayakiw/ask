@@ -187,6 +187,135 @@ section.service-list div.survice-column {
 
 
 /*
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- message */
+
+
+
+div.message {
+	margin-top: 10px;
+}
+
+div.message div.article {
+	padding: 1em;
+	margin-bottm: 1em;
+	display: table;
+	box-sizing: border-box;
+	width: 100%;
+	line-height: 1.5;
+}
+
+div.message div.article div.name {
+	display: table-cell;
+	width: 15%;
+	vertical-align: middle;
+	text-align: center;
+	color: #0037a0;
+	font-weight: bold;
+}
+
+div.message div.article div.name img {
+	width: 70px;
+	height: 70px;	
+}
+
+div.message div.article div.wrap {
+	display: table-cell;
+	width: 85%;
+	background: #f2f5fa;
+	padding: 1em;
+	box-sizing: border-box;
+	position: relative;
+	border-radius: 5px;
+	/* border: 1px solid #dcdcdc; */
+	
+}
+
+div.message div.article.me div.wrap:after {
+	content: ' ';
+    height: 0;
+    position: absolute;
+    width: 0;
+    border: 10px solid transparent;
+    border-right-color: #f2f5fa;
+    left: -20px;
+    top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-moz-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	-o-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	z-index: 1;
+}
+
+
+div.message div.article.you div.wrap:after {
+	content: ' ';
+    height: 0;
+    position: absolute;
+    width: 0;
+    border: 10px solid transparent;
+    border-left-color: #f2f5fa;
+    left: 100%;
+    top: 50%;
+	-webkit-transform: translate(0, -50%);
+	-moz-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	-o-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	z-index: 1;
+}
+
+div.message div.article div.wrap div.title {
+	font-weight: bold;
+	padding-top: 0.5em;
+	margin-bottom: 0.5em;
+	font-size: 14px;
+	color: #444;
+}
+
+div.message div.article div.wrap div.contents {
+	margin-bottom: 0.5em;
+	word-break: break-word;
+	word-break: break-all;
+	overflow-wrap: break-word;
+}
+
+div.message div.article div.wrap>div.clearfix {
+	border-top: 1px solid #c3d5e5;
+	padding-top: 0.4em;
+	overflow: hidden;
+	width: 100%;
+}
+
+div.message div.article div.attachments {
+	padding: 0;
+	float: left;
+	font-size: 1.3rem;
+	margin: 0 1% 0 0;
+}
+
+div.message div.article div.attachments a {
+	color: #3594e5;
+	/* background: #3594e5; */
+	padding: 0.2em 0.5em;
+	border-radius: 100px;
+}
+
+div.message div.article div.attachments a:hover {
+	text-decoration: none;
+}
+
+div.message div.article div.attachments img {
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+}
+
+div.message div.article div.wrap div.update {
+	float: right;
+	font-size: 1.1rem;
+}
+/*
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- footer */
 
 .footer {

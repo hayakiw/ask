@@ -40,6 +40,28 @@
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('staff')->check())
             <li><a href="{{ route('staff.messages.index') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
+
+            <?php $notifications = Auth::guard('staff')->user()->notifications()->paginate(10); ?>
+            <li class="dropdown" id="notification">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" data-remote="true" data-method="put" href="{{ route('staff.notification.read') }}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                <span id="notice_count" style="display: none;"><span id="u{{ Auth::guard('staff')->id() }}-notifications" style="color:#fff;">{{ number_format(Auth::guard('staff')->user()->unreadNotifications()->count()) }}</span></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+              @if (isset($notifications))
+              @if ($notifications->count()==0)<li>通知はありません</li>@endif
+              @foreach ($notifications as $notification)
+              @if ($notification->event == 'notify.message')
+              <li><a href="{{ route('staff.message.show', $notification->notifiable->user_id) }}"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
+              @else
+              @if ($notification->notifiable)
+              <li><a href="{{ route('staff.orders.show', $notification->notifiable) }}"><span>{{ $notification->created_at->format('Y/m/d H:i') }}</span><br />{{ $notification->content }}</a></li>
+              @endif
+              @endif
+              @endforeach
+              @endif
+              </ul>
+            </li>
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ Auth::guard('staff')->user()->getName() }} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -119,13 +141,17 @@
 
   <script type="text/javascript" src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/footerFixed.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/footerFixed.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery-ujs.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
   @if (isset($layout['js']))
   @foreach ($layout['js'] as $js)
   <script src="{{ asset('js/' . $js . '.js') }}"></script>
   @endforeach
   @endif
+
+  <script type="text/javascript">@stack('script_codes')</script>
 
   </body>
 </html>

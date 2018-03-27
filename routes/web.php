@@ -302,6 +302,11 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
             'uses' => 'UserController@updatePassword',
         ]);
 
+        Route::put('notification/read', [
+            'as' => 'staff.notification.read',
+            'uses' => 'NotificationController@read',
+        ]);
+
         // マイページ
         Route::get('my', [
             'as' => 'staff.my.index',

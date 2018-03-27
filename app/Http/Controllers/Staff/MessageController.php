@@ -39,6 +39,16 @@ class MessageController extends Controller
         $messageData['subject'] = $user->getName() . 'さんからのメッセージ';
 
         if ($message = Message::create($messageData)) {
+
+            // notification
+            \App\Notification::create([
+                'user_id' => $user->id,
+                'content' => $staff->getName() . ' さんからメッセージがありました。',
+                'event' => 'notify.message',
+                'notifiable_type' => 'message',
+                'notifiable_id' => $message->id,
+            ]);
+
             $request->session()->flash('info', '送信しました。');
             return redirect()
                 ->route('staff.message.show', $user->id)

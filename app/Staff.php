@@ -117,6 +117,25 @@ class Staff extends Authenticatable
             ;
     }
 
+    public function notifications()
+    {
+        return $this
+            ->hasMany('App\Notification')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ;
+    }
+
+    public function unreadNotifications()
+    {
+        return $this
+            ->hasMany('App\Notification')
+            ->where('read', 0)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ;
+    }
+
     public function getName()
     {
         return $this->name;
