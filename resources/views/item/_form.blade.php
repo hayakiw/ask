@@ -16,7 +16,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-2 col-xs-6">
     <div class="form-group{{ $errors->has('prefer_date') || $errors->has('prefer_date') ? ' has-error' : '' }}">
       <label for="name">希望日時(日) <span class="text-danger">※</span></label>
       <div class="input-group">
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="col-sm-2">
+  <div class="col-sm-2 col-xs-4">
     <div class="form-group{{ $errors->has('prefer_hour') || $errors->has('prefer_hour') ? ' has-error' : '' }}">
       <label for="name">希望日時(時) <span class="text-danger">※</span></label>
       <div class="input-group">
@@ -40,7 +40,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-2 col-xs-6">
     <div class="form-group{{ $errors->has('prefer_date2') || $errors->has('prefer_date2') ? ' has-error' : '' }}">
       <label for="name">希望日時(日) <span class="text-danger">※</span></label>
       <div class="input-group">
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <div class="col-sm-2">
+  <div class="col-sm-2 col-xs-4">
     <div class="form-group{{ $errors->has('prefer_hour2') || $errors->has('prefer_hour2') ? ' has-error' : '' }}">
       <label for="name">希望日時(時) <span class="text-danger">※</span></label>
       <div class="input-group">
@@ -64,7 +64,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-2 col-xs-6">
     <div class="form-group{{ $errors->has('prefer_date3') || $errors->has('prefer_date3') ? ' has-error' : '' }}">
       <label for="name">希望日時(日) <span class="text-danger">※</span></label>
       <div class="input-group">
@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="col-sm-2">
+  <div class="col-sm-2 col-xs-4">
     <div class="form-group{{ $errors->has('prefer_hour3') || $errors->has('prefer_hour3') ? ' has-error' : '' }}">
       <label for="name">希望日時(時) <span class="text-danger">※</span></label>
       <div class="input-group">

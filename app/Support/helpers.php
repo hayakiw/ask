@@ -48,3 +48,15 @@ if (!function_exists('format_date')) {
         return '';
     }
 }
+
+
+if (!function_exists('format_datetime')) {
+    function format_datetime($date)
+    {
+        if ($date) {
+            return Carbon::parse($date)->format('Y-m-d H:i');
+        }
+
+        return '';
+    }
+}

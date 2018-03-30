@@ -22,7 +22,6 @@ class ItemController extends Controller
         ]);
 
         $items = Item::query();
-        $items = $items->orderBy('id', 'desc');
 
         if (isset($search['category']) && $search['category'] != ''){
             $items = $items->where('category_id', '=', $search['category']);
@@ -31,6 +30,8 @@ class ItemController extends Controller
         if (isset($search['area']) && $search['area'] != ''){
             $items = $items->where('area', '=', $search['area']);
         }
+
+        $items = $items->orderBy('id', 'desc');
 
         $items = $items->paginate(100)->setPath('');
 

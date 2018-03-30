@@ -18,11 +18,11 @@
   <div class="message clearfix">
   @foreach(auth()->user()->getMessagesByStaff($staff->id)->get() as $message)
   <div class="article @if($message->from == 'user') me @else you @endif">
-    @if($message->from == 'user')<div class="name">あなた</div>@endif
+    @if($message->from == 'user')<div class="name">自分</div>@endif
     <div class="wrap">
       <div class="contents">{!! nl2br(e($message->body)) !!}</div>
       <div class="clearfix">
-        <div class="update">{{ Carbon\Carbon::parse($message->created_at)->format('Y-m-d H:i') }}</div>
+        <div class="update">{{ format_datetime($message->created_at) }}</div>
       </div>
     </div>
     <!-- / .wrap -->

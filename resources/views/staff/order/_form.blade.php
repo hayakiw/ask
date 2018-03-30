@@ -3,8 +3,7 @@
 <span class="help-block"><strong>{{ $errors->first('order_id') }}</strong></span>
 @endif
 
-{{-- <div class="row">
-  <div class="col-sm-6"> --}}
+
     <div class="form-group{{ $errors->has('ok') ? ' has-error' : '' }}">
       <label for="ok" class="control-label col-md-2">依頼受け入れ <span class="text-danger">※</span></label>
       <?php $okOld = Request::old('ok') ?: $order->ok;?>
@@ -16,31 +15,23 @@
         @endif
       </div>
     </div>
-  {{-- </div>
-</div> --}}
 
-{{-- <div class="row">
-  <div class="col-sm-6"> --}}
     <div class="form-group{{ $errors->has('prefer') ? ' has-error' : '' }}">
       <label for="prefer" class="control-label col-md-2">作業日時 <span class="text-danger">※</span></label>
       <?php $preferOld = Request::old('prefer') ?: $order->prefer;?>
       <div class="col-md-4">
         <select name="prefer" class="form-control">
           <option value="">選択してください</option>
-          <option value="1">第一希望 ({{ $order->prefer_at }})</option>
-          @if($order->prefer_at2)<option value="2">第二希望 ({{ $order->prefer_at2 }})</option>@endif
-          @if($order->prefer_at3)<option value="3">第三希望 ({{ $order->prefer_at3 }})</option>@endif
+          <option value="1">第一希望 ({{ format_datetime($order->prefer_at) }})</option>
+          @if($order->prefer_at2)<option value="2">第二希望 ({{ format_datetime($order->prefer_at2) }})</option>@endif
+          @if($order->prefer_at3)<option value="3">第三希望 ({{ format_datetime($order->prefer_at3) }})</option>@endif
         </select>
         @if ($errors->has('prefer'))
         <span class="help-block"><strong>{{ $errors->first('prefer') }}</strong></span>
         @endif
       </div>
     </div>
-  {{-- </div>
-</div> --}}
 
-{{-- <div class="row">
-  <div class="col-sm-6"> --}}
     <div class="form-group{{ $errors->has('staff_comment') ? ' has-error' : '' }}">
       <label for="staff_comment" class="control-label col-md-2">返信内容 <span class="text-danger">※</span></label>
       <div class="col-md-4">
@@ -51,5 +42,3 @@
         @endif
       </div>
     </div>
-  {{-- </div>
-</div> --}}

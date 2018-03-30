@@ -48,11 +48,11 @@
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail"> <img src="{{ $item->staff->imageUrl() }}" alt="" >
               <div class="caption">
-                <h3>{{ str_limit($item->title, 10) }}</h3>
+                <p style="text-align:center;"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}">{{ $item->staff->getName() }}</a></p>
+                <h3>{{ str_limit($item->title, 20) }}</h3>
                 <p>{!! nl2br(e(mb_strim($item->description, 0, 80))) !!}</p>
-                <p>スタッフ <a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}">{{ $item->staff->getName() }}</a></p>
-                <p>時給 {{ $item->price }}円</p>
-                <p>場所 {{ $item->location }}</p>
+                <p style="font-weight:bold;">{{ $item->price }}円/時</p>
+                <p>エリア: {{ $item->location }}</p>
                 <p><a href="{{ route('item.show', ['item' => $item->id ]) }}" class="btn btn-primary" role="button">詳細</a>
                   <!-- <a href="#" class="btn btn-default" role="button">Button</a> -->
                 </p>

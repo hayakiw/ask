@@ -13,9 +13,44 @@
 
 <div class="container">
 
-<div class="panel panel-default" style="margin-top:30px;">
-  <div class="panel-heading">{{ $item->title }}</div>
-  <div class="panel-body">
+
+<div class="row" style="margin-top:50px;">
+  <div class="col-md-4 thumbnail">
+    <div class="row mb-10">
+      <div class="col-md-12" style="text-align:center;">
+        <div class=""><img src="{{ $item->staff->imageUrl() }}" alt="" ></div>
+      </div>
+    </div>
+    <div class="row mb-10">
+      <div class="col-md-12" style="text-align:center;">
+        {{ $item->staff->getName() }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label class="control-label col-md-3 col-xs-12">評価</label>
+        <div class="col-md-5 col-xs-5">
+          <div class="star-rating">
+            <div class="star-rating-front" style="width: {{ $item->staff->getReviewAvg() }}%">★★★★★</div>
+            <div class="star-rating-back">★★★★★ </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-xs-3">
+          {{ $item->staff->getReviewAvg() }}%({{ $item->staff->reviews->count() }})
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-8">
+    <div class="row mt-10">
+      <div class="col-md-8">
+        <label class="control-label col-md-4">サービス</label>
+        <div class="col-md-8">{{ $item->title }}</div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-8">
         <label class="control-label col-md-4">スタッフ</label>
@@ -24,8 +59,8 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <label class="control-label col-md-4"></label>
-        <div class="col-md-8"><a href="{{ route('message.show', $item->staff->id) }}" target="_blank">メッセージを送る</a></div>
+        <label class="control-label col-md-4">連絡</label>
+        <div class="col-md-8"><a href="{{ route('message.show', ['staff' => $item->staff->id ]) }}">メッセージを送る</a></div>
       </div>
     </div>
 
@@ -68,9 +103,14 @@
 
 
 @if (!Auth::guard('web')->check())
-<br>
-<a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a>または
-<a href="{{ route('user.create') }}" class="exhibit">新規登録</a>
+
+<div class="row">
+<div class="form-group" style="margin:20px 0;">
+  <div class="col-md-offset-0 col-md-6">
+    <a href="{{ route('auth.signin') }}" class="btn btn-primary btn-block">申請する</a>
+  </div>
+</div>
+</div>
 
 @else
 {{ Form::model($item, ['route' => ['item.pay', '?' . http_build_query($_GET)] , 'method' => 'post']) }}

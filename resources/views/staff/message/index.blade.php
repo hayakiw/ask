@@ -19,7 +19,7 @@
   @foreach(auth('staff')->user()->getUserMessages as $userMessage)
   <tr>
     <td><a href="{{ route('staff.message.show', ['staff' => $userMessage->user->id ]) }}">{{ $userMessage->user->getName() }} さん</a></td>
-    <td>{{ Carbon\Carbon::parse($userMessage->lastUserMassage()->created_at)->format('Y-m-d H:i') }}</td>
+    <td>{{ format_datetime($userMessage->lastUserMassage()->created_at) }}</td>
   </tr>
   @endforeach
   </table>

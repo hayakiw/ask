@@ -82,7 +82,8 @@ class Staff extends Authenticatable
     }
 
     public function items(){
-        return $this->hasMany('App\Item');
+        return $this->hasMany('App\Item')
+            ->orderBy('id', 'desc');
     }
 
     public function reviews(){
@@ -90,7 +91,7 @@ class Staff extends Authenticatable
     }
 
     public function getReviewAvg(){
-        return $this->hasMany('App\Review')->avg('rate');
+        return ceil($this->hasMany('App\Review')->avg('rate') * 100);
     }
 
     public function getUserMessages(){
