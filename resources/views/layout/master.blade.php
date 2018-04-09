@@ -27,7 +27,7 @@
         <ul class="nav navbar-nav">
           <li><a href="{{ route('root.index') }}">ホーム</a></li>
           <li><a href="{{ route('item.index') }}">みんなのサービス</a></li>
-          <li><a href="{{ route('staff.root.index') }}">出品したい方はこちら</a></li>
+          <li><a href="{{ route('staff.root.index') }}">仕事をしたい方はこちら</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('web')->check())
