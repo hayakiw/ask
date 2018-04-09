@@ -876,3 +876,7 @@ ul.column9 li:nth-child(9n) {  margin-right: 0;}
 .mb-10 {
   margin-bottom: 10px;
 }
+
+.thumbnail img {
+  max-width:100%;
+}
