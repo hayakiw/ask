@@ -133,7 +133,7 @@ Route::group(['middleware' => ['auth:web']], function () {
     ]);
 
     Route::resource('orders', 'OrderController', ['only' => [
-        'show', 'index',
+        'show', 'index', 'destroy',
     ]]);
 
     Route::get('user/cancel', [

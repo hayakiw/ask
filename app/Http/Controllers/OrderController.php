@@ -86,4 +86,32 @@ class OrderController extends Controller
             ->withInput($orderData)
         ;
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        if ($order->status == Order::ORDER_STATUS_PAID) {
+            $order->status = Order::ORDER_STATUS_CANCEL;
+
+            if ($order->update()) {
+                // notification
+                \App\Notification::create([
+                    'staff_id' => $order->item->staff->id,
+                    'content' => $order->user->getName() . ' さんから依頼をキャンセルされました。',
+                    'event' => 'notify.order',
+                    'notifiable_type' => 'order',
+                    'notifiable_id' => $order->id,
+                ]);
+
+                return redirect()
+                    ->back()
+                    ->with('message', '依頼をキャンセルしました');
+            }
+        }
+
+        return redirect()
+            ->back()
+            ->withError('依頼をキャンセルできませんでした。');
+    }
 }
