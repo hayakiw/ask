@@ -56,7 +56,7 @@
       <div class="col-md-offset-6 col-md-6">
         <div class="col-md-offset-4 col-md-8">
           {!! Form::open(['route' => ['orders.destroy', $order->id], 'method' => 'delete']) !!}
-            <input type="submit" class="btn btn-xs btn-danger" value="キャンセル">
+            <input type="submit" class="btn btn-xs btn-danger" onclick="return confirm('キャンセルします。\nこの操作は取り消せません。');return false;" value="キャンセル">
           {!! Form::close() !!}
         </div>
       </div>
