@@ -1,10 +1,10 @@
 <?php
-namespace App\Http\Requests\_Admin\User;
+namespace App\Http\Requests\_Admin\Staff;
 
 use App\Http\Requests\Request;
-use App\User;
+use App\Staff;
 
-class StoreRequest extends Request
+class UpdateRequest extends Request
 {
 
     /**
@@ -25,10 +25,21 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            // 'image' => [
+            //     //'required',
+            //     'image',
+            // ],
             'name' => [
                 'required',
                 'max:50',
-                'unique:users,name,NULL,id,canceled_at,NULL',
+                'unique:staffs,name,' . $this->id . ',id,canceled_at,NULL',
+            ],
+            'prefecture' => [
+                'required',
+            ],
+            'description' => [
+                'required',
+                'max:1000',
             ],
             'sex' => [
                 'required',
@@ -37,10 +48,9 @@ class StoreRequest extends Request
                 'required',
                 'email',
                 'max:255',
-                'unique:users,email,NULL,id,canceled_at,NULL',
+                'unique:staffs,email,' . $this->id . ',id,canceled_at,NULL',
             ],
             'password' => [
-                'required',
                 'between:6,20',
                 'ascii',
             ],
@@ -55,15 +65,20 @@ class StoreRequest extends Request
     public function messages()
     {
         return [
+            // 'image.required' => '"画像"は必ず選択してください',
+            // 'image.image' => '"画像"はjpg,png,gifのいずれかを選択してください',
             'name.required' => '"ニックネーム"は必ず入力してください',
             'name.max' => '"ニックネーム"は:max文字以内で入力してください',
             'name.unique' => '入力した“ニックネーム”は既に登録されています',
+            'prefecture.required' => '"都道府県"は必ず入力してください',
+            'description.required' => '"プロフィール"は必ず入力してください',
+            'description.max' => '"プロフィール"は:max文字以内で入力してください',
             'sex.required' => '"性別"は必ず入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
             'email.email' => '"メールアドレス"を正しく入力してください',
             'email.max' => '“メールアドレス”は:max文字以内で入力してください',
             'email.unique' => '入力した“メールアドレス”は既に登録されています',
-            'password.required' => '“パスワード"は必ず入力してください',
+            // 'password.required' => '“パスワード"は必ず入力してください',
             'password.between' => '"パスワード"は:min〜:max文字で入力してください',
             'password.ascii' => '"パスワード"を正しく入力してください',
         ];

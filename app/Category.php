@@ -74,4 +74,9 @@ class Category extends Model
 
         return $names;
     }
+
+    public function items()
+    {
+        return $this->hasMany('App\Item');
+    }
 }

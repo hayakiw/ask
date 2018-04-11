@@ -401,13 +401,28 @@ Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
         // スタッフ管理
         Route::resource('staffs', 'StaffController');
 
-        // スタッフ管理
+        // ユーザー管理
         Route::resource('users', 'UserController');
 
         Route::post('staffs/cancel/{staff?}', [
             'as' => 'staffs.cancel',
             'uses' => 'StaffController@cancel',
         ])->where('staff', '[0-9]+');
+
+        Route::post('users/cancel/{staff?}', [
+            'as' => '_admin.users.cancel',
+            'uses' => 'UserController@cancel',
+        ])->where('staff', '[0-9]+');
+
+        // オーダー管理
+        Route::resource('orders', 'OrderController', [
+            'as' => '_admin',
+        ]);
+
+        // サービス管理
+        Route::resource('items', 'ItemController', [
+            'as' => '_admin'
+        ]);
 
     });
 

@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\_Admin\User as UserRequest;
+use App\Http\Requests\_Admin\Staff as StaffRequest;
 use Carbon\Carbon;
-use App\User;
+use App\Staff;
 use App\Order;
 
-class UserController extends Controller
+class StaffController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,14 +20,14 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $userBuilder = User::query();
+        $staffBuilder = Staff::query();
         $search = $this->getSearchData($request);
-        $userBuilder = $this->addSerchCondition($userBuilder, $search);
-        $users = $userBuilder->orderBy('id', 'asc')->paginate(100)->setPath('');
+        $staffBuilder = $this->addSerchCondition($staffBuilder, $search);
+        $staffs = $staffBuilder->orderBy('id', 'asc')->paginate(100)->setPath('');
 
-        return view('_admin.user.index')
+        return view('_admin.staff.index')
             ->with([
-                'users' => $users,
+                'staffs' => $staffs,
                 'search' => $search,
             ])
         ;
@@ -40,10 +40,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User;
-        return view('_admin.user.create')
+        $staff = new Staff;
+        return view('_admin.staff.create')
             ->with([
-                'user' => $user
+                'staff' => $staff
             ])
         ;
     }
@@ -54,19 +54,19 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest\StoreRequest $request)
+    public function store(StaffRequest\StoreRequest $request)
     {
-        $userData = $this->getUserData($request);
-        $userData['password'] = bcrypt($userData['password']);
+        $staffData = $this->getStaffData($request);
+        $staffData['password'] = bcrypt($staffData['password']);
 
-        if ($user = User::create($userData)) {
+        if ($staff = Staff::create($staffData)) {
             // アクティブなユーザーとして登録する
-            $user->confimarted_at = Carbon::now();
-            $user->save();
+            $staff->confimarted_at = Carbon::now();
+            $staff->save();
 
             $request->session()->flash('info', '登録しました。');
             return redirect()
-                ->route('users.index')
+                ->route('staffs.index')
             ;
         }
 
@@ -85,9 +85,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = \App\User::findOrFail($id);
-        return view('_admin.user.edit')
-            ->with('user', $user)
+        $staff = \App\Staff::findOrFail($id);
+        return view('_admin.staff.edit')
+            ->with('staff', $staff)
         ;
     }
 
@@ -98,28 +98,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest\UpdateRequest $request, $id)
+    public function update(StaffRequest\UpdateRequest $request, $id)
     {
-        $user = User::findOrFail($id);
+        $staff = Staff::findOrFail($id);
 
-        $userData = $this->getUserData($request);
+        $staffData = $this->getStaffData($request);
 
-        if(!empty($userData['password'])){
-          $userData['password'] = bcrypt($userData['password']);
+        if(!empty($staffData['password'])){
+          $staffData['password'] = bcrypt($staffData['password']);
         }else{
-          unset($userData['password']);
+          unset($staffData['password']);
         }
 
-        if ($user->update($userData)){
+        if ($staff->update($staffData)){
             return redirect()
-                ->route('users.index', $request->query())
+                ->route('staffs.index', $request->query())
                 ->with(['info' => '更新しました。'])
             ;
         }
 
         return redirect()
             ->back()
-            ->withInput($userData)
+            ->withInput($staffData)
         ;
     }
 
@@ -131,10 +131,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Staff::destroy($id);
 
         return redirect()
-            ->route('users.index')
+            ->route('staffs.index')
             ->with(['info' => '削除しました。']);
     }
 
@@ -147,27 +147,28 @@ class UserController extends Controller
      */
     public function cancel($id)
     {
-        $user = User::findOrFail($id);
-        $user->canceled_at = Carbon::now();
-        $user->save();
+        $staff = Staff::findOrFail($id);
+        $staff->canceled_at = Carbon::now();
+        $staff->save();
 
         return redirect()
-            ->route('users.index')
+            ->route('staffs.index')
             ->with(['info' => '退会しました。']);
     }
 
 
     /*
      * @param  \Illuminate\Http\Response
-     * @return array  $user_data
+     * @return array  $staff_data
      */
-    private function getUserData($request)
+    private function getStaffData($request)
     {
-        $userData = $request->only([
-            'name', 'email', 'password', 'sex',
+        $staffData = $request->only([
+            'name', 'prefecture', 'description',
+            'email', 'password', 'sex',
         ]);
 
-        return $userData;
+        return $staffData;
     }
 
 
@@ -182,22 +183,22 @@ class UserController extends Controller
         return $search;
     }
 
-    private function addSerchCondition($userBuilder, $search)
+    private function addSerchCondition($staffBuilder, $search)
     {
 
         if (isset($search['id']) && $search['id'] != ''){
-            $userBuilder
+            $staffBuilder
                 ->where('id', 'like', "%{$search['id']}%")
             ;
         }
 
         if (isset($search['email']) && $search['email'] != ''){
-            $userBuilder
+            $staffBuilder
                 ->where('email', 'like', "%{$search['email']}%")
             ;
         }
 
-        return $userBuilder;
+        return $staffBuilder;
     }
 
 }

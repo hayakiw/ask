@@ -7,7 +7,7 @@
 
 {{ Form::model($user, ['route' => 'users.store', 'method' => 'post', 'class' => 'form-horizontal']) }}
 
-    @include('_admin.user._form', ['user' => $user])
+    @include('_admin.user._form', ['user' => $user, 'form_type' => 'create'])
     <div class="form-group">
       <div class="col-md-offset-4 col-md-8">
         <a href="{{ route('users.index') }}" class="btn btn-secondary">戻る</a>

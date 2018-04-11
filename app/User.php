@@ -134,4 +134,9 @@ class User extends Authenticatable
             ->orderBy('id', 'desc')
             ;
     }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
 }

@@ -1,5 +1,5 @@
 @extends('_admin.layout.master')
-@section('title','ユーザー')
+@section('title','スタッフ')
 
 @section('content')
 
@@ -29,10 +29,10 @@
 
       <div class="col-md-2">
         <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i>検索</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">クリア</a>
+        <a href="{{ route('staffs.index') }}" class="btn btn-secondary">クリア</a>
       </div>
       <div class="col-md-3 text-right">
-        <a href="{{ route('users.create') }}?{{ http_build_query($_GET) }}" class="btn btn-secondary">新規作成</a>
+        <a href="{{ route('staffs.create') }}?{{ http_build_query($_GET) }}" class="btn btn-secondary">新規作成</a>
       </div>
     </div>
   </form>
@@ -48,30 +48,30 @@
       <th>編集</th>
       <th>削除</th>
   </tr>
-  @foreach($users as $user)
+  @foreach($staffs as $staff)
       <tr>
-          <td>{{ $user->id }}</td>
-          <td>{{ $user->email }}</td>
+          <td>{{ $staff->id }}</td>
+          <td>{{ $staff->email }}</td>
 
-          <td><a href="" class="btn btn-info btn-sm" target="_blank">{{ $user->reviews->count() }}</a></td>
+          <td><a href="" class="btn btn-info btn-sm" target="_blank">{{ $staff->reviews->count() }}</a></td>
           <td>
-            {{-- <a href="" class="btn btn-info btn-sm" target="_blank">{{ $user->followings->count() }}</a> /
-            <a href="" class="btn btn-info btn-sm" target="_blank">{{ $user->followers->count() }}</a> --}}
+            {{-- <a href="" class="btn btn-info btn-sm" target="_blank">{{ $staff->followings->count() }}</a> /
+            <a href="" class="btn btn-info btn-sm" target="_blank">{{ $staff->followers->count() }}</a> --}}
           </td>
 
-          @if ($user->canceled_at)
-            <td>{{ $user->canceled_at }}</td>
+          @if ($staff->canceled_at)
+            <td>{{ $staff->canceled_at }}</td>
           @else
             <td>
-              {{ Form::model($user, ['route' => ['_admin.users.cancel', 'user' => $user->id] , 'method' => 'post', 'data-confirm' => '本当に退会しますか？']) }}
+              {{ Form::model($staff, ['route' => ['staffs.cancel', 'user' => $staff->id] , 'method' => 'post', 'data-confirm' => '本当に退会しますか？']) }}
                   <input type="submit" value="退会" class="btn btn-warning btn-sm">
               {{ Form::close() }}
             </td>
           @endif
 
-          <td><a href="{{ route('users.edit', ['user' => $user->id ]) }}?{{ http_build_query($_GET) }}" class="btn btn-success btn-sm">編集</a></td>
+          <td><a href="{{ route('staffs.edit', ['user' => $staff->id ]) }}?{{ http_build_query($_GET) }}" class="btn btn-success btn-sm">編集</a></td>
           <td>
-              {{ Form::model($user, ['route' => ['users.destroy', 'user' => $user->id] , 'method' => 'delete', 'data-confirm' => '本当に削除しますか？']) }}
+              {{ Form::model($staff, ['route' => ['staffs.destroy', 'user' => $staff->id] , 'method' => 'delete', 'data-confirm' => '本当に削除しますか？']) }}
                   <input type="submit" value="削除" class="btn btn-danger btn-sm btn-destroy">
               {{ Form::close() }}
           </td>
@@ -79,7 +79,7 @@
   @endforeach
 </table>
 <div class="text-center">
-    {!! $users->appends($search)->links() !!}
+    {!! $staffs->appends($search)->links() !!}
 </div>
 
 @endsection

@@ -67,4 +67,9 @@ class Item extends Model
     {
         return $this->belongsTo('App\Staff');
     }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
 }

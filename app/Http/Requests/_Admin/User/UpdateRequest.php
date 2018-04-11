@@ -25,6 +25,11 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
+            'name' => [
+                'required',
+                'max:50',
+                'unique:users,name,' . $this->id . ',id,canceled_at,NULL',
+            ],
             'email' => [
                 'required',
                 'email',
@@ -32,6 +37,9 @@ class UpdateRequest extends Request
             ],
             'password' => [
                 'max:255',
+            ],
+            'sex' => [
+                'required',
             ],
         ];
     }
@@ -44,10 +52,17 @@ class UpdateRequest extends Request
     public function messages()
     {
         return [
+            'name.required' => '"ニックネーム"は必ず入力してください',
+            'name.max' => '"ニックネーム"は:max文字以内で入力してください',
+            'name.unique' => '入力した“ニックネーム”は既に登録されています',
+            'sex.required' => '"性別"は必ず入力してください',
             'email.required' => '"メールアドレス"は必ず入力してください',
-            'email.email' => '"メールアドレス"をemailの形式で入力してください',
-            'email.unique' => '"メールアドレス"は既に使用されています',
-            'password.max' => '"パスワード"は:max文字以内で入力してください',
+            'email.email' => '"メールアドレス"を正しく入力してください',
+            'email.max' => '“メールアドレス”は:max文字以内で入力してください',
+            'email.unique' => '入力した“メールアドレス”は既に登録されています',
+            'password.required' => '“パスワード"は必ず入力してください',
+            'password.between' => '"パスワード"は:min〜:max文字で入力してください',
+            'password.ascii' => '"パスワード"を正しく入力してください',
         ];
     }
 }

@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="{{ route('staff.root.index') }}">管理画面</a>
+        <a class="navbar-brand" href="{{ route('_admin.root.index') }}">管理画面</a>
         <div id="navbar" class="collapse navbar-collapse">
           @if (Auth::guard('admin')->check())
 
@@ -30,7 +30,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">サービス管理 <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">オーダー</a></li>
-                <li><a href="#">サービス</a></li>
+                <li><a href="{{ route('_admin.items.index') }}">サービス</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -43,6 +43,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">アカウント <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{ route('users.index') }}">利用ユーザー</a></li>
+                <li><a href="{{ route('staffs.index') }}">スタッフユーザー</a></li>
                 <li><a href="{{ route('admins.index') }}">管理ユーザー</a></li>
               </ul>
             </li>
