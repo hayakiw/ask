@@ -17,6 +17,7 @@ class Order extends Model
     const ORDER_STATUS_OK = 'ok';
     const ORDER_STATUS_NG = 'ng';
     const ORDER_STATUS_ENDED = 'ended';
+    const ORDER_STATUS_CANCEL = 'cancel';
 
     protected static $status = [
         self::ORDER_STATUS_NEW => '新規',
@@ -24,6 +25,7 @@ class Order extends Model
         self::ORDER_STATUS_OK => '契約中',
         self::ORDER_STATUS_NG => '不成立',
         self::ORDER_STATUS_ENDED => '完了',
+        self::ORDER_STATUS_CANCEL => 'キャンセル',
     ];
 
     protected static $statusForStaff = [
@@ -32,6 +34,7 @@ class Order extends Model
         self::ORDER_STATUS_OK => '契約中',
         self::ORDER_STATUS_NG => '不成立',
         self::ORDER_STATUS_ENDED => '完了',
+        self::ORDER_STATUS_CANCEL => 'キャンセル',
     ];
 
     protected $fillable = [

@@ -20,6 +20,7 @@
     <li role="presentation"@if($status == App\Order::ORDER_STATUS_OK) class="active"@endif><a href="{{ route('orders.index') }}?status={{ App\Order::ORDER_STATUS_OK }}">契約中</a></li>
     <li role="presentation"@if($status == App\Order::ORDER_STATUS_NG) class="active"@endif><a href="{{ route('orders.index') }}?status={{ App\Order::ORDER_STATUS_NG }}">不成立</a></li>
     <li role="presentation"@if($status == App\Order::ORDER_STATUS_ENDED) class="active"@endif><a href="{{ route('orders.index') }}?status={{ App\Order::ORDER_STATUS_ENDED }}">完了</a></li>
+    <li role="presentation"@if($status == App\Order::ORDER_STATUS_CANCEL) class="active"@endif><a href="{{ route('orders.index') }}?status={{ App\Order::ORDER_STATUS_CANCEL }}">キャンセル</a></li>
   </ul>
 
 <table class="table">

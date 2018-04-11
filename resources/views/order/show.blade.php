@@ -50,6 +50,18 @@
         <div class="col-md-8">{{ $order->getStatus() }}</div>
       </div>
     </div>
+
+    @if ($order->status == App\Order::ORDER_STATUS_PAID)
+    <div class="row">
+      <div class="col-md-offset-6 col-md-6">
+        <div class="col-md-offset-4 col-md-8">
+          {!! Form::open(['route' => ['orders.destroy', $order->id], 'method' => 'delete']) !!}
+            <input type="submit" class="btn btn-xs btn-danger" value="キャンセル">
+          {!! Form::close() !!}
+        </div>
+      </div>
+    </div>
+    @endif
   </div>
 </div>
 
