@@ -417,6 +417,9 @@ Route::group(['namespace' => '_Admin', 'prefix' => '_admin'], function () {
         // オーダー管理
         Route::resource('orders', 'OrderController', [
             'as' => '_admin',
+            'only' => [
+                'index', 'show',
+            ],
         ]);
 
         // サービス管理

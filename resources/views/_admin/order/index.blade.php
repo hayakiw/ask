@@ -1,9 +1,9 @@
 @extends('_admin.layout.master')
-@section('title', 'サービス管理')
+@section('title', '依頼管理')
 
 @section('content')
 
-<div class="section">
+{{-- <div class="section">
   <form>
     <div class="row">
 
@@ -38,33 +38,46 @@
       </div>
     </div>
   </form>
-</div>
+</div> --}}
+
+<ul class="nav nav-tabs">
+  <li role="presentation"@if($status == App\Order::ORDER_STATUS_PAID) class="active"@endif><a href="{{ route('_admin.orders.index') }}?status={{ App\Order::ORDER_STATUS_PAID }}">進行中</a></li>
+  <li role="presentation"@if($status == App\Order::ORDER_STATUS_OK) class="active"@endif><a href="{{ route('_admin.orders.index') }}?status={{ App\Order::ORDER_STATUS_OK }}">契約中</a></li>
+  <li role="presentation"@if($status == App\Order::ORDER_STATUS_NG) class="active"@endif><a href="{{ route('_admin.orders.index') }}?status={{ App\Order::ORDER_STATUS_NG }}">不成立</a></li>
+  <li role="presentation"@if($status == App\Order::ORDER_STATUS_ENDED) class="active"@endif><a href="{{ route('_admin.orders.index') }}?status={{ App\Order::ORDER_STATUS_ENDED }}">完了</a></li>
+  <li role="presentation"@if($status == App\Order::ORDER_STATUS_CANCEL) class="active"@endif><a href="{{ route('_admin.orders.index') }}?status={{ App\Order::ORDER_STATUS_CANCEL }}">キャンセル</a></li>
+</ul>
 
 <table class="table">
   <thead>
     <tr>
       <th>スタッフ</th>
       <th>サービス名</th>
-      <th>場所の詳細</th>
-      <th>時給</th>
-      <th>購入可能最大時間</th>
+      <th>ユーザー</th>
+      <th>時間</th>
+      <th>金額</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    @foreach ($items as $key => $item)
+    @foreach ($orders as $order)
     <tr>
-      <td>{{ $item->staff->name }}</td>
-      <td><a href="{{ route('_admin.items.show', $item->id) }}">{{ $item->title }}</a></td>
-      <td>{{ $item->location }}</td>
-      <td>{{ $item->price }}</td>
-      <td>{{ $item->max_hours }}</td>
+      <td>{{ $order->item->staff->getName() }}</td>
+      <td>{{ $order->title }}</td>
+      <td>{{ $order->user->getName() }}</td>
+      <td>{{ $order->hours }}</td>
+      <td>{{ number_format($order->total_price) }}</td>
+      <td>
+        <a href="{{ route('_admin.orders.show', $order) }}" class="btn btn-xs btn-warning">詳細</a>
+        @if($order->payment_at) <br>振込済@endif
+      </td>
     </tr>
     @endforeach
   </tbody>
 </table>
 
 <nav>
-  {!! $items->links() !!}
+{!! $orders->links() !!}
 </nav>
 
 @endsection
