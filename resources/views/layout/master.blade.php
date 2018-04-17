@@ -25,7 +25,6 @@
       </div>
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="nav navbar-nav">
-          <li><a href="{{ route('root.index') }}">ホーム</a></li>
           <li><a href="{{ route('item.index') }}">みんなのサービス</a></li>
           <li><a href="{{ route('staff.root.index') }}">仕事をしたい方はこちら</a></li>
         </ul>
@@ -148,6 +147,7 @@
   <script type="text/javascript" src="{{ asset('js/footerFixed.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/jquery-ujs.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+　<script type="text/javascript" src="{{ asset('js/jquery.matchHeight.js') }}"></script>　
 
   <!--[if lt IE 9]>
   <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>

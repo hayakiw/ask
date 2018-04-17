@@ -27,16 +27,17 @@
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ route('root.index') }}"><div> <img src="{{ asset('img/logo.png') }}?18" alt=""></div></a>
+      <a class="navbar-brand" href="{{ route('staff.root.index') }}"><div> <img src="{{ asset('img/logo.png') }}?18" alt=""></div></a>
       <a class="navbar-brand title" href="{{ route('staff.root.index') }}">スタッフ用画面</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-menu">
-        @if (Auth::guard('staff')->check())
         <ul class="nav navbar-nav">
+        @if (Auth::guard('staff')->check())
           <li><a href="{{ route('staff.item.index') }}">サービス管理</a></li>
           <li><a href="{{ route('staff.orders.index') }}">進捗一覧</a></li>
-        </ul>
         @endif
+          <li><a href="{{ route('root.index') }}">依頼したい方はこちら</a></li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
           @if (Auth::guard('staff')->check())
             <li><a href="{{ route('staff.messages.index') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>

@@ -179,7 +179,14 @@ Route::group(['middleware' => ['auth:web']], function () {
 
 
 Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
+
+    Route::get('/', [
+        'as' => 'staff.root.index',
+        'uses' => 'RootController@index',
+    ]);
+
     Route::group(['middleware' => ['guest:staff']], function () {
+
         Route::get('signin', [
             'as' => 'staff.auth.signin_form',
             'uses' => 'AuthController@signinForm',
@@ -233,11 +240,6 @@ Route::group(['namespace' => 'Staff', 'prefix' => 'staff'], function () {
         Route::get('signout', [
             'as' => 'staff.auth.signout',
             'uses' => 'AuthController@signout',
-        ]);
-
-        Route::get('/', [
-            'as' => 'staff.root.index',
-            'uses' => 'RootController@index',
         ]);
 
         Route::get('user/show', [
