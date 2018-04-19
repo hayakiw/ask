@@ -29,6 +29,11 @@ class UpdateRequest extends Request
             'image' => [
                 'image',
             ],
+            /*'name' => [
+                'required',
+                'max:50',
+                'unique:staffs,name,NULL,id,canceled_at,NULL',
+            ],*/
             'last_name' => [
                 'required',
                 'max:50',
@@ -66,6 +71,9 @@ class UpdateRequest extends Request
     {
         return [
             'image.image' => '"画像"はjpg,png,gifのいずれかを選択してください',
+            'name.required' => '"ニックネーム"は必ず入力してください',
+            'name.max' => '"ニックネーム"は:max文字以内で入力してください',
+            'name.unique' => '入力した“ニックネーム”は既に登録されています',
             'last_name.required' => '"姓"は必ず入力してください',
             'last_name.max' => '"姓"は:max文字以内で入力してください',
             'first_name.required' => '"名"は必ず入力してください',

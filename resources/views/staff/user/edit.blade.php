@@ -21,6 +21,17 @@
 
     <div class="row">
       <div class="col-md-6">
+        <div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+          <label for="" class="control-label col-md-4">ニックネーム</label>
+          <div class="col-md-8">
+            <label class="control-label">{{ $user->name }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
         <div class="form-group{{ ($errors->has('last_name')) ? ' has-error' : '' }}">
           <label for="" class="control-label col-md-4">お名前　姓 <span class="text-danger">※</span></label>
           <div class="col-md-8">
