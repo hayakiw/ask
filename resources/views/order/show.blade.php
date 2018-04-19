@@ -31,19 +31,19 @@
 
     <div class="row">
       <div class="col-md-6">
-        <label class="control-label col-md-4">合計金額</label>
-        <div class="col-md-8">{{ number_format($order->total_price) }}円</div>
-      </div>
-      <div class="col-md-6">
         <label class="control-label col-md-4">利用時間</label>
         <div class="col-md-8">{{ $order->hours }}時間</div>
+      </div>
+      <div class="col-md-6">
+        <label class="control-label col-md-4">依頼日時</label>
+        <div class="col-md-8">{{ $order->prefer_at }}</div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
-        <label class="control-label col-md-4">コメント</label>
-        <div class="col-md-8">{!! nl2br(e($order->comment)) !!}</div>
+        <label class="control-label col-md-4">合計金額</label>
+        <div class="col-md-8">{{ number_format($order->total_price) }}円</div>
       </div>
       <div class="col-md-6">
         <label class="control-label col-md-4">状態</label>

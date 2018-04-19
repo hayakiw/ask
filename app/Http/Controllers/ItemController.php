@@ -57,12 +57,7 @@ class ItemController extends Controller
             'item_id',
             'hours',
             'prefer_date',
-            'prefer_hour',
-            'prefer_date2',
-            'prefer_hour2',
-            'prefer_date3',
-            'prefer_hour3',
-            'comment'
+            'prefer_hour'
         ]);
 
         $user = auth()->user();
@@ -80,10 +75,6 @@ class ItemController extends Controller
         $orderData['price'] = $item->price;
         $orderData['title'] = $item->title;
         $orderData['prefer_at'] = $orderData['prefer_date'] . " " . $orderData['prefer_hour'] . ":00";
-        if($orderData['prefer_date2'])
-            $orderData['prefer_at2'] = $orderData['prefer_date2'] . " " . $orderData['prefer_hour2'] . ":00";
-        if($orderData['prefer_date3'])
-            $orderData['prefer_at3'] = $orderData['prefer_date3'] . " " . $orderData['prefer_hour3'] . ":00";
 
         if ($order = Order::create($orderData)) {
             return view('item.pay')

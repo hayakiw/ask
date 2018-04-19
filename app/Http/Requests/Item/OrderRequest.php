@@ -48,20 +48,6 @@ class OrderRequest extends Request
                 'required',
                 'regex:/^([0-9]{2}:[0-9]{2})$/',
             ],
-            'prefer_date2' => [
-                'date',
-                'after:yesterday',
-            ],
-            'prefer_hour2' => [
-                'regex:/^([0-9]{2}:[0-9]{2})$/',
-            ],
-            'prefer_date3' => [
-                'date',
-                'after:yesterday',
-            ],
-            'prefer_hour3' => [
-                'regex:/^([0-9]{2}:[0-9]{2})$/',
-            ],
         ];
     }
 

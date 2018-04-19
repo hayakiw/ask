@@ -25,10 +25,27 @@
       </div>
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="nav navbar-nav">
-          <li><a href="{{ route('item.index') }}">みんなのサービス</a></li>
-          <li><a href="{{ route('staff.root.index') }}">仕事をしたい方はこちら</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> カテゴリ</a>
+            <ul class="dropdown-menu" role="menu">
+            @foreach(App\Category::topCategories() as $category)
+              <li>{{ $category->name }}</li>
+              @foreach($category->children as $child)
+              <li><a href="{{ route('item.index', ['category' => $child->id ]) }}">{{ $child->name }}</a></li>
+              @endforeach
+            @endforeach
+            </ul>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{ route('request.create') }}">リクエスト</a></li>
+          <li><a href="{{ route('staff.root.index') }}">仕事をする</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">ヘルプ</a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{{ route('static.howto') }}">利用方法</a></li>
+            </ul>
+          </li>
           @if (Auth::guard('web')->check())
             <li><a href="{{ route('messages.index') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
 
@@ -63,7 +80,7 @@
             </li>
           @else
           <li><a href="{{ route('auth.signin') }}" class="exhibit">ログイン</a></li>
-          <li><a href="{{ route('user.create') }}" class="exhibit">新規登録</a></li>
+          <li><a href="{{ route('user.create') }}" class="exhibit">登録</a></li>
           @endif
         </ul>
       </div>

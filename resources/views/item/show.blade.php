@@ -41,65 +41,63 @@
         </div>
       </div>
     </div>
-  </div>
 
-
-  <div class="col-md-8">
     <div class="row mt-10">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">サービス</label>
-        <div class="col-md-8">{{ $item->title }}</div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">サービス</label>
+        <div class="col-md-6">{{ $item->title }}</div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">スタッフ</label>
-        <div class="col-md-8"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}" target="_blank">{{ $item->staff->getName() }}さん</a></div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">スタッフ</label>
+        <div class="col-md-6"><a href="{{ route('staff.show', ['staff' => $item->staff->id ]) }}" target="_blank">{{ $item->staff->getName() }}さん</a></div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">連絡</label>
-        <div class="col-md-8"><a href="{{ route('message.show', ['staff' => $item->staff->id ]) }}">メッセージを送る</a></div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">連絡</label>
+        <div class="col-md-6"><a href="{{ route('message.show', ['staff' => $item->staff->id ]) }}">メッセージを送る</a></div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">価格（1時間あたり）</label>
-        <div class="col-md-8">{{ $item->price }}円</div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">価格（1時間あたり）</label>
+        <div class="col-md-6">{{ $item->price }}円</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">最大利用時間</label>
-        <div class="col-md-8">{{ $item->max_hours }}時間</div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">最大利用時間</label>
+        <div class="col-md-6">{{ $item->max_hours }}時間</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">対応可能エリア</label>
-        <div class="col-md-8">{{ $item->location }}</div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">対応可能エリア</label>
+        <div class="col-md-6">{{ $item->location }}</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">スタッフの出身地</label>
-        <div class="col-md-8">{{ $item->staff->prefecture }}</div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">スタッフの出身地</label>
+        <div class="col-md-6">{{ $item->staff->prefecture }}</div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-8">
-        <label class="control-label col-md-4">説明</label>
-        <div class="col-md-8">{!! nl2br(e($item->description)) !!}</div>
+      <div class="col-md-12">
+        <label class="control-label col-md-6">説明</label>
+        <div class="col-md-6">{!! nl2br(e($item->description)) !!}</div>
       </div>
     </div>
+
   </div>
-</div>
+  <div class="col-md-6 col-md-offset-1">
 
 
 @if (!Auth::guard('web')->check())
@@ -107,7 +105,7 @@
 <div class="row">
 <div class="form-group" style="margin:20px 0;">
   <div class="col-md-offset-0 col-md-6">
-    <a href="{{ route('auth.signin') }}" class="btn btn-primary btn-block">申請する</a>
+    <a href="{{ route('auth.signin') }}" class="btn btn-primary btn-block">ログインして申請</a>
   </div>
 </div>
 </div>
@@ -117,12 +115,16 @@
 @include('item._form', ['item' => $item])
 
 
-<div class="row">
-<div class="form-group" style="margin:20px 0;">
-  <div class="col-md-offset-0 col-md-6">
+<div class="row mt-10">
+<div class="form-group">
+  <div class="col-md-offset-0 col-md-12">
     <button type="submit" class="btn btn-primary btn-block"><span>購入申請する</span></button>
   </div>
 </div>
+</div>
+
+
+  </div>
 </div>
 <br>
 {!! Form::close() !!}

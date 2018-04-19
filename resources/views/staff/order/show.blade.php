@@ -25,7 +25,7 @@
     </div>
     <div class="row">
       <label class="control-label col-md-4"></label>
-      <div class="col-md-8"><a href="{{ route('staff.message.show', $order->user->id) }}" target="_blank">メッセージを送る</a></div>
+      <div class="col-md-8"><a href="{{ route('staff.message.show', $order->user->id) }}" target="_blank">メッセージ確認</a></div>
     </div>
 
     <div class="row">
@@ -41,29 +41,14 @@
     </div>
 
     <div class="row">
-      <label class="control-label col-md-4">合計金額</label>
-      <div class="col-md-8">{{ number_format($order->total_price) }}円
-        <p>※報酬は、合計金額から{{ config('my.order.fee') }}%の手数料を引いた金額が支払われます</p></div>
-    </div>
-
-    <div class="row">
-      <label class="control-label col-md-4">第一希望日時</label>
+      <label class="control-label col-md-4">希望日時</label>
       <div class="col-md-8">{{ format_datetime($order->prefer_at) }}</div>
     </div>
 
     <div class="row">
-      <label class="control-label col-md-4">第二希望日時</label>
-      <div class="col-md-8">{{ ($order->prefer_at2)? format_datetime($order->prefer_at2) : '指定なし' }}</div>
-    </div>
-
-    <div class="row">
-      <label class="control-label col-md-4">第三希望日時</label>
-      <div class="col-md-8">{{ ($order->prefer_at3)? format_datetime($order->prefer_at3) : '指定なし' }}</div>
-    </div>
-
-    <div class="row">
-      <label class="control-label col-md-4">コメント</label>
-      <div class="col-md-8">{!! nl2br(e($order->comment)) !!}</div>
+      <label class="control-label col-md-4">合計金額</label>
+      <div class="col-md-8">{{ number_format($order->total_price) }}円
+        <p>※報酬は、合計金額から{{ config('my.order.fee') }}%の手数料を引いた金額が支払われます</p></div>
     </div>
   </div>
 </div>

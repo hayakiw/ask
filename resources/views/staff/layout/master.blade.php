@@ -28,7 +28,6 @@
         <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="{{ route('staff.root.index') }}"><div> <img src="{{ asset('img/logo.png') }}?18" alt=""></div></a>
-      <a class="navbar-brand title" href="{{ route('staff.root.index') }}">スタッフ用画面</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="nav navbar-nav">
@@ -36,9 +35,9 @@
           <li><a href="{{ route('staff.item.index') }}">サービス管理</a></li>
           <li><a href="{{ route('staff.orders.index') }}">進捗一覧</a></li>
         @endif
-          <li><a href="{{ route('root.index') }}">依頼したい方はこちら</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{ route('root.index') }}">依頼したい方はこちら</a></li>
           @if (Auth::guard('staff')->check())
             <li><a href="{{ route('staff.messages.index') }}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
 
@@ -72,7 +71,7 @@
             </li>
           @else
           <li><a href="{{ route('staff.auth.signin') }}" class="exhibit">ログイン</a></li>
-          <li><a href="{{ route('staff.user.create') }}" class="exhibit">新規登録</a></li>
+          <li><a href="{{ route('staff.user.create') }}" class="exhibit">登録</a></li>
           @endif
         </ul>
       </div>

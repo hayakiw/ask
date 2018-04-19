@@ -30,9 +30,6 @@ class UpdateRequest extends Request
             'ok' => [
                 'required',
             ],
-            'prefer' => [
-                'required',
-            ],
             'staff_comment' => [
                 'required',
             ],
@@ -44,7 +41,6 @@ class UpdateRequest extends Request
         return [
             'order_id.required' => 'オーダーは必須です',
             'ok.required' => '依頼受入は必須です',
-            'prefer.required' => '時間は必須です',
             'staff_comment.required' => 'コメントは必須です',
         ];
     }

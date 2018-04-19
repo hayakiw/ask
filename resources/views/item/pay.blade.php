@@ -20,10 +20,8 @@
   <div class="panel-heading">{{ $order->title }}</div>
   <div class="panel-body">
 
-価格:{{ number_format($order->total_price) }}円<br>
-利用時間:{{ $order->hours }}<br>
-コメント:<br>
-{!! nl2br(e($order->comment)) !!}
+合計金額:{{ number_format($order->total_price) }}円<br>
+利用時間:{{ $order->hours }}
   </div>
 </div>
 

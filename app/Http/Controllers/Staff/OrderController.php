@@ -54,7 +54,6 @@ class OrderController extends Controller
         $orderData = $request->only([
             'order_id',
             'ok',
-            'prefer',
             'staff_comment'
         ]);
 
@@ -66,18 +65,7 @@ class OrderController extends Controller
             ->firstOrFail();
 
         $orderData['status'] = ($orderData['ok'])? Order::ORDER_STATUS_OK : Order::ORDER_STATUS_NG;
-
-        switch ($orderData['prefer']) {
-            case 1:
-                $orderData['work_at'] = $order->prefer_at;
-                break;
-            case 2:
-                $orderData['work_at'] = $order->prefer_at2;
-                break;
-            case 3:
-                $orderData['work_at'] = $order->prefer_at3;
-                break;
-        }
+        $orderData['work_at'] = $order->prefer_at;
 
         // pay
         $url = sprintf("%s/%s/capture",

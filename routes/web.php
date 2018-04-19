@@ -66,6 +66,14 @@ Route::get('commercial', [
     }
 ]);
 
+// 利用方法
+Route::get('howto', [
+    'as' => 'static.howto',
+    function () {
+        return view('static/howto');
+    }
+]);
+
 
 Route::group(['middleware' => ['guest:web']], function () {
     Route::get('signin', [
@@ -175,6 +183,11 @@ Route::group(['middleware' => ['auth:web']], function () {
         'as' => 'message.store',
         'uses' => 'MessageController@store',
     ]);
+
+    // 依頼（作成、編集、削除）
+    Route::resource('request', 'RequestController', ['expect' => [
+        'show',
+    ]]);
 });
 
 
