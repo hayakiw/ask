@@ -29,10 +29,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> カテゴリ</a>
             <ul class="dropdown-menu" role="menu">
             @foreach(App\Category::topCategories() as $category)
-              <li>{{ $category->name }}</li>
-              @foreach($category->children as $child)
-              <li><a href="{{ route('item.index', ['category' => $child->id ]) }}">{{ $child->name }}</a></li>
-              @endforeach
+              <li><a href="{{ route('item.index', ['category' => $category->id ]) }}">{{ $category->name }}</a></li>
             @endforeach
             </ul>
           </li>

@@ -12,6 +12,7 @@ use App\Http\Requests\Item as ItemRequest;
 use App\Item;
 use App\Order;
 use App\Pay;
+use App\Category;
 
 class ItemController extends Controller
 {
@@ -24,7 +25,16 @@ class ItemController extends Controller
         $items = Item::query();
 
         if (isset($search['category']) && $search['category'] != ''){
-            $items = $items->where('category_id', '=', $search['category']);
+            $category = Category::find($search['category']);
+
+            if(!$category->parent_id) {
+                // 子カテゴリ全て
+                $childIds = $category->childIds();
+                if (!empty($childIds))
+                    $items = $items->whereIn('category_id', $childIds);
+            } else {
+                $items = $items->where('category_id', '=', $search['category']);
+            }
         }
 
         if (isset($search['area']) && $search['area'] != ''){

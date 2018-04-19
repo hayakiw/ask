@@ -9,13 +9,11 @@ class CategoriesTableSeeder extends Seeder
     {
         $categories = [
             [
-                'name' => '家庭教師',
+                'name' => '家事',
                 'children' => [
-                  '語学',
-                  '数学',
-                  '理科',
-                  '社会',
-                  'その他',
+                  '買い物',
+                  '掃除',
+                  '料理',
                 ],
             ],
             [
@@ -53,24 +51,6 @@ class CategoriesTableSeeder extends Seeder
                 ],
             ],
             [
-                'name' => '相談',
-                'children' => [
-                  '学校',
-                  '仕事',
-                  '恋愛',
-                  '占い',
-                  'その他',
-                ],
-            ],
-            [
-                'name' => '家事',
-                'children' => [
-                  '買い物',
-                  '掃除',
-                  '料理',
-                ],
-            ],
-            [
                 'name' => '手芸・美容',
                 'children' => [
                   '編み物',
@@ -78,6 +58,23 @@ class CategoriesTableSeeder extends Seeder
                   'ネイル',
                   '散髪',
                   '着付け',
+                ],
+            ],
+            [
+                'name' => '家庭教師',
+                'children' => [
+                  '語学',
+                  'その他',
+                ],
+            ],
+            [
+                'name' => '相談',
+                'children' => [
+                  '学校',
+                  '仕事',
+                  '恋愛',
+                  '占い',
+                  'その他',
                 ],
             ],
         ];

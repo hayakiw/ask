@@ -31,6 +31,17 @@ class Category extends Model
         return $this->hasMany('App\Category', 'parent_id');
     }
 
+    public function childIds()
+    {
+        $ids = [];
+
+        foreach($this->hasMany('App\Category', 'parent_id')->get() as $child) {
+            $ids[] = $child->id;
+        }
+
+        return $ids;
+    }
+
     public static function topCategories()
     {
         return Category::whereNull('parent_id')
