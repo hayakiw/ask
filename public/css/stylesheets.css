@@ -89,7 +89,8 @@ section div.headline {
 }
 
 section div.headline h2 {
-	color: #f96464;
+	/* color: #f96464; */
+	color: #333;
 	font-weight: bold;
 	display: inline-block;
 	/* border-top: 3px solid #f96464;	
