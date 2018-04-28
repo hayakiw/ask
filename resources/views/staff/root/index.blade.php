@@ -133,3 +133,9 @@
     </section>
     <!-- / .flow -->
 @endsection
+
+@push('script_codes')
+    $(function() {
+      $('section.flow div.flow-box').matchHeight();
+    });
+@endpush

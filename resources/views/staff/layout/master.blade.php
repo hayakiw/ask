@@ -144,6 +144,7 @@
   <script type="text/javascript" src="{{ asset('js/footerFixed.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/jquery-ujs.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.matchHeight.js') }}"></script>　
 
   @if (isset($layout['js']))
   @foreach ($layout['js'] as $js)
